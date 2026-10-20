@@ -1,6 +1,6 @@
 # McGruber Component Bank
 
-16 shared component **categories**, not 16 confirmed owned parts. Each item requires identification, electrical specifications, measurements and functionality evidence.
+The following are **16 requirement categories**, not 16 confirmed owned components. Check marks below begin unchecked. For **actual reported possession**, see [inventory.csv](inventory.csv) and [existing-equipment evidence](../docs/EXISTING_EQUIPMENT.md).
 
 ## Detection
 - [ ] Photoresistor or light-sensing module
@@ -26,4 +26,4 @@
 - [ ] Correct resistors and protection diodes
 - [ ] Enclosures, switches and mounting materials
 
-Use `components.csv` for individual part-specific evidence. A component found in a toy does not imply compatibility.
+These checkboxes are requirements **not test certification**. The existing [components.csv](components.csv) is a gap checklist, whereas inventory.csv tracks reported physical items. An actual device may cover multiple categories only after compatibility testing.

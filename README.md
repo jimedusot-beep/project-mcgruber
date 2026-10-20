@@ -1,39 +1,46 @@
-# Project McGruber
+# Project McGruber 🛠️
 
-Open-source experiments in salvaged electronics, sensors, alarms, interactive props, and introductory robotics.
+**Public, open-source learning and prototyping project** turning salvaged, donated, broken or inexpensive electronics into working inventions, prank devices, alarms, sensors and eventually small robots.
 
-> **Development status:** Early-stage documentation and prototypes. An existing light-loss demonstration used a phone application (GhostLine); standalone systems remain unverified unless a specific test report states otherwise.
+**Priorities:** **$0 first**, use existing components, learn real electronics, and work toward **standalone devices that do not require a phone or laptop**. Phone/laptop prototypes remain useful intermediate steps.
 
-## Nine inventions
+> **Evidence policy:** Working demonstrations in the project conversation are *reported*, not independently re-tested here. A schematic or parts list is *proposed* until reproducible measurements are published. No standalone invention is yet certified.
 
-| # | Project | Status |
+## All nine inventions
+
+| # | Project | Current progress |
 |---|---|---|
-| 01 | [Light-beam tripwire](projects/01-light-beam-tripwire/README.md) | Phone-based demonstration; standalone planned |
-| 02 | [Motion-activated prank](projects/02-motion-prank/README.md) | Laptop software route planned |
-| 03 | [Pop-up surprise box](projects/03-pop-up-surprise-box/README.md) | Mechanical prototype planned |
-| 04 | [Object-removal alarm](projects/04-object-removal-alarm/README.md) | Salvaged switches awaiting testing |
-| 05 | [Wireless clicker](projects/05-wireless-clicker/README.md) | Existing fob; compatible receiver unverified |
-| 06 | [Mouse-powered gadgets](projects/06-mouse-powered-gadgets/README.md) | Salvage candidates |
-| 07 | [Standalone control box](projects/07-standalone-control-box/README.md) | Hardware architecture planned |
-| 08 | [Invisible IR tripwire](projects/08-infrared-tripwire/README.md) | Matched sensor pair required |
-| 09 | [Talking/moving prank robot](projects/09-talking-prank-robot/README.md) | Exploratory; salvaged toy under investigation |
+| 1 | [Light-Beam Tripwire](projects/01-light-beam-tripwire/README.md) | Reported working phone + GhostLine light-loss version; standalone still needed |
+| 2 | [Motion-Activated Prank](projects/02-motion-prank/README.md) | Software route with Acer webcam identified; independent trigger not validated |
+| 3 | [Pop-Up Surprise Box](projects/03-pop-up-surprise-box/README.md) | Mechanical version possible; motorized version later |
+| 4 | [Object-Removal Alarm](projects/04-object-removal-alarm/README.md) | Salvaged mouse switches available; require contact testing |
+| 5 | [Wireless Clicker / Remote](projects/05-wireless-clicker/README.md) | Three-button fob; receiver unverified |
+| 6 | [Mouse-Powered Sensor Gadgets](projects/06-mouse-powered-gadgets/README.md) | Several mice/salvaged parts reported |
+| 7 | [Standalone Alarm / Control Box](projects/07-standalone-control-box/README.md) | Core hardware goal; proposed |
+| 8 | [Invisible Infrared Tripwire](projects/08-infrared-tripwire/README.md) | Matched emitter/receiver needed |
+| 9 | [Talking / Moving Prank Robot](projects/09-talking-prank-robot/README.md) | Future build; investigate Love2Learn Elmo donor |
 
-## Shared resources
+## What we own, need and have accomplished
 
-- [16-category component bank](component-bank/README.md) and [CSV inventory](component-bank/components.csv)
-- [Safety policy](docs/SAFETY.md), [research references](docs/RESEARCH.md), [roadmap](docs/ROADMAP.md)
-- [Experiment template](docs/EXPERIMENT_TEMPLATE.md)
-- [CAD and STL staging](cad-and-stl/README.md)
+- [Existing equipment — 12 reported inventory entries](docs/EXISTING_EQUIPMENT.md)
+- [Actual equipment inventory spreadsheet](component-bank/inventory.csv) (reported presence vs tested function)
+- [16 component requirements/checklist](component-bank/README.md) and [requirements CSV](component-bank/components.csv)
+- [Accomplishments and unfinished work](docs/ACCOMPLISHMENTS.md)
+- [Project-by-project status register](docs/PROJECT_STATUS.md)
+- [Modular detection → control → output system architecture](docs/SYSTEM_ARCHITECTURE.md)
+- [Build priorities and roadmap](docs/ROADMAP.md)
+- [Research references](docs/RESEARCH.md)
+- [Safety and verification](docs/SAFETY.md)
+- [Experiment report template](docs/EXPERIMENT_TEMPLATE.md)
+- [CAD/STL staging](cad-and-stl/README.md)
 
-### Evidence labels
-**Verified:** supported by a reproducible measurement, recorded test, or observable demonstration.
-**Reported:** described in project notes, not independently re-tested.
-**Proposed:** conceptual design or untested parts list.
-**Missing:** not confirmed in available inventory.
+## Immediate build order
+1. **Object-removal alarm:** test mouse microswitch with the multimeter and run a low-voltage LED alarm.
+2. **Mechanical pop-up surprise box:** validate lightweight spring/latch before motorizing.
+3. **Standalone alarm/control box:** use a switch, correctly rated active buzzer and supply; add sensors later.
 
-Do not interpret documentation as validated circuit wiring, a bill of purchased parts, or evidence of structural/electrical safety. Use low-voltage designs, check polarity and ratings, avoid mains voltage, and never connect motors directly to microcontroller pins.
+## Longer-term connection
+Reusable sensor, control, actuator and mechanical modules can inform future **H.E.R.B.I.E.** designs, but no cross-project fit or electrical compatibility has been established.
 
-## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md). Report measurements, datasheets, tested schematics, reproducible code and safer salvage ideas. **Do not commit personal information, credentials, private correspondence or copyrighted third-party files.**
-
-Software and documentation in this repository are provided under the MIT License (see [LICENSE](LICENSE)). Hardware design licensing must be selected separately before releasing original fabrication-ready designs.
+## Open collaboration
+Welcome independent measurement reports, reliable schematics, original CAD/STLs and constructive pull requests. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Never upload credentials, private correspondence or personal addresses. MIT applies to original repository software/documentation; select an appropriate hardware design license separately before fabrication releases.

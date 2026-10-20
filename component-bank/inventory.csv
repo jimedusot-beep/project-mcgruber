@@ -1,0 +1,13 @@
+item_id,description,reported_presence,reported_behavior,physical_test,model_or_marking,verified_voltage,verified_current,quantity,provenance_notes
+EQ-001,Red LED circuit,reported_owned,reported_working,not_recorded,,, , ,1,project report
+EQ-002,Resistors and wires,reported_owned,available,not_recorded,,,,unknown,values unknown
+EQ-003,USB power bank,reported_owned,previously used,not_recorded,,,,1,model unknown
+EQ-004,Soldering iron,reported_owned,available,not_recorded,,,,1,model unknown
+EQ-005,Fluke 15B+ multimeter,reported_owned,obtained,not_recorded,Fluke 15B+,,,1,check exact model
+EQ-006,Wireless computer mice,reported_owned,salvage candidates,not_recorded,,,,multiple,quantity and working state not validated
+EQ-007,Mouse microswitches,reported_owned,salvage candidates,not_recorded,,,,unknown,continuity required
+EQ-008,Three-button RF key fob,reported_owned,indicator LED responds,not_recorded,SC2260-R4 / BX R433 (observed markings),,,1,RF transmission unverified
+EQ-009,23A 12V battery,reported_owned,previously identified,not_recorded,23A 12V (reported),,,1,measure supply before reuse
+EQ-010,Acer laptop,reported_owned,reported working,not_recorded,,,,1,webcam untested
+EQ-011,iPhone / GhostLine,reported_owned,light-loss and motion demos,not_recorded,,,,1,report only
+EQ-012,Love2Learn Elmo,reported_owned,power reliability unresolved,not_recorded,,,,1,battery improved reported
