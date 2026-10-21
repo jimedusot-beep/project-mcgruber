@@ -1,15 +1,16 @@
-# Upgrade: ten improvement checklist
+# Ten-item implementation audit — October 20, 2026
 
-- [x] 1. Previously successful GitHub Actions run verified (2026-10-20), expanded validation supplied; newest run must be checked after publishing.
-- [x] 2. BUILD.md added to all nine projects (proposed procedures, not physical verification).
-- [x] 3. BOM.csv added to all nine (part category and verification gates; actual model fields remain to be measured).
-- [x] 4. Compatibility matrix committed with explicit proposed uses.
-- [x] 5. All nine conceptual electrical architecture SVGs + two conditional simple wiring example texts. Final manufacturer-specific schematics remain blocked.
-- [x] 6. Nine **blank** real-measurement logs plus protocol; no experimental readings fabricated. **Physical evidence outstanding.**
-- [x] 7. Inventory V2 and equipment intake process.
-- [ ] 8. Create GitHub issues; native milestone objects may require separate admin API permissions.
-- [x] 9. Original parametric support CAD + STL and SVG illustration added; authentic photos/video **not supplied** and tracked as missing.
-- [x] 10. Hardware licensing established for original CAD under CERN-OHL-P-2.0. Other owners' design rights unaffected.
+| # | Requested improvement | Implemented in GitHub | Real-world completion caveat |
+|---|---|---|---|
+| 1 | Verify automated tests | Baseline CI success confirmed; expanded CI and tests committed | New head run still needs success confirmation |
+| 2 | Nine build guides | All nine BUILD.md files committed | Component-specific calibration awaits hardware |
+| 3 | Nine BOMs | All nine BOM.csv committed | Real part models, supplier and stock require verification |
+| 4 | Shared compatibility | 16-row × 9-project matrix committed | Proposed uses are NOT tested pin-level compatibility |
+| 5 | Circuit diagrams | Nine labeled block diagrams; two conditional illustrated 5V wiring chains | Final pin-numbered diagrams blocked on actual component IDs |
+| 6 | Measurements and logs | Nine NOT_RUN logs and method protocol | **No new physical measurements were taken** |
+| 7 | Inventory tracking | 12-group Inventory V2, acquisition intake CSV and guide | Reported physical status, not audited inventory |
+| 8 | Issues and milestones | 14 GitHub Issues and three milestone-style tracker issues | Native GitHub milestone records not created |
+| 9 | Media and CAD/STL | Original CAD, watertight-edge-checked ASCII STL and SVG illustration; media shotlist/manifest | **Real photos/video unprovided; STL unprinted and fit untested** |
+| 10 | Hardware licensing | CERN-OHL-P-2.0 full license text and scope guide for original hardware CAD | Third-party IP never assumed licensable |
 
-## Next practical verification
-Actual mouse switch contacts, light circuit current and printer fit have not been measured. Document them before marking a physical invention complete.
+No individual is required to spend money or purchase electronics to fill out the documentation. Any electrical or fabrication claim must be supported with dated measurable evidence.

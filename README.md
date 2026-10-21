@@ -58,3 +58,11 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 - [Ten-item upgrade checklist](docs/UPGRADE_CHECKLIST.md)
 
 **No physical sensor performance, component compatibility, current draw, image of a real build, recorded prank effect or printed part has been fabricated as evidence.**
+
+### Community progress
+
+- [GitHub issues: 9 project tasks, 3 phase trackers, 2 shared tasks](https://github.com/jimedusot-beep/project-mcgruber/issues)
+- [Issue-tracking guide](docs/ISSUE_TRACKING.md)
+- [Current ten-item improvement audit](docs/UPGRADE_CHECKLIST.md)
+- [Conditional object-alarm wiring illustration](projects/04-object-removal-alarm/diagrams/wiring-example-5v.svg)
+- [Conditional standalone-buzzer wiring illustration](projects/07-standalone-control-box/diagrams/wiring-example-5v.svg)

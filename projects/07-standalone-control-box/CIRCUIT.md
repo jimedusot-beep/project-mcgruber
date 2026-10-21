@@ -11,3 +11,9 @@
 **Conditional 5V audible example:** `+5V → arm switch → tested COM/NC switch → verified 5V ACTIVE buzzer positive`; buzzer negative to 0V. Confirm the buzzer load is below switch contact rating; use a driver otherwise. A passive piezo is NOT interchangeable.
 
 Never connect DC motors directly to MCU GPIO; never connect an unknown 12V signal to a 3.3V/5V input. Use real manufacturer datasheets for the final circuit drawing.
+
+### Conditional series-wiring illustration
+
+![Low-voltage conditional example](diagrams/wiring-example-5v.svg)
+
+This illustration is a **connection-order guide**, not proof that the actual parts satisfy the indicated ratings or polarity. It is NOT a pin-numbered schematic for unknown salvaged components.

@@ -11,3 +11,9 @@
 **Conditional 5V indicator example:** `+5V → tested COM/NC → 470 Ω (0.25W) → rated red LED anode → LED cathode → ground`. Check contact behavior unpowered. Short-LED upper-bound resistor power at 5V = 25/470 = 0.053W, upper-bound current = 5/470 = 10.64mA. Verify that LED continuous current rating exceeds this bound and source really delivers 5V; neither was established here.
 
 Never connect DC motors directly to MCU GPIO; never connect an unknown 12V signal to a 3.3V/5V input. Use real manufacturer datasheets for the final circuit drawing.
+
+### Conditional series-wiring illustration
+
+![Low-voltage conditional example](diagrams/wiring-example-5v.svg)
+
+This illustration is a **connection-order guide**, not proof that the actual parts satisfy the indicated ratings or polarity. It is NOT a pin-numbered schematic for unknown salvaged components.
