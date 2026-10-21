@@ -17,3 +17,20 @@
 
 ## Completion requirements
 Each physical build needs a reproducible experiment report, exact component and power ratings, wiring evidence, test results, photographs (where possible) and limitations. Proposed plans are not completed builds.
+
+## McGruber Lab software milestone — October 21, 2026
+
+Implemented in the existing repository: nine invention workspaces, actual-source catalog, responsive dashboard, logic demonstrations, original external CircuitJS/SPICE starters, eleven engineering calculators, real mesh imports and visual multipart assembly, local inventory identification, guided progress, private experiment/media logging, full backups and recent recovery revisions. See [application guide](LAB_USER_GUIDE.md) and [acceptance evidence](LAB_ACCEPTANCE.md). Software completion does not change physical build status.
+
+### Next engineering milestone
+
+1. Validate the app on an actual iPhone Safari, including file selection, multi-touch 3D, interruption/resume, storage pressure and backup transfer. Desktop and emulated WebKit results must remain labeled as such.
+2. Complete a real object-removal alarm evidence package in issue #7: exact switch contact map, loaded supply, resistor and LED ratings, measured results and 20 genuine trials. Keep unknown pinouts unknown.
+3. Add asset deduplication, explicit media cleanup and multi-tab conflict handling before enlarging local project limits. Add schema migrations and test actual browser quota failures.
+4. Add general connection editing only alongside a tested simulation engine; retain clear separation from conceptual trigger models. Validate more CircuitJS examples and build a real Wokwi starter when an appropriate controller is selected.
+5. Expand supported mesh formats, geometry repair and exact Boolean operations as separate, tested capabilities. Do not rename visual concatenation a union.
+6. Consider secure account synchronization only after selecting an authorized backend and checking its actual free-plan limits. Keep secrets server-side and private drafts separate from explicit public publication.
+
+### Deferred enhancements
+
+Full-text documentation search (current search filters paths), manufacturer-level component photo/datasheet coverage, automatic part identification, schematic/PCB exchange, joints/constraints, exact mesh collision detection, offline external simulation engines, community submission UI and cross-repository scene synchronization are not implemented. Never substitute guessed specifications or stock imagery for real hardware evidence.

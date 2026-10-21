@@ -14,5 +14,6 @@ web/node_modules/
 web/dist/
 web/public/catalog.json
 web/public/repository/
+web/public/licenses/
 web/test-results/
 web/playwright-report/

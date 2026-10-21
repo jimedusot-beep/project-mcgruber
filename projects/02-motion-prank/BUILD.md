@@ -10,7 +10,7 @@ Read [safety](../../docs/SAFETY.md). Identify actual supply voltage/current, con
 
 1. Test Acer webcam privacy permissions and speaker.
 2. Install opencv-python locally into an isolated environment.
-3. Run the included motion software after it is added; test with a stationary camera.
+3. Run the included `motion_prank.py` software; test with a stationary camera.
 4. Tune sensitivity and cooldown based on real false positives.
 5. Log 10 approach/non-approach trials and event latency.
 

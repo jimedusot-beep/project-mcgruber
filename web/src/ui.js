@@ -1,26 +1,85 @@
-export const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export const $=(s,root=document)=>root.querySelector(s);
-export const $$=(s,root=document)=>[...root.querySelectorAll(s)];
-const paths={home:'M3 10 12 3l9 7v11H3z M9 21v-8h6v8',circuit:'M3 7h5l3 10 3-10h7 M3 3v8 M21 3v8 M3 17h5 M16 17h5',cube:'m12 2 10 5v10l-10 5-10-5V7z M2 7l10 5 10-5 M12 12v10',parts:'M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h6v6h-6z',notebook:'M5 3h15v18H5z M3 6h4 M3 11h4 M3 16h4 M10 7h6 M10 11h6',calculator:'M5 2h14v20H5z M8 5h8v4H8z M8 13h1 M14 13h1 M8 17h1 M14 17h1',book:'M3 4h7l2 2 2-2h7v16h-7l-2 2-2-2H3z M12 6v16',sun:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8 M12 1v3 M12 20v3 M1 12h3 M20 12h3 M4 4l2 2 M18 18l2 2 M20 4l-2 2 M6 18l-2 2',star:'m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z',arrow:'M4 12h16 M14 6l6 6-6 6',download:'M12 3v12 M7 10l5 5 5-5 M4 16v5h16v-5',search:'M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14 M15 15l6 6',chevron:'m9 5 7 7-7 7'};
-export function icon(name){return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name]||paths.circuit}"/></svg>`;}
-const sketches=[
- '<rect x="32" y="43" width="35" height="45" rx="7"/><rect x="169" y="43" width="35" height="45" rx="7"/><circle cx="50" cy="65" r="8"/><circle cx="187" cy="65" r="8"/><path d="M67 65h38m20 0h44" stroke-dasharray="5 5"/><path d="m112 48-7 17 20-3-12 20" class="accent-stroke"/>',
- '<rect x="67" y="27" width="100" height="64" rx="9"/><path d="M57 102h120 M117 91v11"/><circle cx="117" cy="54" r="16"/><circle cx="117" cy="54" r="7"/><path d="M179 40q25 22 0 44 M188 31q38 31 0 62" stroke-dasharray="5 5"/>',
- '<path d="m65 65 51 25 53-25v39l-53 25-51-25z M65 65l51-25 53 25 M116 90v39 M68 56l49-24 52 24"/><path d="m115 68-10-8 20-8-20-8 20-8" class="accent-stroke"/><path d="m78 26-7-12 M151 26l8-12 M116 18V6"/>',
- '<rect x="62" y="72" width="110" height="29" rx="5"/><path d="M78 72V56h63l17-12 M81 101v15 M151 101v15"/><circle cx="157" cy="43" r="6"/><rect x="99" y="16" width="40" height="28" rx="4"/><path d="M118 48v13 M108 54l10 8 10-8" class="accent-stroke"/>',
- '<rect x="83" y="24" width="68" height="92" rx="17"/><circle cx="117" cy="44" r="4" class="accent-fill"/><circle cx="104" cy="66" r="9"/><circle cx="132" cy="66" r="9"/><circle cx="117" cy="91" r="9"/><path d="M164 39q18 18 0 37 M174 28q28 27 0 58"/>',
- '<path d="M117 24c-26 0-40 23-40 49s11 43 40 43 40-17 40-43-14-49-40-49z M117 24V8 M117 24v40 M79 64h77"/><rect x="110" y="37" width="14" height="23" rx="6"/><path d="M172 78h26 M185 65v26" class="accent-stroke"/>',
- '<path d="m61 47 84-18 36 24v59l-84 18-36-24z M61 47l36 24 84-18 M97 71v59"/><circle cx="138" cy="85" r="17"/><path d="M128 85h20 M138 75v20"/><circle cx="79" cy="76" r="4" class="accent-fill"/>',
- '<rect x="38" y="41" width="30" height="61" rx="7"/><rect x="166" y="41" width="30" height="61" rx="7"/><path d="M68 60h99 M68 78h99" stroke-dasharray="3 6" class="accent-stroke"/><path d="m105 32 25 83 M118 28l25 83"/><circle cx="52" cy="94" r="2"/><circle cx="181" cy="94" r="2"/>',
- '<rect x="72" y="28" width="90" height="64" rx="15"/><circle cx="96" cy="54" r="9"/><circle cx="139" cy="54" r="9"/><path d="M103 77h28 M117 28V12 M82 94v25 M152 94v25 M63 48H49v26 M171 48h14v26"/><circle cx="117" cy="9" r="4" class="accent-fill"/>'
-];
-export function projectArt(index,large=false){return `<svg class="project-art${large?' large':''}" viewBox="0 0 234 142" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Illustrative project diagram"><defs><pattern id="dots${index}${large?'l':''}" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".13" stroke="none"/></pattern></defs><rect width="234" height="142" fill="url(#dots${index}${large?'l':''})" stroke="none"/>${sketches[index]||sketches[0]}</svg>`;}
-export function heading(kicker,title,description,actions=''){return `<div class="page-heading"><div><div class="eyebrow">${escape(kicker)}</div><h1>${escape(title)}</h1><p class="muted">${escape(description)}</p></div>${actions}</div>`;}
-export function projectOptions(projects,selected){return projects.map(p=>`<option value="${p.id}" ${p.id===selected?'selected':''}>${p.id} · ${escape(p.name)}</option>`).join('');}
-export function formatDate(date){if(!date)return 'Not saved yet';const d=new Date(date);return Number.isNaN(d.getTime())?'Unknown date':d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
-export function chart(samples,threshold){
-  if(!samples.length)return '<p class="muted">Run an experiment to see modeled samples.</p>';
-  const max=Math.max(100,...samples.map(p=>Number(p.value))),points=samples.map((s,i)=>`${20+i/Math.max(1,samples.length-1)*660},${140-Number(s.value)/max*110}`).join(' ');
-  return `<svg viewBox="0 0 700 180" class="chart" role="img" aria-label="Modeled sensor values and output state over simulation time"><path d="M20 25v115h660" fill="none" stroke="var(--line)"/><path d="M20 85h660 M20 30h660" stroke="var(--line)" stroke-dasharray="4 5"/>${threshold!=null?`<path d="M20 ${140-threshold/max*110}h660" stroke="var(--amber)" stroke-dasharray="5 5"/>`:''}<polyline points="${points}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>${samples.map((s,i)=>s.output?`<rect x="${20+i/Math.max(1,samples.length-1)*660}" y="150" width="${Math.max(3,650/samples.length)}" height="8" fill="var(--amber)"/>`:'').join('')}<text x="20" y="175" fill="var(--muted)" font-size="10">Modeled time → · green: signal · amber: output${threshold!=null?' / threshold':''}</text></svg>`;
+export const escape = (s) =>
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
+export const $ = (s, root = document) => root.querySelector(s);
+export const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+const paths = {
+  home: "M3 10 12 3l9 7v11H3z M9 21v-8h6v8",
+  circuit: "M3 7h5l3 10 3-10h7 M3 3v8 M21 3v8 M3 17h5 M16 17h5",
+  cube: "m12 2 10 5v10l-10 5-10-5V7z M2 7l10 5 10-5 M12 12v10",
+  parts: "M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h6v6h-6z",
+  notebook: "M5 3h15v18H5z M3 6h4 M3 11h4 M3 16h4 M10 7h6 M10 11h6",
+  calculator: "M5 2h14v20H5z M8 5h8v4H8z M8 13h1 M14 13h1 M8 17h1 M14 17h1",
+  book: "M3 4h7l2 2 2-2h7v16h-7l-2 2-2-2H3z M12 6v16",
+  sun: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8 M12 1v3 M12 20v3 M1 12h3 M20 12h3 M4 4l2 2 M18 18l2 2 M20 4l-2 2 M6 18l-2 2",
+  star: "m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z",
+  arrow: "M4 12h16 M14 6l6 6-6 6",
+  download: "M12 3v12 M7 10l5 5 5-5 M4 16v5h16v-5",
+  search: "M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14 M15 15l6 6",
+  chevron: "m9 5 7 7-7 7",
+};
+export function icon(name) {
+  return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name] || paths.circuit}"/></svg>`;
 }
-export function safeUrl(value){try{const u=new URL(value);return u.protocol==='https:'?u.href:'';}catch{return '';}}
+const sketches = [
+  '<rect x="32" y="43" width="35" height="45" rx="7"/><rect x="169" y="43" width="35" height="45" rx="7"/><circle cx="50" cy="65" r="8"/><circle cx="187" cy="65" r="8"/><path d="M67 65h38m20 0h44" stroke-dasharray="5 5"/><path d="m112 48-7 17 20-3-12 20" class="accent-stroke"/>',
+  '<rect x="67" y="27" width="100" height="64" rx="9"/><path d="M57 102h120 M117 91v11"/><circle cx="117" cy="54" r="16"/><circle cx="117" cy="54" r="7"/><path d="M179 40q25 22 0 44 M188 31q38 31 0 62" stroke-dasharray="5 5"/>',
+  '<path d="m65 65 51 25 53-25v39l-53 25-51-25z M65 65l51-25 53 25 M116 90v39 M68 56l49-24 52 24"/><path d="m115 68-10-8 20-8-20-8 20-8" class="accent-stroke"/><path d="m78 26-7-12 M151 26l8-12 M116 18V6"/>',
+  '<rect x="62" y="72" width="110" height="29" rx="5"/><path d="M78 72V56h63l17-12 M81 101v15 M151 101v15"/><circle cx="157" cy="43" r="6"/><rect x="99" y="16" width="40" height="28" rx="4"/><path d="M118 48v13 M108 54l10 8 10-8" class="accent-stroke"/>',
+  '<rect x="83" y="24" width="68" height="92" rx="17"/><circle cx="117" cy="44" r="4" class="accent-fill"/><circle cx="104" cy="66" r="9"/><circle cx="132" cy="66" r="9"/><circle cx="117" cy="91" r="9"/><path d="M164 39q18 18 0 37 M174 28q28 27 0 58"/>',
+  '<path d="M117 24c-26 0-40 23-40 49s11 43 40 43 40-17 40-43-14-49-40-49z M117 24V8 M117 24v40 M79 64h77"/><rect x="110" y="37" width="14" height="23" rx="6"/><path d="M172 78h26 M185 65v26" class="accent-stroke"/>',
+  '<path d="m61 47 84-18 36 24v59l-84 18-36-24z M61 47l36 24 84-18 M97 71v59"/><circle cx="138" cy="85" r="17"/><path d="M128 85h20 M138 75v20"/><circle cx="79" cy="76" r="4" class="accent-fill"/>',
+  '<rect x="38" y="41" width="30" height="61" rx="7"/><rect x="166" y="41" width="30" height="61" rx="7"/><path d="M68 60h99 M68 78h99" stroke-dasharray="3 6" class="accent-stroke"/><path d="m105 32 25 83 M118 28l25 83"/><circle cx="52" cy="94" r="2"/><circle cx="181" cy="94" r="2"/>',
+  '<rect x="72" y="28" width="90" height="64" rx="15"/><circle cx="96" cy="54" r="9"/><circle cx="139" cy="54" r="9"/><path d="M103 77h28 M117 28V12 M82 94v25 M152 94v25 M63 48H49v26 M171 48h14v26"/><circle cx="117" cy="9" r="4" class="accent-fill"/>',
+];
+export function projectArt(index, large = false) {
+  return `<svg class="project-art${large ? " large" : ""}" viewBox="0 0 234 142" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Illustrative project diagram"><defs><pattern id="dots${index}${large ? "l" : ""}" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="currentColor" opacity=".13" stroke="none"/></pattern></defs><rect width="234" height="142" fill="url(#dots${index}${large ? "l" : ""})" stroke="none"/>${sketches[index] || sketches[0]}</svg>`;
+}
+export function heading(kicker, title, description, actions = "") {
+  return `<div class="page-heading"><div><div class="eyebrow">${escape(kicker)}</div><h1>${escape(title)}</h1><p class="muted">${escape(description)}</p></div>${actions}</div>`;
+}
+export function projectOptions(projects, selected) {
+  return projects
+    .map(
+      (p) =>
+        `<option value="${p.id}" ${p.id === selected ? "selected" : ""}>${p.id} · ${escape(p.name)}</option>`,
+    )
+    .join("");
+}
+export function formatDate(date) {
+  if (!date) return "Not saved yet";
+  const d = new Date(date);
+  return Number.isNaN(d.getTime())
+    ? "Unknown date"
+    : d.toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      });
+}
+export function chart(samples, threshold) {
+  if (!samples.length)
+    return '<p class="muted">Run an experiment to see modeled samples.</p>';
+  const max = Math.max(100, ...samples.map((p) => Number(p.value))),
+    points = samples
+      .map(
+        (s, i) =>
+          `${20 + (i / Math.max(1, samples.length - 1)) * 660},${140 - (Number(s.value) / max) * 110}`,
+      )
+      .join(" ");
+  return `<svg viewBox="0 0 700 180" class="chart" role="img" aria-label="Modeled sensor values and output state over simulation time"><path d="M20 25v115h660" fill="none" stroke="var(--line)"/><path d="M20 85h660 M20 30h660" stroke="var(--line)" stroke-dasharray="4 5"/>${threshold != null ? `<path d="M20 ${140 - (threshold / max) * 110}h660" stroke="var(--amber)" stroke-dasharray="5 5"/>` : ""}<polyline points="${points}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>${samples.map((s, i) => (s.output ? `<rect x="${20 + (i / Math.max(1, samples.length - 1)) * 660}" y="150" width="${Math.max(3, 650 / samples.length)}" height="8" fill="var(--amber)"/>` : "")).join("")}<text x="20" y="175" fill="var(--muted)" font-size="10">Modeled time → · green: signal · amber: output${threshold != null ? " / threshold" : ""}</text></svg>`;
+}
+export function safeUrl(value) {
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:" ? u.href : "";
+  } catch {
+    return "";
+  }
+}
