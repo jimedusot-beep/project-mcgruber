@@ -44,3 +44,17 @@ Reusable sensor, control, actuator and mechanical modules can inform future **H.
 
 ## Open collaboration
 Welcome independent measurement reports, reliable schematics, original CAD/STLs and constructive pull requests. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Never upload credentials, private correspondence or personal addresses. MIT applies to original repository software/documentation; select an appropriate hardware design license separately before fabrication releases.
+
+## Engineering build packages (2026-10-20 upgrade)
+
+Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **CIRCUIT.md**, **conceptual diagram SVG**, and an explicitly **unmeasured TEST_LOG.csv**. The [Motion-Activated Prank](projects/02-motion-prank/motion_prank.py) additionally has optional OpenCV prototype code with testable, dependency-free trigger logic; actual Acer webcam behavior remains untested.
+
+- [16 × 9 compatibility matrix](component-bank/compatibility.csv) and [explanation](component-bank/COMPATIBILITY.md)
+- [12-item Inventory V2](component-bank/inventory-v2.csv) and [intake log](component-bank/intake-log.csv)
+- [Real-world measurement protocol](docs/MEASUREMENT_PROTOCOL.md) and [circuit status](docs/CIRCUIT_STATUS.md)
+- [Authentic photo/video checklist](media/CAPTURE_GUIDE.md) and [media manifest](media/manifest.csv) — **not yet provided**
+- [Original parametric angle support + ASCII STL](cad-and-stl/README.md) — digitally generated, **unprinted and fit-unverified**
+- [Hardware license CERN-OHL-P-2.0](LICENSE-HARDWARE) and [scope guidance](docs/LICENSE_GUIDE.md)
+- [Ten-item upgrade checklist](docs/UPGRADE_CHECKLIST.md)
+
+**No physical sensor performance, component compatibility, current draw, image of a real build, recorded prank effect or printed part has been fabricated as evidence.**
