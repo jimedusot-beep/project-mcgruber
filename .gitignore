@@ -8,3 +8,11 @@ __pycache__/
 *.log
 *.pem
 *.key
+
+# McGruber Lab generated catalog, build output and local dependencies
+web/node_modules/
+web/dist/
+web/public/catalog.json
+web/public/repository/
+web/test-results/
+web/playwright-report/

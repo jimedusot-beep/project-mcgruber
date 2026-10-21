@@ -1,0 +1,23 @@
+{
+  "name": "mcgruber-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/catalog.mjs && vite --host 0.0.0.0 --port 4173",
+    "build": "node scripts/catalog.mjs && vite build && node scripts/verify-build.mjs",
+    "test": "node scripts/catalog.mjs && node --test tests/*.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "fake-indexeddb": "6.2.6",
+    "vite": "7.3.7"
+  }
+}
