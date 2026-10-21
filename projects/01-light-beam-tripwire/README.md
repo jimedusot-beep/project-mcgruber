@@ -20,3 +20,13 @@ Measure LED current, detector response under ambient lighting, false triggers, a
 https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1c-photoresistor
 
 [Return to project index](../../README.md)
+
+## Engineering files (current)
+
+- [Step-by-step build guide](BUILD.md)
+- [Bill of materials / parts and requirements](BOM.csv)
+- [Circuit interface notes](CIRCUIT.md)
+- [Visual block diagram](diagrams/architecture.svg) — conceptual, not pin-level
+- [Blank physical test log](TEST_LOG.csv) — **NOT_RUN** until real tests
+
+See [project-wide requirements](../../docs/BUILD_STANDARD.md) and [tracking issues](../../docs/ISSUE_TRACKING.md).

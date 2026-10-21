@@ -20,3 +20,14 @@ Measure continuity with switch unpowered; document normally-open/closed states a
 https://learn.adafruit.com/three-button-foot-switch/circuit-diagram
 
 [Return to project index](../../README.md)
+
+## Engineering files (current)
+
+- [Step-by-step build guide](BUILD.md)
+- [Bill of materials / parts and requirements](BOM.csv)
+- [Circuit interface notes](CIRCUIT.md)
+- [Visual block diagram](diagrams/architecture.svg) — conceptual, not pin-level
+- [Blank physical test log](TEST_LOG.csv) — **NOT_RUN** until real tests
+- [Conditional 5V wiring illustration](diagrams/wiring-example-5v.svg) — not electrically validated
+
+See [project-wide requirements](../../docs/BUILD_STANDARD.md) and [tracking issues](../../docs/ISSUE_TRACKING.md).
