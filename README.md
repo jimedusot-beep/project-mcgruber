@@ -6,6 +6,17 @@
 
 > **Evidence policy:** Working demonstrations in the project conversation are *reported*, not independently re-tested here. A schematic or parts list is *proposed* until reproducible measurements are published. No standalone invention is yet certified.
 
+## McGruber Lab browser workshop
+
+A mobile-first web application now lives in [web/](web/). Explore nine invention workspaces, logic experiments, real 3D files, calculators, guided builds, the component bank and a private notebook with photos, local autosave and full backups.
+
+- [How to use the app from an iPhone, import models and save experiments](docs/LAB_USER_GUIDE.md)
+- [Acceptance evidence and incomplete features](docs/LAB_ACCEPTANCE.md)
+- [Development/build instructions](web/README.md) · [Pages deployment workflow](.github/workflows/web-lab.yml)
+- [Engineering integrations](docs/ENGINEERING_INTEGRATIONS.md) · [Private saving and future sync](docs/CLOUD_SYNC_DESIGN.md)
+
+Browser demonstrations are models, not physical measurements. GitHub Pages deployment is tracked by Actions; the release report links the confirmed live result or its exact remaining blocker. No finished hardware is certified by the app.
+
 ## All nine inventions
 
 | # | Project | Current progress |
