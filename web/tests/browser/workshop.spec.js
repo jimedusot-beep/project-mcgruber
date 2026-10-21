@@ -193,6 +193,100 @@ test("backup export restores record and uploaded photo; invalid backup leaves ex
       message: await page.locator("#toast").textContent(),
     }))
     .toMatchObject({ count: 1 });
+  await page.goto("/#/settings");
+  page.once("dialog", (d) => d.accept());
+  await page
+    .locator("#restore-backup")
+    .setInputFiles({
+      name: "invalid-backup.json",
+      mimeType: "application/json",
+      buffer: Buffer.from('{"application":"other"}'),
+    });
+  await expect(page.locator("#toast")).toContainText(
+    "Not a supported McGruber backup",
+  );
+  await page.goto("/#/notebook");
+  await expect(page.locator(".record")).toHaveCount(1);
+});
+test("two tabs preserve a stale draft instead of overwriting newer saved experiments", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/#/notebook");
+  await page.getByRole("button", { name: "+ New experiment" }).click();
+  await page.getByLabel("Experiment name", { exact: true }).fill("Tab A draft");
+  await expect(page.locator("#save-status")).toHaveText("Saved on this device");
+  const second = await context.newPage();
+  await second.goto("/#/notebook");
+  await second.getByRole("button", { name: "+ New experiment" }).click();
+  await second
+    .getByLabel("Experiment name", { exact: true })
+    .fill("Tab B saved record");
+  await second
+    .getByLabel("Observations, failures and follow-up tasks")
+    .fill("Software test fixture only.");
+  await second
+    .getByRole("button", { name: "Save experiment", exact: true })
+    .click();
+  await expect(second.locator("#save-status")).toHaveText(
+    "Saved on this device",
+  );
+  await expect(page.locator("#save-problem")).toContainText(
+    "Another tab saved",
+  );
+  await expect(page.locator("#save-status")).toHaveText("Autosave paused");
+  await page
+    .getByRole("button", { name: "Keep my draft & load latest", exact: true })
+    .click();
+  await expect(page.locator("#save-problem")).toHaveCount(0);
+  await expect(page.locator(".record")).toContainText("Tab B saved record");
+  await page.goto("/#/settings");
+  await expect(page.locator("#revision-list")).toContainText(
+    "Recovered tab draft",
+  );
+  await second.close();
+});
+test("installed offline cache restores source files and saves notebook records without a network", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await expect(page.locator(".project-card")).toHaveCount(9);
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+    if (!navigator.serviceWorker.controller)
+      await new Promise((resolve) =>
+        navigator.serviceWorker.addEventListener("controllerchange", resolve, {
+          once: true,
+        }),
+      );
+  });
+  try {
+    await context.setOffline(true);
+    await page.reload();
+    await expect(page.locator(".project-card")).toHaveCount(9);
+    await page.goto("/#/docs/projects/04-object-removal-alarm/BUILD.md");
+    await expect(page.locator(".markdown")).toContainText(
+      "reproducible build guide",
+    );
+    await page.goto("/#/notebook");
+    await page.getByRole("button", { name: "+ New experiment" }).click();
+    await page
+      .getByLabel("Experiment name", { exact: true })
+      .fill("Offline software QA record");
+    await page
+      .getByRole("button", { name: "Save experiment", exact: true })
+      .click();
+    await expect(page.locator("#save-status")).toHaveText(
+      "Saved on this device",
+    );
+    await page.reload();
+    await expect(page.locator(".record")).toContainText(
+      "Offline software QA record",
+    );
+  } finally {
+    await context.setOffline(false);
+  }
 });
 test("circuit starter links and ideal DC results agree and external engine loads only on request", async ({
   page,

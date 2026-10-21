@@ -17,8 +17,9 @@ This is a software release assessment, not a declaration that the entire enginee
 | Guided build/progress | PASS | All nine source procedures, prerequisite checks, notes and working-stage persistence. Three priority projects have detailed checks/troubleshooting. Verified Build cannot be selected or inferred from completion. |
 | Experiment create/save/restore/export | PASS | IndexedDB tests cover save, schema validation, recovery and backup restore. Manual browser saved a clearly labeled QA observation and reloaded it. CSV/JSON, comparison, repeat and local media implemented; media round-trip in browser CI. |
 | Persistence after reload | PASS | Manual browser reload retained records and settings; Node IndexedDB tests verify snapshots, serialization, queued saves and ten recovery revisions. |
+| Conflicting tabs and media recovery | PASS | Manual two-tab check paused the stale tab, preserved its draft in recovery history and loaded the newer experiment. Unit tests cover stale-write rejection, legacy revision metadata, matching media, restore ID collisions and cleanup reference protection. |
 | GitHub Pages | BLOCKED | Main-branch build and every app check passed. Initial Pages creation returned `Resource not accessible by integration`; the repository owner must select Settings → Pages → Source → GitHub Actions, then rerun the workflow. No live deployment is claimed. |
-| Automated tests | PASS | All 14 legacy Python tests, 19 web unit/integration tests and 13 browser workflows passed; production build succeeds and audit reports zero vulnerabilities. One Linux WebKit 3D test is intentionally excluded; Chromium tests real rendering. |
+| Automated tests | PASS | Current local checks pass all 14 legacy Python tests and 24 web unit/integration tests; production build succeeds. The initial release CI passed 13 browser workflows and a zero-vulnerability audit. New two-tab, invalid-backup and offline workflows await this milestone's CI result. One Linux WebKit 3D test is intentionally excluded; Chromium tests real rendering. |
 | No exposed sensitive credentials | PASS | No authentication/token collection or privileged request code in the frontend. Private records/media remain in IndexedDB. No secrets added to repository output. |
 | Existing files and history preserved | PASS | Additive `web/` application and new documentation. Only a stale sentence in the existing motion guide is corrected; original engineering assets and logs remain. |
 
@@ -38,6 +39,7 @@ See [user guide](LAB_USER_GUIDE.md), [roadmap](ROADMAP.md), [integration assessm
 - [Passing full application CI](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/39669349415): 19 web tests, 14 original Python tests, 13 browser tests passed, one intentionally excluded WebKit 3D test, production asset checks and zero-vulnerability audit. Browser screenshots, traces and geometry exports are in its `browser-evidence` artifact.
 - [Passing original regression workflow](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/39669349213).
 - [Desktop preview screenshot](screenshots/workshop.jpg). The notebook count in this preview is local QA records, not real hardware evidence.
+- [Recovery controls and preserved tab draft](screenshots/recovery.jpg), captured during the manual two-tab software check. This is a development preview, not a live Pages deployment.
 
 ## Exact deployment blocker
 

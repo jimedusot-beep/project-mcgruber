@@ -30,7 +30,7 @@ Browser tests run in isolated contexts with explicitly labeled QA fixtures; they
 - Native ES modules, Vite and hash routes; relative asset paths support repository-subpath hosting.
 - `scripts/catalog.mjs` builds project data from actual `BUILD.md`, BOMs, component requirements, compatibility matrix and equipment inventory. Descriptive dashboard metadata is maintained there; engineering procedures remain in original project files.
 - `src/core.js` holds pure calculators, deterministic behavior models, record validation, CircuitJS starter exports and evidence classifications.
-- `src/storage.js` uses IndexedDB transactions for workspace snapshots and media. Ten local recovery revisions, full JSON backups and records-only CSV/JSON exports are separate operations.
+- `src/storage.js` uses revision-checked IndexedDB transactions for workspace snapshots and media. Stale tabs pause autosave and can preserve their draft in the ten-revision history before loading newer work. Media hashes share matching uploads in secure contexts; cleanup protects current/draft/history references and recent files. Backup restore remaps media IDs. Full JSON backups and records-only CSV/JSON exports are separate operations.
 - `src/mesh.js` parses real mesh formats, inspects geometry and round-trips editable scene transforms. `src/viewer.js` lazily loads Three.js, controls, importers and exporters.
 - Local sessions never transmit records, photos or model geometry to a server. No login or access-token UI exists.
 - `scripts/verify-build.mjs` verifies static assets and emits the offline service worker.

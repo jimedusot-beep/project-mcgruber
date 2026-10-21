@@ -423,6 +423,8 @@ export function freshWorkspace() {
     id: "current",
     schema: SCHEMA,
     updated: null,
+    revision: null,
+    sequence: 0,
     favorites: [],
     recent: [],
     progress: {},
@@ -500,6 +502,16 @@ export function validateWorkspace(w) {
     w.records.length > 5000
   )
     throw Error("Not a supported McGruber Lab backup.");
+  if (
+    w.revision != null &&
+    (typeof w.revision !== "string" || w.revision.length > 200)
+  )
+    throw Error("Invalid workspace revision.");
+  if (
+    w.sequence != null &&
+    (!Number.isSafeInteger(w.sequence) || w.sequence < 0)
+  )
+    throw Error("Invalid workspace sequence.");
   w.records.forEach(validateRecord);
   if (
     w.inventory.length > 5000 ||

@@ -32,6 +32,12 @@ Autosave uses IndexedDB on this device and browser origin. A “Saved on this de
 
 Use **Backups & settings → Download full backup** before switching devices or clearing browser data. Transfer that JSON file to the other device and use **Restore full backup**. Restore validates the file first, retains the prior workspace as a recovery revision, and then replaces the current workspace. The most recent ten workspace revisions are available for recovery; media remains on the device while revisions can reference it. Backup limits are 60 MB attached media and 100 MB total imported JSON. Export smaller models/media if a limit is reached.
 
+If another tab saves a newer workspace, autosave pauses and a recovery panel appears. **Export my local copy** downloads this tab's workspace without replacing the newer saved version. **Keep my draft & load latest** first saves this tab as a **Recovered tab draft** in Recent saved revisions, then loads the latest workspace. Restore that revision later if needed; this restores a whole workspace, so export the newer version first if you need both. There is no automatic merge of individual records. Recovery history contains at most ten revisions and is not a substitute for an exported backup.
+
+**Local media storage** shows attachment usage. **Clean old unused media** removes only files older than 24 hours that are unreferenced by the current workspace, local draft or any retained recovery revision. Recent uploads remain available while work is being saved. Matching uploads share storage when secure browser hashing is available. Restoring a backup assigns new attachment IDs so it cannot overwrite the bytes used by an older revision.
+
+After the deployed app has loaded its offline cache successfully, its bundled inventions, source documents and local notebook work without a network. Open it online once before relying on this. The first visit, updates and external CircuitJS engine need a connection. Export important records regularly even when using the installed shortcut.
+
 There is no account sync in this release. Saving never publishes to GitHub. Public contribution requires a separate, explicit GitHub action after you review files for private information.
 
 ## Circuit tools

@@ -2539,3 +2539,45 @@ legend {
     object-fit: contain;
   }
 }
+
+.save-problem {
+  position: fixed;
+  bottom: 18px;
+  left: calc(227px + 22px);
+  right: 22px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 22px;
+  background: var(--panel-2);
+  border: 2px solid var(--amber);
+  border-radius: 10px;
+  z-index: 90;
+  box-shadow: var(--shadow);
+}
+.save-problem h2 {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+.save-problem p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.save-problem .row button {
+  font-size: 12px;
+}
+@media (max-width: 720px) {
+  .save-problem {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    padding: 17px;
+  }
+  .save-problem h2 {
+    font-size: 17px;
+  }
+  .save-problem .row button {
+    flex: 1;
+    font-size: 11px;
+  }
+}
