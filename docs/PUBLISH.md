@@ -9,3 +9,8 @@ The application lives in `web/`. `.github/workflows/web-lab.yml` checks the orig
 If initial automatic enablement is refused by GitHub, the repository owner must open **Settings → Pages → Build and deployment → Source → GitHub Actions**. The app's GitHub connector does not expose Pages configuration; an installation's source-write permission does not imply Pages-administration access. Re-run the workflow only after configuration changes. Check the workflow's exact error before treating this as the blocker.
 
 No PAT, OAuth secret, private experiment, imported model or user attachment belongs in the static output. IndexedDB data is never collected by the build. Do not publish a user's exported workspace without a separate explicit review.
+
+
+### Observed first deployment attempt
+
+[Release run 39669645464](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/39669645464) completed all application checks and uploaded the site artifact. `actions/configure-pages@v5` could not create the previously absent Pages site: **Resource not accessible by integration**. The exact remaining action is for the signed-in repository owner to select **Settings → Pages → Build and deployment → Source → GitHub Actions**, then rerun the latest workflow. No live site or URL has been confirmed.

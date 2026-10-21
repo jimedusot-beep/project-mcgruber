@@ -8,14 +8,14 @@
 
 ## McGruber Lab browser workshop
 
-A mobile-first web application now lives in [web/](web/). Explore nine invention workspaces, logic experiments, real 3D files, calculators, guided builds, the component bank and a private notebook with photos, local autosave and full backups.
+A mobile-first web application now lives in [web/](https://github.com/jimedusot-beep/project-mcgruber/tree/main/web). Explore nine invention workspaces, logic experiments, real 3D files, calculators, guided builds, the component bank and a private notebook with photos, local autosave and full backups.
 
 - [How to use the app from an iPhone, import models and save experiments](docs/LAB_USER_GUIDE.md)
 - [Acceptance evidence and incomplete features](docs/LAB_ACCEPTANCE.md)
-- [Development/build instructions](web/README.md) · [Pages deployment workflow](.github/workflows/web-lab.yml)
+- [Development/build instructions](https://github.com/jimedusot-beep/project-mcgruber/blob/main/web/README.md) · [Pages deployment workflow](https://github.com/jimedusot-beep/project-mcgruber/actions/workflows/web-lab.yml)
 - [Engineering integrations](docs/ENGINEERING_INTEGRATIONS.md) · [Private saving and future sync](docs/CLOUD_SYNC_DESIGN.md)
 
-Browser demonstrations are models, not physical measurements. GitHub Pages deployment is tracked by Actions; the release report links the confirmed live result or its exact remaining blocker. No finished hardware is certified by the app.
+Browser demonstrations are models, not physical measurements. Initial GitHub Pages creation was blocked by repository settings: the owner must enable Pages with Source set to GitHub Actions, then rerun the deployment workflow. See [deployment details](docs/PUBLISH.md). No live deployment is claimed yet. No finished hardware is certified by the app.
 
 ## All nine inventions
 
