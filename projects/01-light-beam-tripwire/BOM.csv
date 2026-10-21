@@ -1,0 +1,7 @@
+"item","qty","availability_and_specifications"
+"visible LED emitter","1","reported working circuit; confirm current limit"
+"light detector","1","not confirmed; verify model"
+"comparator/threshold","1","not confirmed; choose from measured detector signal"
+"LED/buzzer output","1","LED reported; load driver may be required"
+"regulated supply","1","USB bank reported; verify output"
+"alignment mounts","2","salvage cardboard or verified fixture"

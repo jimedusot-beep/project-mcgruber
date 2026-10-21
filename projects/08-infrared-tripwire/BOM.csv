@@ -1,0 +1,7 @@
+"item","qty","availability_and_specifications"
+"matched IR emitter","1","datasheet required"
+"matched IR receiver","1","datasheet required"
+"correct supply","1","voltage/current unknown"
+"pull-up if open collector","1","choose after reading module datasheet"
+"logic/driver","1","match output voltage and load"
+"indicator/buzzer","1","rated output needed"
