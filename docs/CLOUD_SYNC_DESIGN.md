@@ -16,4 +16,8 @@ Define schema-versioned project/record/media APIs and conflict-safe revision IDs
 
 ## Current limitations
 
-Local storage can be evicted, especially in temporary/private browsing. A persistence request may be denied. Backups include current referenced media, not every old recovery revision. Workspace revisions and backups can be large because geometry is serialized; future work should deduplicate mesh assets and increase storage visibility. Multi-tab editing currently uses the last saved workspace and has no semantic conflict merge. Use one editing tab and keep exports for important work.
+Local storage can be evicted, especially in temporary/private browsing. A persistence request may be denied. Backups include current referenced media, not every old recovery revision. Workspace revisions and backups can be large because geometry is serialized; mesh asset deduplication remains future work.
+
+Workspace writes compare revision IDs inside the same IndexedDB transaction as the new snapshot. A stale tab cannot replace a newer workspace; it pauses autosave and offers export or preservation of its local draft before loading the latest version. Recovery drafts count toward the ten-revision history limit. There is no semantic merge across records. Existing schema-1 workspaces gain revision metadata on their next successful save without dropping their content.
+
+Secure-context uploads use a content hash of MIME type and bytes to share identical media. An insecure development preview falls back to unique IDs. Backup restore remaps media IDs and writes imported bytes and workspace atomically, protecting older revisions from ID collisions. Manual cleanup checks current, draft and recovery references in one transaction, checks the workspace revision and keeps unused uploads for at least 24 hours. The Settings panel reports stored and referenced media. Actual iPhone eviction, quota failure and interruption behavior still require device testing.

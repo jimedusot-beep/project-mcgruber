@@ -21,3 +21,7 @@ The [full application CI run](https://github.com/jimedusot-beep/project-mcgruber
 Browser workflows also cover all nine routes, narrow-phone overflow, favorites/theme persistence, component search and inventory, guided progress, simulation evidence, notebook repetition, uploaded-media backup/restore and circuit calculations. A manual cloud-browser check independently saved records across reloads and opened an original starter in the real external CircuitJS engine. The cloud preview's WebGL context is unavailable; that limitation is not represented as a rendering pass.
 
 These are software results. No physical iPhone, electronics, RF link or printed-part fit is certified. See [acceptance report](LAB_ACCEPTANCE.md) for remaining limits and [user guide](LAB_USER_GUIDE.md) for save/restore instructions.
+
+## Local workspace reliability milestone
+
+Local validation passes 24 web unit/integration tests, all 14 original Python tests and the production asset build. Added checks reject stale saves, preserve conflicting drafts, upgrade legacy revision metadata, share identical secure-context uploads, remap imported media IDs and protect recovery attachments during cleanup. A manual two-tab browser check retained both versions and displayed the recovered draft in Settings. New browser workflows cover two tabs, invalid backup preservation and source/notebook use after the service worker cache goes offline; their current CI result will be recorded before merge.

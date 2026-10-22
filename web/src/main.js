@@ -10,6 +10,9 @@ const app = $("#app");
 let cleanup,
   renderEpoch = 0,
   saveTimer,
+  dirty = false,
+  editGeneration = 0,
+  saveProblem = null,
   workspace = freshWorkspace(),
   catalog;
 function notify(message) {
@@ -20,20 +23,80 @@ function notify(message) {
   notify.timer = setTimeout(() => el.classList.remove("show"), 6000);
 }
 function save() {
+  dirty = true;
+  editGeneration++;
   clearTimeout(saveTimer);
+  if (saveProblem) {
+    showSaveProblem(saveProblem);
+    return;
+  }
   const status = $("#save-status");
   if (status) status.textContent = "Saving…";
-  saveTimer = setTimeout(async () => {
+  saveTimer = setTimeout(() => flushSave().catch(showSaveProblem), 300);
+}
+async function flushSave() {
+  clearTimeout(saveTimer);
+  if (saveProblem) throw saveProblem;
+  if (!dirty) return;
+  const target = workspace,
+    generation = editGeneration;
+  await storage.save(target);
+  if (workspace === target && generation === editGeneration && !saveProblem) {
+    dirty = false;
+    const status = $("#save-status");
+    if (status) status.textContent = "Saved on this device";
+  }
+}
+function showSaveProblem(error) {
+  saveProblem = error;
+  clearTimeout(saveTimer);
+  const status = $("#save-status");
+  if (status) status.textContent = "Autosave paused";
+  let panel = $("#save-problem");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "save-problem";
+    panel.className = "save-problem";
+    panel.setAttribute("role", "alert");
+    app.after(panel);
+  }
+  panel.innerHTML =
+    '<h2>Keep both versions safe</h2><p></p><div class="row wrap"><button id="export-local-copy">Export my local copy</button><button id="load-latest-workspace" class="primary">Keep my draft & load latest</button></div>';
+  panel.querySelector("p").textContent = error.message;
+  $("#export-local-copy").onclick = async () => {
     try {
-      workspace.updated = await storage.save(workspace);
-      const el = $("#save-status");
-      if (el) el.textContent = "Saved on this device";
+      storage.download(
+        await storage.backup(workspace),
+        "mcgruber-local-recovery.json",
+      );
+      notify("Local copy exported without replacing the saved workspace.");
     } catch (e) {
       notify(e.message);
-      const el = $("#save-status");
-      if (el) el.textContent = "Save failed · export backup";
     }
-  }, 300);
+  };
+  $("#load-latest-workspace").onclick = async () => {
+    try {
+      if (cleanup) {
+        const stop = cleanup;
+        cleanup = null;
+        stop();
+      }
+      clearTimeout(saveTimer);
+      await storage.preserveDraft(workspace);
+      workspace = await storage.load();
+      dirty = false;
+      saveProblem = null;
+      editGeneration++;
+      document.documentElement.dataset.theme = workspace.theme;
+      panel.remove();
+      await route();
+      notify(
+        "Latest workspace loaded. Your previous tab draft is in Recent saved revisions.",
+      );
+    } catch (e) {
+      notify(e.message);
+    }
+  };
 }
 const ctx = {
   get workspace() {
@@ -55,7 +118,7 @@ const nav = [
   ["docs", "book", "Source library"],
 ];
 function shell(route) {
-  app.innerHTML = `<aside class="sidebar"><a class="brand" href="#/"><img src="./icon.svg" width="38" height="38" alt=""><span>McGruber<span>THE INVENTION LAB</span></span></a><div class="nav-caption">YOUR WORKSHOP</div><nav aria-label="Main navigation">${nav.map(([path, i, label]) => `<a href="#/${path}" class="nav-link ${route === path || (route === "project" && path === "") ? "active" : ""}" ${route === path ? 'aria-current="page"' : ""}>${icon(i)}<span>${label}</span>${path === "notebook" ? `<small>${workspace.records.length}</small>` : ""}</a>`).join("")}</nav><div class="sidebar-bottom"><div class="local-card"><span class="live-dot"></span><strong>Ideas stay yours.</strong><p>Autosaved on this device.<br>Export a backup to take them along.</p><a href="#/settings">Backups & settings →</a></div><a href="https://github.com/jimedusot-beep/project-mcgruber" target="_blank" rel="noopener" class="repository-link">Open-source. Always. ↗</a></div></aside><div class="main-shell"><header class="topbar"><div class="breadcrumb">WORKSHOP <span>/</span> ${route === "project" ? "INVENTIONS" : route ? route.toUpperCase() : "OVERVIEW"}</div><div class="row"><span class="save-indicator"><span class="live-dot"></span><span id="save-status">${workspace.updated ? "Saved on this device" : "Local autosave ready"}</span></span><button id="theme-toggle" class="icon-button" aria-label="Toggle light and dark theme">${icon("sun")}</button><a href="#/settings" class="avatar" aria-label="Backups and settings">M</a></div></header><main id="main" tabindex="-1"></main><footer>Made for curious minds and secondhand parts.<span>$0 tools · no hardware claims · <a href="./licenses/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">Licenses</a></span></footer></div>`;
+  app.innerHTML = `<aside class="sidebar"><a class="brand" href="#/"><img src="./icon.svg" width="38" height="38" alt=""><span>McGruber<span>THE INVENTION LAB</span></span></a><div class="nav-caption">YOUR WORKSHOP</div><nav aria-label="Main navigation">${nav.map(([path, i, label]) => `<a href="#/${path}" class="nav-link ${route === path || (route === "project" && path === "") ? "active" : ""}" ${route === path ? 'aria-current="page"' : ""}>${icon(i)}<span>${label}</span>${path === "notebook" ? `<small>${workspace.records.length}</small>` : ""}</a>`).join("")}</nav><div class="sidebar-bottom"><div class="local-card"><span class="live-dot"></span><strong>Ideas stay yours.</strong><p>Autosaved on this device.<br>Export a backup to take them along.</p><a href="#/settings">Backups & settings →</a></div><a href="https://github.com/jimedusot-beep/project-mcgruber" target="_blank" rel="noopener" class="repository-link">Open-source. Always. ↗</a></div></aside><div class="main-shell"><header class="topbar"><div class="breadcrumb">WORKSHOP <span>/</span> ${route === "project" ? "INVENTIONS" : route ? route.toUpperCase() : "OVERVIEW"}</div><div class="row"><span class="save-indicator"><span class="live-dot"></span><span id="save-status">${saveProblem ? "Autosave paused" : dirty ? "Saving…" : workspace.updated ? "Saved on this device" : "Local autosave ready"}</span></span><button id="theme-toggle" class="icon-button" aria-label="Toggle light and dark theme">${icon("sun")}</button><a href="#/settings" class="avatar" aria-label="Backups and settings">M</a></div></header><main id="main" tabindex="-1"></main><footer>Made for curious minds and secondhand parts.<span>$0 tools · no hardware claims · <a href="./licenses/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">Licenses</a></span></footer></div>`;
   $("#theme-toggle").onclick = () => {
     workspace.theme = workspace.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = workspace.theme;
@@ -251,19 +314,23 @@ async function mountDocs(file, epoch) {
   }
 }
 function settingsHTML() {
-  return `${heading("Save it. Pick it up again.", "Backups & settings", "Your private workspace belongs to this browser. Backups let you move it safely.")}<div class="two-col"><div class="panel"><h2>Save & resume</h2><p>Favorites, notes, progress, inventory, diagrams, experiments, uploaded media and editable 3D geometry autosave to IndexedDB. Recent workspace revisions provide recovery.</p><p id="storage-estimate" class="muted"></p><div class="row wrap"><button id="backup-all" class="primary">Download full backup</button><label class="button">Restore full backup<input id="restore-backup" type="file" accept=".json" hidden></label><button id="persist-storage">Request persistent storage</button></div><p class="small muted">Do not clear website data before exporting. Private browsing, OS storage pressure and uninstalling can remove local files. A full backup includes media; records-only exports do not.</p><div id="backup-status" role="status"></div></div><div class="panel"><h2>Private drafts & public contributions</h2><p>GitHub Pages has no authenticated storage backend. This version does not sync private drafts between devices. No token, password or OAuth secret is requested or stored.</p><p>To contribute, export and review your files, remove personal information, and explicitly open a GitHub pull request yourself. Saving in this app never posts a public experiment.</p><a href="#/docs/docs/CLOUD_SYNC_DESIGN.md">Read the secure sync design →</a><h3>Use from an iPhone</h3><p>Open the deployed site in Safari. Use Share → Add to Home Screen. Import models with Files; pinch to zoom and use two fingers to pan. Notebook → New experiment records observations. Download a full backup before switching devices.</p></div></div><div class="panel"><h2>Recent saved revisions</h2><p class="muted">Up to ten workspace revisions. Restoring changes the current local workspace; attached media is retained.</p><div id="revision-list"></div></div>`;
+  return `${heading("Save it. Pick it up again.", "Backups & settings", "Your private workspace belongs to this browser. Backups let you move it safely.")}<div class="two-col"><div class="panel"><h2>Save & resume</h2><p>Favorites, notes, progress, inventory, diagrams, experiments, uploaded media and editable 3D geometry autosave to IndexedDB. Recent workspace revisions provide recovery.</p><p id="storage-estimate" class="muted"></p><div class="row wrap"><button id="backup-all" class="primary">Download full backup</button><label class="button">Restore full backup<input id="restore-backup" type="file" accept=".json" hidden></label><button id="persist-storage">Request persistent storage</button></div><p class="small muted">Do not clear website data before exporting. Private browsing, OS storage pressure and uninstalling can remove local files. A full backup includes media; records-only exports do not.</p><div id="backup-status" role="status"></div></div><div class="panel"><h2>Private drafts & public contributions</h2><p>GitHub Pages has no authenticated storage backend. This version does not sync private drafts between devices. No token, password or OAuth secret is requested or stored.</p><p>To contribute, export and review your files, remove personal information, and explicitly open a GitHub pull request yourself. Saving in this app never posts a public experiment.</p><a href="#/docs/docs/CLOUD_SYNC_DESIGN.md">Read the secure sync design →</a><h3>Use from an iPhone</h3><p>Open the deployed site in Safari. Use Share → Add to Home Screen. Import models with Files; pinch to zoom and use two fingers to pan. Notebook → New experiment records observations. Download a full backup before switching devices.</p></div></div><div class="panel"><h2>Local media storage</h2><p id="media-usage" class="muted">Inspecting saved attachments…</p><button id="cleanup-unused-media">Clean old unused media</button><p class="small muted">Cleanup keeps attachments used by the current workspace, drafts or any saved revision. Recently added files are kept for at least 24 hours. Matching uploads share storage when secure browser hashing is available.</p><div id="media-cleanup-result" role="status"></div></div><div class="panel"><h2>Recent saved revisions</h2><p class="muted">Up to ten workspace revisions. Restoring changes the current local workspace; attached media is retained.</p><div id="revision-list"></div></div>`;
 }
 async function mountSettings() {
   async function revisions() {
     const list = await storage.all("history");
     $("#revision-list").replaceChildren();
     for (const rev of list
-      .sort((a, b) => b.updated.localeCompare(a.updated))
+      .sort(
+        (a, b) =>
+          (b.sequence || 0) - (a.sequence || 0) ||
+          b.updated.localeCompare(a.updated),
+      )
       .slice(0, 10)) {
       const row = document.createElement("div");
       row.className = "revision";
       const label = document.createElement("span");
-      label.textContent = `${formatDate(rev.updated)} · ${rev.records.length} experiments · ${rev.inventory.length} inventory items`;
+      label.textContent = `${rev.conflictDraft ? "Recovered tab draft · " : ""}${formatDate(rev.updated)} · ${rev.records.length} experiments · ${rev.inventory.length} inventory items`;
       const button = document.createElement("button");
       button.textContent = "Restore revision";
       button.onclick = async () => {
@@ -273,11 +340,22 @@ async function mountSettings() {
           )
         )
           return;
-        await storage.save(workspace);
-        workspace = { ...rev, id: "current" };
-        save();
-        notify("Workspace revision restored.");
-        route();
+        try {
+          await flushSave();
+          workspace = {
+            ...rev,
+            id: "current",
+            revision: workspace.revision,
+            sequence: workspace.sequence,
+            conflictDraft: false,
+          };
+          save();
+          await flushSave();
+          notify("Workspace revision restored.");
+          await route();
+        } catch (e) {
+          showSaveProblem(e);
+        }
       };
       row.append(label, button);
       $("#revision-list").append(row);
@@ -285,7 +363,7 @@ async function mountSettings() {
   }
   $("#backup-all").onclick = async () => {
     try {
-      await storage.save(workspace);
+      if (!saveProblem) await flushSave();
       storage.download(
         await storage.backup(workspace),
         "mcgruber-lab-full-backup.json",
@@ -307,13 +385,15 @@ async function mountSettings() {
         )
       )
         return;
-      await storage.save(workspace);
-      workspace = await storage.restore(await file.text());
+      await flushSave();
+      workspace = await storage.restore(await file.text(), workspace);
+      dirty = false;
       document.documentElement.dataset.theme = workspace.theme;
       notify("Backup restored.");
       await route();
     } catch (err) {
-      notify(err.message);
+      if (err instanceof storage.WorkspaceConflictError) showSaveProblem(err);
+      else notify(err.message);
     }
     e.target.value = "";
   };
@@ -329,7 +409,26 @@ async function mountSettings() {
       $("#storage-estimate").textContent =
         `Browser origin usage: ${(s.usage / 1024 / 1024).toFixed(1)} MB of approximately ${(s.quota / 1024 / 1024).toFixed(0)} MB. Last save: ${formatDate(workspace.updated)}.`;
   }
-  await revisions();
+  async function refreshMediaUsage() {
+    const usage = await storage.mediaUsage(workspace),
+      el = $("#media-usage");
+    if (el)
+      el.textContent = `${usage.count} stored files · ${(usage.bytes / 1024 / 1024).toFixed(2)} MB · ${usage.referenced} referenced by current or recovery records · ${usage.unused} currently unused.`;
+  }
+  $("#cleanup-unused-media").onclick = async () => {
+    try {
+      await flushSave();
+      const result = await storage.cleanupMedia(workspace);
+      const el = $("#media-cleanup-result");
+      if (el)
+        el.textContent = `Removed ${result.removed} old unused files (${(result.bytes / 1024 / 1024).toFixed(2)} MB). ${result.retainedRecent} recent unused files retained.`;
+      await refreshMediaUsage();
+    } catch (e) {
+      if (e instanceof storage.WorkspaceConflictError) showSaveProblem(e);
+      else notify(e.message);
+    }
+  };
+  await Promise.all([revisions(), refreshMediaUsage()]);
 }
 async function route() {
   const epoch = ++renderEpoch;
@@ -426,10 +525,8 @@ async function route() {
 }
 window.addEventListener("hashchange", route);
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "hidden") {
-    clearTimeout(saveTimer);
-    storage.save(workspace).catch((e) => notify(e.message));
-  }
+  if (document.visibilityState === "hidden" && dirty && !saveProblem)
+    flushSave().catch(showSaveProblem);
 });
 window.addEventListener("keydown", (e) => {
   if (
@@ -454,8 +551,12 @@ async function init() {
     try {
       workspace = await storage.load();
     } catch (e) {
-      notify(e.message);
+      showSaveProblem(e);
     }
+    storage.watchWorkspace((revision) => {
+      if (revision !== workspace.revision)
+        showSaveProblem(new storage.WorkspaceConflictError());
+    });
     document.documentElement.dataset.theme = workspace.theme;
     await route();
     if ("serviceWorker" in navigator && import.meta.env.PROD)

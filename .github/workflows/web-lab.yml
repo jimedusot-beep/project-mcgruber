@@ -33,7 +33,9 @@ jobs:
       - run: npm test
       - run: npm audit --audit-level=moderate
       - run: npm run build
-      - run: npx playwright install --with-deps chromium webkit
+      - name: Install browser engines
+        timeout-minutes: 5
+        run: npx playwright install --with-deps chromium webkit
       - name: Desktop Chromium and iPhone WebKit emulation
         run: npm run test:browser
       - uses: actions/upload-artifact@v4
