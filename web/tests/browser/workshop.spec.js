@@ -40,6 +40,12 @@ test("nine inventions, responsive routes, favorites, source navigation and theme
     .click();
   await expect(page.locator("#save-status")).toHaveText("Saved on this device");
   await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page
+    .getByRole("button", { name: "Toggle light and dark theme" })
+    .click();
+  await expect(page.locator("#save-status")).toHaveText("Saved on this device");
+  await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   expect(errors).toEqual([]);
   await page.goto("/");
@@ -195,13 +201,11 @@ test("backup export restores record and uploaded photo; invalid backup leaves ex
     .toMatchObject({ count: 1 });
   await page.goto("/#/settings");
   page.once("dialog", (d) => d.accept());
-  await page
-    .locator("#restore-backup")
-    .setInputFiles({
-      name: "invalid-backup.json",
-      mimeType: "application/json",
-      buffer: Buffer.from('{"application":"other"}'),
-    });
+  await page.locator("#restore-backup").setInputFiles({
+    name: "invalid-backup.json",
+    mimeType: "application/json",
+    buffer: Buffer.from('{"application":"other"}'),
+  });
   await expect(page.locator("#toast")).toContainText(
     "Not a supported McGruber backup",
   );

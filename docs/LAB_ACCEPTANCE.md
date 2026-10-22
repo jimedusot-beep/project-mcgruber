@@ -6,6 +6,7 @@ This is a software release assessment, not a declaration that the entire enginee
 | --- | --- | --- |
 | All nine inventions accessible | PASS | Generated catalog includes P01–P09 with real BOMs, five source build steps each and working hash routes. |
 | Narrow-phone navigation | PASS | iPhone-sized WebKit CI passed navigation for all nine inventions with no horizontal page overflow. Real iPhone Safari has not been tested. |
+| Colorful, positive background | PASS | Manual preview checked the yellow/coral/lavender/blue/mint light background, readable hero labels and the purple/blue/teal dark theme. New workspaces default to light; saved choices persist. |
 | Actual documentation, parts and diagrams | PASS | Build verifies every per-project file; source library serves original Markdown/CSV/SVG/STL assets. |
 | Genuine 3D import/inspection/movement | PASS | Real STL/OBJ/GLB/glTF parsing, source STL and multipart round-trip unit tests pass. Software-rendered Chromium CI loaded real geometry, edited transforms, restored the scene and exported STL. The cloud preview has no WebGL context; physical iPhone graphics remain untested. |
 | Multiple organized 3D parts | PASS | Chromium browser CI loaded, duplicated, transformed and restored two parts; unit tests retain separate multipart OBJ geometry and visibility. |
@@ -40,6 +41,7 @@ See [user guide](LAB_USER_GUIDE.md), [roadmap](ROADMAP.md), [integration assessm
 - [Passing original regression workflow](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/39669349213).
 - [Desktop preview screenshot](screenshots/workshop.jpg). The notebook count in this preview is local QA records, not real hardware evidence.
 - [Recovery controls and preserved tab draft](screenshots/recovery.jpg), captured during the manual two-tab software check. This is a development preview, not a live Pages deployment.
+- [Colorful workshop preview](screenshots/colorful-workshop.jpg), showing the requested bright background. This is a development preview, not a live Pages deployment.
 
 ## Exact deployment blocker
 

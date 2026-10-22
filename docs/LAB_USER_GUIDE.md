@@ -6,6 +6,8 @@ Open the deployed GitHub Pages site in Safari. Choose **Share → Add to Home Sc
 
 Open an invention and choose **Experiment** for a labeled conceptual/logic demonstration, **Guided build** for the actual repository procedure, or **Files & evidence** for BOMs, source diagrams and original logs. Use the Beginner complexity filter to find the simplest starting points. Dark/light themes and the `/` desktop search shortcut are available.
 
+New workspaces open with a colorful light theme: yellow, coral, lavender, blue and mint backgrounds with readable content panels. Use the theme button for the darker purple/blue/teal palette. Your saved theme choice is retained.
+
 ## Inspecting models
 
 1. Open **3D lab**. It loads the original generic angle-support STL. This model is unprinted and fit-unverified.

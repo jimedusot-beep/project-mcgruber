@@ -432,7 +432,7 @@ export function freshWorkspace() {
     inventory: [],
     simulations: {},
     circuit: {},
-    theme: "dark",
+    theme: "light",
   };
 }
 export function validateRecord(r) {

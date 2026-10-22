@@ -25,6 +25,8 @@ npm run test:browser
 
 Browser tests run in isolated contexts with explicitly labeled QA fixtures; they never change repository hardware test logs. GitHub Actions runs desktop Chromium with software graphics and iPhone-sized WebKit emulation. Linux WebKit 3D is excluded because its headless GPU availability does not establish physical Safari compatibility. Test on an actual iPhone before claiming device validation.
 
+Playwright is pinned to 1.64.1, which includes the upstream [WebKit offline service-worker navigation fix](https://github.com/microsoft/playwright/pull/42894). Keep the offline reload workflow enabled when updating browser tooling.
+
 ## Architecture
 
 - Native ES modules, Vite and hash routes; relative asset paths support repository-subpath hosting.
