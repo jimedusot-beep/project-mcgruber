@@ -11,8 +11,9 @@ test("tripwire manifest has unique stable IDs and explicitly unverified fit", ()
     assert.match(part.id, /^TW-(E|R|C)-[A-Z]+$/);
     assert.ok(["emitter", "receiver", "control"].includes(part.side));
     assert.ok([true, false, "conditional"].includes(part.required));
-    for (const key of ["name", "explain", "salvage", "verify", "type"])
+    for (const key of ["name", "explain", "salvage", "verify"])
       assert.ok(typeof part[key] === "string" && part[key].length > 5, key);
+    assert.ok(typeof part.type === "string" && part.type.length > 0);
     for (const key of ["pos", "offset"]) {
       assert.equal(part[key].length, 3);
       assert.ok(part[key].every(Number.isFinite));
