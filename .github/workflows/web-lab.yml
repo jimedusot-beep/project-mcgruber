@@ -47,6 +47,11 @@ jobs:
             web/playwright-report/
             web/test-results/
           retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcgruber-lab-static-preview
+          path: web/dist/
+          retention-days: 14
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
@@ -61,8 +66,21 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Diagnose GitHub Pages configuration
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! pages_info=$(gh api "repos/${GITHUB_REPOSITORY}/pages" 2>&1); then
+            echo "::error title=GitHub Pages is not enabled::Settings > Pages > Build and deployment > Source > GitHub Actions. Enable this once as repository owner; then rerun the workflow. App installation tokens cannot create the missing Pages site."
+            echo "Pages API response: ${pages_info}"
+            exit 1
+          fi
+          publishing_mode=$(printf '%s' "${pages_info}" | jq -r '.build_type')
+          if [ "${publishing_mode}" != "workflow" ]; then
+            echo "::error title=Pages source is incorrect::Set Settings > Pages > Source to GitHub Actions (current: ${publishing_mode})"
+            exit 1
+          fi
+          echo "GitHub Pages already enabled with Actions workflow publishing."
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/deploy-pages@v4
         id: deployment
