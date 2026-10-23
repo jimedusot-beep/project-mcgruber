@@ -155,6 +155,7 @@ const projects = await Promise.all(
         "TEST_LOG.csv",
         "diagrams/architecture.svg",
         ...([3, 6].includes(i) ? ["diagrams/wiring-example-5v.svg"] : []),
+        ...(i === 0 ? ["diagrams/exploded-assembly.svg", "diagrams/signal-flow.svg", "ASSEMBLY_VIEW.md", "BUILD_WORKBOOK.md", "THREE_D_HANDOFF.md"] : []),
       ].map((f) => folder + "/" + f),
     };
   }),
