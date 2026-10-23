@@ -2644,3 +2644,47 @@ legend {
     font-size: 11px;
   }
 }
+
+
+/* Tripwire interactive assembly — independent from generic mesh workbench. */
+.tw3d-intro { margin: 0 0 20px; max-width: 1000px; }
+.tw3d-intro h1 { font-size: clamp(28px, 4vw, 50px); letter-spacing: -.04em; margin: 12px 0; }
+.tw3d-intro p { color: var(--muted); line-height: 1.6; max-width: 790px; }
+.tw3d-layout { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, 1fr); gap: 16px; align-items: start; }
+.tw3d-canvas-panel { padding: 14px; min-width: 0; }
+.tw3d-caption { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: 11px; letter-spacing: .04em; padding: 5px 4px 13px; }
+#tw-viewport { position: relative; width: 100%; height: clamp(340px, 51vw, 590px); border: 1px solid var(--line); border-radius: 10px; background: #14253b; overflow: hidden; touch-action: none; }
+#tw-viewport canvas { display: block; width: 100%; height: 100%; }
+.tw-range { display: block; margin: 18px 0 10px; }
+.tw-range output { float: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.tw-range input { display: block; width: 100%; margin: 13px 0; accent-color: #dc7695; }
+.tw3d-controls .row, .tw3d-next .row { gap: 9px; margin: 10px 0; }
+.tw3d-controls button, .tw3d-components button, .tw3d-next button { min-height: 42px; }
+.tw-beam-status { padding: 13px 15px; border-radius: 8px; background: #256b562b; border: 1px solid #5aaa90; margin: 15px 0 1px; font-weight: 700; letter-spacing: .02em; }
+.tw-beam-status.tripped { background: #b533432b; border-color: #d77474; }
+.tw3d-components { min-width: 0; }
+.tw3d-components h2 { margin: 4px 0 8px; }
+.tw3d-partlist { max-height: 460px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding: 5px 2px; }
+.tw3d-part { display: flex; align-items: stretch; gap: 8px; }
+.tw3d-part button { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 4px; border: 1px solid var(--line); background: var(--panel-2); border-radius: 8px; padding: 10px 12px; }
+.tw3d-part button[aria-pressed="true"] { border-color: #e9a7ff; outline: 2px solid #e9a7ff55; }
+.tw3d-part label { display: flex; justify-content: center; align-items: center; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
+.tw3d-part input { width: 18px; height: 18px; accent-color: #c777ec; }
+.tw3d-part-name { font-weight: 700; font-size: 13px; }
+.tw3d-part-id { font-size: 10px; color: var(--muted); }
+.tw3d-detail { margin: 18px 0; padding: 16px; border: 1px solid var(--line); border-radius: 10px; min-height: 170px; background: var(--panel-2); }
+.tw3d-detail h3 { margin: 8px 0; }
+.tw3d-detail p { font-size: 13px; line-height: 1.55; }
+.tw3d-next { margin: 18px 0 10px; }
+.tw3d-fallback-item { padding: 9px 0; border-bottom: 1px solid var(--line); }
+@media (max-width: 900px) {
+  .tw3d-layout { grid-template-columns: minmax(0, 1fr); }
+  #tw-viewport { height: min(70vh, 520px); min-height: 320px; }
+  .tw3d-partlist { max-height: 360px; }
+}
+@media (max-width: 480px) {
+  .tw3d-canvas-panel, .tw3d-components { padding: 11px; }
+  #tw-viewport { height: 350px; min-height: 300px; }
+  .tw3d-intro h1 { font-size: 30px; }
+  .tw3d-part button { padding: 9px; }
+}
