@@ -487,6 +487,14 @@ async function route() {
       );
       if (epoch === renderEpoch) cleanup = dispose;
       else dispose();
+    } else if (name === "tripwire-3d") {
+      main.innerHTML = '<div id="tw3d-host"><p class="panel">Preparing the interactive assembly…</p></div>';
+      const { mountTripwire3D } = await import("./tripwire-3d.js");
+      if (epoch !== renderEpoch) return;
+      const dispose = await mountTripwire3D($("#tw3d-host"), notify);
+      if (epoch === renderEpoch) cleanup = dispose;
+      else dispose();
+      document.title = "Tripwire 3D assembly — McGruber Lab";
     } else if (name === "components") {
       main.innerHTML = inventoryHTML();
       mountInventory(ctx);
