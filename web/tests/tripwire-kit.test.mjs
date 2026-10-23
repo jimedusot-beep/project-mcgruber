@@ -39,3 +39,18 @@ test("beam simulation distinguishes clear, tripped, disarmed and disconnected", 
   assert.equal(beamStatus({ blocked: true, armed: false }).alarm, false);
   assert.equal(beamStatus({ blocked: true, connected: false }).code, "DISCONNECTED");
 });
+
+test("cross-repository handoff manifest matches web viewer parts without asserting real fit", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const manifest = JSON.parse(await readFile(
+    new URL("../../projects/01-light-beam-tripwire/assembly_manifest.json", import.meta.url),
+    "utf8",
+  ));
+  assert.equal(manifest.assembly_id, TRIPWIRE_ASSEMBLY.id);
+  assert.equal(manifest.status, TRIPWIRE_ASSEMBLY.status);
+  assert.equal(manifest.units, TRIPWIRE_ASSEMBLY.units);
+  assert.deepEqual(manifest.part_ids, TRIPWIRE_PARTS.map((p) => p.id));
+  assert.equal(manifest.hardware_tested, false);
+  assert.equal(manifest.physical_fit_verified, false);
+  assert.equal(manifest.compatible_for_physical_build, false);
+});
