@@ -14,7 +14,7 @@ test("P01 links to interactive assembly with accessible part inspection and simu
     return;
   }
   await page.locator("[data-part='TW-E-BATTERY']").click();
-  await expect(page.locator("#tw-detail")).toContainText("Battery");
+  await expect(page.locator("#tw-detail")).toContainText("TW-E-BATTERY");
   await expect(page.locator("#tw-detail")).toContainText("Salvage");
   await page.locator("#tw-trigger").click();
   await expect(page.locator("#tw-beam-status")).toContainText("Simulated beam broken");
@@ -31,6 +31,7 @@ test("P01 links to interactive assembly with accessible part inspection and simu
 
 test("3D assembly exports a local GLB for manual 3D Vision import", async ({ page }) => {
   await page.goto("/#/tripwire-3d");
+  await expect(page.locator("#tw-partlist")).toContainText("Light detector");
   if (!(await page.locator("#tw-viewport canvas").count())) {
     await expect(page.locator("#tw-export")).toBeDisabled();
     return;
