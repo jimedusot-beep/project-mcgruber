@@ -1,0 +1,7 @@
+date,version,source,mode,lighting,distance,supply_V,resistor_ohm,resistor_V,estimated_LED_mA,actual_crossings,counted_breaks,misses,extra_counts,idle_seconds,false_trips,restored,restart_pass,result,notes
+,,,,,6 in,,,,,,,,,,,,,NOT_RUN,
+,,,,,1 ft,,,,,,,,,,,,,NOT_RUN,
+,,,,,3 ft,,,,,,,,,,,,,NOT_RUN,
+,,,,,6 ft,,,,,,,,,,,,,NOT_RUN,
+,,,,,10 ft,,,,,,,,,,,,,NOT_RUN,
+,,,,,15 ft,,,,,,,,,,,,,NOT_RUN,
