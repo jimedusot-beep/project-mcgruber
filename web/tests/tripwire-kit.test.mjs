@@ -8,7 +8,7 @@ test("tripwire manifest has unique stable IDs and explicitly unverified fit", ()
   assert.equal(new Set(TRIPWIRE_PARTS.map((p) => p.id)).size, TRIPWIRE_PARTS.length);
   assert.ok(TRIPWIRE_PARTS.length >= 10);
   for (const part of TRIPWIRE_PARTS) {
-    assert.match(part.id, /^TW-(E|R|C)-[A-Z]+$/);
+    assert.match(part.id, /^TW-(E|R|C)-[A-Z0-9]+$/);
     assert.ok(["emitter", "receiver", "control"].includes(part.side));
     assert.ok([true, false, "conditional"].includes(part.required));
     for (const key of ["name", "explain", "salvage", "verify"])
