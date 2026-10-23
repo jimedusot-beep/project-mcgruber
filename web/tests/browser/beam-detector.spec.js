@@ -57,3 +57,8 @@ test('guided test completes its timed check and exports operator-labelled eviden
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcgruber-beam-v4-tests')));expect(saved).toHaveLength(1);expect(saved[0]).toMatchObject({phase:'passed',observedBreaks:10,operatorConfirmed:true});expect(saved[0].idleElapsedMs).toBeGreaterThanOrEqual(120000);
   const download=page.waitForEvent('download');await page.locator('#export-tests').click();expect((await download).suggestedFilename()).toBe('mcgruber-beam-test-results.json');
 });
+test('ARM waits for fresh camera readings before becoming available',async({page})=>{
+  await syntheticCamera(page);await page.goto('/beam-detector/');await page.evaluate(()=>window.testFrozen=true);
+  await page.locator('#start').click();await expect(page.locator('#state')).toHaveText('READY TO ARM');expect(await page.locator('#arm').isDisabled()).toBe(true);
+  await page.evaluate(()=>window.testFrozen=false);await expect(page.locator('#arm')).toBeEnabled();
+});
