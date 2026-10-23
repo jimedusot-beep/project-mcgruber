@@ -15,7 +15,7 @@ A mobile-first web application now lives in [web/](https://github.com/jimedusot-
 - [Development/build instructions](https://github.com/jimedusot-beep/project-mcgruber/blob/main/web/README.md) · [Pages deployment workflow](https://github.com/jimedusot-beep/project-mcgruber/actions/workflows/web-lab.yml)
 - [Engineering integrations](docs/ENGINEERING_INTEGRATIONS.md) · [Private saving and future sync](docs/CLOUD_SYNC_DESIGN.md)
 
-Browser demonstrations are models, not physical measurements. Initial GitHub Pages creation was blocked by repository settings: the owner must enable Pages with Source set to GitHub Actions, then rerun the deployment workflow. See [deployment details](docs/PUBLISH.md). No live deployment is claimed yet. No finished hardware is certified by the app.
+**Deployment audit:** The software tests/build pass, but McGruber Lab is **not yet publicly deployed** because GitHub Pages must be enabled manually by the repository owner. [Read the verified 2026-10-23 failure and exact setup steps](docs/PUBLISH.md). The updated workflow retains a downloadable static preview artifact even while Pages is disabled. For an already-published 3D tripwire view, use [3D Vision's exploded 13-part concept](https://jimedusot-beep.github.io/3D-vision/?example=mcgruber-tripwire-exploded) or [the Cyborg hardware case study](https://github.com/jimedusot-beep/Herbie-cyborg-hardware/tree/main/examples/mcgruber-light-beam-tripwire). The conceptual model is not physical measurement or evidence of working hardware.
 
 ## All nine inventions
 
