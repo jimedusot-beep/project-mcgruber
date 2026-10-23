@@ -2,7 +2,7 @@
 
 **Goal:** Interrupt a visible light beam to trigger an alarm.
 
-**Status:** Working red LED and phone-based GhostLine light-loss alarm reported; independent hardware alarm not built.
+**Status:** Owner-reported automatic red-light / iPhone-camera interruption detection at nominal 1, 3, 6, 10 and 15 ft (October 23, 2026); fixed-mount reliability, electrical details and independent hardware receiver remain unverified. See [field report](FIELD_TEST_2026-10-23.md).
 
 ## Required hardware or software (proposed)
 Visible emitter and correct resistor; light detector (LDR/phototransistor); threshold circuit; rated alarm output; regulated power and aligned supports.
