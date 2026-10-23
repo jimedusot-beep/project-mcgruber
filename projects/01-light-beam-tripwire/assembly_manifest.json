@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "project": "McGruber Light-Beam Tripwire P01",
+  "assembly_id": "MCG-TW-P01-CONCEPT-001",
+  "status": "DIGITAL_CONCEPT_UNTESTED",
+  "model_geometry": "ILLUSTRATIVE_PLACEHOLDER",
+  "units": "illustrative-mm",
+  "up_axis": "Y",
+  "software_viewer": "web/src/tripwire-3d.js",
+  "parts_source": "web/src/tripwire-kit.js",
+  "hardware_tested": false,
+  "physical_fit_verified": false,
+  "has_verified_pinout": false,
+  "source_repositories": {
+    "visual_assembly_patterns": "https://github.com/jimedusot-beep/3D-vision",
+    "hardware_evidence_patterns": "https://github.com/jimedusot-beep/Herbie-cyborg-hardware",
+    "canonical": "https://github.com/jimedusot-beep/project-mcgruber"
+  },
+  "part_ids": [
+    "TW-E-MOUNT",
+    "TW-E-HOUSING",
+    "TW-E-BATTERY",
+    "TW-E-SWITCH",
+    "TW-E-RESISTOR",
+    "TW-E-LED",
+    "TW-R-MOUNT",
+    "TW-R-SHIELD",
+    "TW-R-LDR",
+    "TW-R-DIVIDER",
+    "TW-R-HOUSING",
+    "TW-C-ESP32",
+    "TW-C-USB"
+  ],
+  "open_measurements": [
+    "actual emitter and receiver housing diameters",
+    "actual LED and optical detector model and spectral response",
+    "actual component dimensions and mounting interface",
+    "physical beam height and alignment distance",
+    "battery polarity and LED current limiter",
+    "ESP32-C3 board revision and ADC-capable pinout",
+    "light sensor divider minimum and maximum input voltage",
+    "USB power and charger behavior",
+    "wire strain relief, enclosure wall thickness and print fit",
+    "repeated beam-block/ambient-light false alarm results"
+  ],
+  "compatible_for_physical_build": false
+}
