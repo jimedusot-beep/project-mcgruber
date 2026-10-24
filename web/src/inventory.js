@@ -96,7 +96,7 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
       ctx.workspace.inventory.push(part);
       return true;
     }
-    $("[data-import-arrival]").forEach((button) => {
+    $$("[data-import-arrival]").forEach((button) => {
       button.onclick = () => {
         const entry=ctx.catalog.newArrivals?.items.find((x)=>x.id===button.dataset.importArrival);
         if (!entry || ctx.workspace.inventory.some((p)=>p.sourceArrivalId===entry.id)) {
@@ -111,7 +111,7 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
         ctx.notify("Dedeco SUNBURST kit saved as one privately owned workshop tool; no performance or individual quantity claims added.");
       };
     });
-    $("[data-import-reference]").forEach((button) => {
+    $$("[data-import-reference]").forEach((button) => {
       button.onclick = () => {
         const item = ctx.catalog.rev4Inventory.items.find((entry) => entry.id === button.dataset.importReference);
         if (!importReference(item)) { ctx.notify("Already imported or linked under remote #10."); return; }
