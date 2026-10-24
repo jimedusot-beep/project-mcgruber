@@ -51,7 +51,11 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
  const passphrase=()=>get("cloud-passphrase")?.value||"";
  const scrub=()=>{for(const id of ["cloud-passphrase","cloud-passphrase-confirm"]){const e=get(id);if(e)e.value="";}};
  const freeze=async()=>{
+   // A first-time visitor has an unsaved, revisionless default workspace.
+   // Commit it through the ordinary guarded IndexedDB path before exporting.
    await flushSave();
+   const current=getWorkspace();
+   if(!current.revision) await storage.save(current);
    const snapshot=structuredClone(getWorkspace());
    return {text:await storage.backup(snapshot),revision:snapshot.revision};
  };
