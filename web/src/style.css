@@ -2767,3 +2767,15 @@ legend {
   .brain-condition { grid-template-columns: minmax(0,1fr); }
   .brain-layout .row.wrap button, .brain-layout .row.wrap .button { min-height: 42px; }
 }
+
+/* Evidence-first gadget idea catalog, independent from owned inventory. */
+.gadget-grid { margin-top: 20px; }
+.gadget-card { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 9px; overflow-wrap: anywhere; }
+.gadget-card p { margin: 4px 0; }
+.gadget-card details { width: 100%; }
+.gadget-card details summary { cursor: pointer; font-weight: 600; }
+.gadget-card details ul { margin-top: 8px; padding-left: 20px; }
+.gadget-card details li { margin-bottom: 5px; }
+.gadget-card .gadget-sources { line-height: 1.8; }
+.gadget-card .gadget-actions { margin-top: auto; }
+.gadget-card .gadget-actions button, .gadget-card .gadget-actions .button { min-height: 42px; }
