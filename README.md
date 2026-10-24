@@ -6,6 +6,16 @@
 
 > **Evidence policy:** Working demonstrations in the project conversation are *reported*, not independently re-tested here. A schematic or parts list is *proposed* until reproducible measurements are published. No standalone invention is yet certified.
 
+## Engineering readiness and electronics training — October 24, 2026
+
+**First stop for all nine inventions:** [Engineering master plan](docs/ENGINEERING_MASTER_PLAN_2026-10-24.md) — real parts, unverified electronics, circuit design, instrument procedure, safety, sourcing gates and go/no-go acceptance criteria.
+
+- [Engineering Control Center (mobile)](web/public/beam-detector/engineering-hub.html) — nine projects, owned/pending resources, first experiments and physical test logs. [Public phone access](https://jimedusot-beep.github.io/3D-vision/beam-detector/engineering-hub.html) is provided by the existing 3D Vision site; verify that GitHub Pages has updated before relying on that link.
+- [Standalone receiver laboratory](web/public/beam-detector/standalone-lab.html) — nine supervised hardware stages covering the 9V red/blue LED emitter, Fluke photodiode checks, 2N4401 transistor switching, missing amplifier/threshold work, distance trials and enclosure.
+- [Engineering status register](docs/PROJECT_STATUS.md) — evidence levels and blockers for projects 01–09.
+
+**Critical distinction:** Owner-reported phone optical detection through nominal 15 ft is encouraging; a bare unpowered red LED, 2N4401/2N4403, and the unpopulated NightFire boards do *not* yet constitute a demonstrated standalone no-phone receiver. Do not connect an unverified 9V source to an unresisted LED or unknown PCB.
+
 ## McGruber Lab browser workshop
 
 A mobile-first web application now lives in [web/](https://github.com/jimedusot-beep/project-mcgruber/tree/main/web). Explore nine invention workspaces, logic experiments, real 3D files, calculators, guided builds, the component bank and a private notebook with photos, local autosave and full backups.
