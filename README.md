@@ -13,6 +13,7 @@
 - [Engineering Control Center (mobile)](web/public/beam-detector/engineering-hub.html) — nine projects, owned/pending resources, first experiments and physical test logs. [Public phone access](https://jimedusot-beep.github.io/3D-vision/beam-detector/engineering-hub.html) is provided by the existing 3D Vision site; verify that GitHub Pages has updated before relying on that link.
 - [Standalone receiver laboratory](web/public/beam-detector/standalone-lab.html) — nine supervised hardware stages covering the 9V red/blue LED emitter, Fluke photodiode checks, 2N4401 transistor switching, missing amplifier/threshold work, distance trials and enclosure.
 - [Engineering status register](docs/PROJECT_STATUS.md) — evidence levels and blockers for projects 01–09.
+- [Electronics engineering field guide](docs/ELECTRONICS_ENGINEERING_FIELD_GUIDE.md) — multimeter use, safe 9V LED design, NPN/PNP pinouts, photodiode amplification, comparator thresholds, switch tests and release evidence.
 
 **Critical distinction:** Owner-reported phone optical detection through nominal 15 ft is encouraging; a bare unpowered red LED, 2N4401/2N4403, and the unpopulated NightFire boards do *not* yet constitute a demonstrated standalone no-phone receiver. Do not connect an unverified 9V source to an unresisted LED or unknown PCB.
 
