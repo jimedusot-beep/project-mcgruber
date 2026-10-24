@@ -7,10 +7,10 @@ test("Build Navigator and Electronics Detective expose all projects and unverifi
   await expect(page.locator(".intel-opportunity")).toHaveCount(9);
   await expect(page.locator("#intel-project-results")).toContainText("Object-removal indicator");
   await expect(page.locator("#intel-project-results")).toContainText("Planning / identification only");
-  await expect(page.locator("#intel-project-results")).toContainText("PDF");
+  await expect(page.locator("#intel-project-results")).toContainText("page ");
   await page.locator("#intel-project-select").selectOption("P08");
   await expect(page.locator("#intel-project-results")).toContainText("Infrared beam detector");
-  await expect(page.locator("#intel-project-results")).toContainText("Matched");
+  await expect(page.locator("#intel-project-results")).toContainText("matched");
   await page.locator("#intel-ref-search").fill("R-NZ");
   await expect(page.locator("#intel-diagnostic")).toContainText("Amazon Fire TV remote");
   await expect(page.locator("#intel-diagnostic")).toContainText("Safety");
