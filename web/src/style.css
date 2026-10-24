@@ -2747,3 +2747,23 @@ legend {
 .intel-opportunity button { margin-top: auto; }
 .intel-opportunity p { overflow-wrap: anywhere; }
 @media (max-width: 700px) { .intel-top { grid-template-columns: minmax(0, 1fr); } .intel-actions .button, .intel-actions button { width: 100%; } }
+
+/* Device Brain — safe virtual test bench, responsive on phones. */
+.brain-layout { align-items: start; margin: 22px 0; }
+.brain-layout .panel { min-width: 0; }
+.brain-slider { display: block; margin: 10px 0 18px; }
+.brain-slider input[type=range] { width: 100%; display: block; margin: 8px 0; }
+.brain-condition { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr) 94px; gap: 9px; }
+.brain-condition select, .brain-condition input, .brain-form input, .brain-form select { width: 100%; max-width: 100%; }
+.brain-recipe, .brain-output { border: 1px solid var(--line); border-radius: 9px; padding: 12px; margin: 10px 0; overflow-wrap: anywhere; }
+.brain-recipe p { margin: 8px 0; }
+.brain-form { margin: 14px 0; }
+.brain-form > label { display: block; margin: 12px 0; }
+.brain-form .brain-condition label { min-width: 0; }
+#brain-events { margin-top: 12px; white-space: pre-line; overflow-wrap: anywhere; }
+#brain-results { margin-top: 14px; }
+@media(max-width:760px) {
+  .brain-layout { grid-template-columns: minmax(0,1fr); }
+  .brain-condition { grid-template-columns: minmax(0,1fr); }
+  .brain-layout .row.wrap button, .brain-layout .row.wrap .button { min-height: 42px; }
+}

@@ -1,0 +1,45 @@
+import { test,expect } from "@playwright/test";
+
+test("Device Brain simulates logic, logs nonphysical evidence and persists recipes",async({page})=>{
+ const errors=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.goto("/#/device-brain");
+ await expect(page.getByRole("heading",{name:"Device Brain & Automation Studio"})).toBeVisible();
+ await expect(page.locator("#brain-recipes")).toContainText("No saved recipes");
+ await page.locator("#brain-add").click();
+ await expect(page.locator(".brain-recipe")).toHaveCount(1);
+ await page.getByRole("button",{name:"Close",exact:true}).click();
+ await page.locator('[data-brain-input="contact"]').fill("0");
+ await page.locator("#brain-step").click();
+ await page.locator("#brain-step").click();
+ await expect(page.locator("#brain-results")).toContainText("ACTIVE (virtual)");
+ await expect(page.locator("#brain-results")).toContainText("Events: 1");
+ await page.locator("#brain-log").click();
+ await expect(page.locator("#save-status")).toHaveText("Saved on this device");
+ await page.goto("/#/notebook");
+ await expect(page.locator("#record-list")).toContainText("Device Brain virtual test");
+ await expect(page.locator("#record-list")).toContainText("Simulation data");
+ await page.goto("/#/device-brain");
+ await expect(page.locator(".brain-recipe")).toHaveCount(1);
+ await page.reload();
+ await expect(page.locator(".brain-recipe")).toHaveCount(1);
+ expect(errors).toEqual([]);
+});
+test("recipe import/export and settings encryption do not publish data",async({page})=>{
+ await page.goto("/#/device-brain");
+ await page.locator("#brain-add").click();
+ const d=page.waitForEvent("download");
+ await page.locator("[data-brain-export]").click();
+ const download=await d;
+ expect(download.suggestedFilename()).toBe("mcgruber-automation-recipe.json");
+ await page.goto("/#/settings");
+ await expect(page.locator("#backup-encrypted")).toBeVisible();
+ await page.locator("#transfer-pass").fill("this-is-a-unique-long-transfer-passphrase");
+ await page.locator("#transfer-confirm").fill("this-is-a-unique-long-transfer-passphrase");
+ const secure=page.waitForEvent("download",{timeout:30000});
+ await page.locator("#backup-encrypted").click();
+ const file=await secure;
+ expect(file.suggestedFilename()).toBe("mcgruber-private-transfer.mcgruber");
+ await expect(page.locator("#transfer-status")).toContainText("Encrypted full backup");
+ await expect(page.locator("#transfer-pass")).toHaveValue("");
+ await expect(page.locator("#transfer-confirm")).toHaveValue("");
+});

@@ -56,3 +56,29 @@ identifications are invented. All data remains local unless explicitly exported.
 The src/workshop-intelligence.js file contains pure, testable rules; src/workshop.js is the
 presentation. This is not a generative AI API, device connection system, automatic component
 recognizer or a qualified electrical BOM. Prioritize safe documentation over guesses.
+
+## Device Brain and Automation Studio
+
+Open the Device Brain & automations sidebar tab (#/device-brain). Run four
+virtual signals (light, motion, contact, button) through reusable one-input
+or two-input AND/OR rules. Configure thresholds, debounce, virtual output
+hold time and labeled virtual LED, buzzer, relay or motor indicators. Step
+the deterministic engine at 250 ms intervals or run it while the page is open.
+Export/import validated JSON recipes as distinct local copies and inspect
+related idealized CircuitJS starters. Recipe names, conditions and circuits
+are validated; user-supplied JavaScript is not executed.
+
+Recipes save in existing IndexedDB with full backups and recovery history.
+Simulation traces can be saved to Notebook as Simulation data / Not tested
+without fabricated measurements. There are no real hardware commands, GPIO
+signals, device permissions, sound outputs, cloud accounts or background rules.
+
+## Private encrypted transfer
+
+Settings supports an optional encrypted full backup with a 12+ character
+passphrase, PBKDF2-HMAC-SHA-256, fresh salt and AES-256-GCM authentication.
+The receiving device can restore using the same file and passphrase.
+This is manual transfer, not automatic cloud synchronization, server upload
+or account recovery. Lost passphrases cannot be recovered. Retain a verified
+backup before clearing a source browser. Plain JSON backups remain available.
+See docs/CLOUD_SYNC_DESIGN.md for limitations and a future private sync plan.
