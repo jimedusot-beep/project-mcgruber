@@ -26,6 +26,7 @@ test("guided test opens a private empty draft and never overwrites an earlier dr
   await expect(page.locator("#experiment-form [name=voltage]")).toHaveValue("");
   await expect(page.locator("#experiment-form [name=current]")).toHaveValue("");
   await expect(page.locator("#experiment-form [name=criteria]")).toContainText("Planned test only");
+  await expect(page.locator("#save-status")).toHaveText("Saved on this device");
   await page.goto("/#/notebook/P08");
   await expect(page.locator("#experiment-form [name=project]")).toHaveValue("P04");
   await page.reload();
