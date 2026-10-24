@@ -67,6 +67,7 @@ test("public endpoint rejects secrets, non-HTTPS, arbitrary domains, paths and i
   {url:url+"/rest/v1",key},
   {url,key:"sb_secret_PROHIBITED"},
   {url,key:"service_role"},
+  {url,key:["eyJhbGciOiJIUzI1NiJ9",btoa(JSON.stringify({role:"service_role"})).replace(/=+$/,""),"signature"].join(".")},
  ])assert.throws(()=>validateCloudConfig(config),/never a secret/);
 });
 test("authenticated first upload sends only AEAD ciphertext; remote head is CAS-protected",async()=>{
@@ -88,6 +89,17 @@ test("authenticated first upload sends only AEAD ciphertext; remote head is CAS-
  await vault.signOut();
  assert.equal(vault.signedIn,false);
  assert.equal(vault.baseline,null);
+});
+test("existing remote requires correct vault passphrase before any replacement upload",async()=>{
+ const srv=server(),vault=new PrivateVault({fetcher:srv.fetcher,prefs:newPrefs(),sessionPrefs:newPrefs(),cryptoApi:webcrypto});
+ await loggedIn(vault);
+ await vault.push(fixture,"correct-existing-vault-passphrase","local-A1");
+ const old=srv.current.revision,objectCount=srv.objects.size;
+ await assert.rejects(vault.push(fixture,"different-wrong-vault-passphrase","local-A2"),/Unable to decrypt/);
+ assert.equal(srv.current.revision,old);
+ assert.equal(srv.objects.size,objectCount);
+ await vault.push(fixture,"correct-existing-vault-passphrase","local-A2");
+ assert.notEqual(srv.current.revision,old);
 });
 test("divergent devices cannot overwrite newer remote revision (even after offline edits)",async()=>{
  const srv=server();
