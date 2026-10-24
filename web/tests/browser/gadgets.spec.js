@@ -5,7 +5,7 @@ test("13 source-linked gadgets can be searched, filtered and exported without be
  await page.goto("/#/gadgets");
  await expect(page.getByRole("heading",{name:"Gadget Research Library"})).toBeVisible();
  await expect(page.locator(".gadget-card")).toHaveCount(13);
- await expect(page.locator("#gadget-results")).toContainText("Research-only");
+ await expect(page.locator("main")).toContainText("Research-only catalog");
  await page.locator("#gadget-priority").selectOption("Start");
  await expect(page.locator(".gadget-card")).toHaveCount(6);
  await page.locator("#gadget-priority").selectOption("all");
@@ -14,7 +14,7 @@ test("13 source-linked gadgets can be searched, filtered and exported without be
  await page.locator("#gadget-area").selectOption("all");
  await page.locator("#gadget-search").fill("Rayhunter");
  await expect(page.locator(".gadget-card")).toHaveCount(1);
- await expect(page.locator(".gadget-card")).toContainText("supported cellular device");
+ await expect(page.locator(".gadget-card")).toContainText("particular cellular modems");
  const d=page.waitForEvent("download");
  await page.getByRole("button",{name:"Export research checklist"}).click();
  const file=await d;
