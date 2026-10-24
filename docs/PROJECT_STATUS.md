@@ -1,17 +1,19 @@
-# Status register — October 20, 2026
+# McGruber engineering status — 2026-10-24
 
-Evidence classifications: **Reported** = user/project observation without new formal testing; **Proposed** = design route only; **Verified** = reproducible measured evidence in repository.
+**Evidence policy:** OWNER-REPORTED = firsthand user description, not independent test; PHOTOGRAPHED = appearance only; MEASURED = actual recorded meter reading and setup; VERIFIED BUILD = schematic, parts, measurements and repeatable physical test evidence. No standalone no-phone tripwire is verified.
 
-| # | Project | State | Blocking verification |
-|---|---|---|---|
-| 1 | Light-Beam Tripwire | Reported GhostLine demonstration | Independent photo-detector and buzzer circuit |
-| 2 | Motion-Activated Prank | Proposed Acer-webcam or PIR | Webcam/software or standalone motion trigger |
-| 3 | Pop-Up Surprise Box | Proposed mechanical version | Working spring/latch test |
-| 4 | Object-Removal Alarm | Reported mouse-switch salvage | Switch continuity and powered alarm |
-| 5 | Wireless Clicker | Reported fob identification | RF transmission and matching receiver |
-| 6 | Mouse-Powered Gadgets | Reported mice owned | Working mice and salvaged switch measurement |
-| 7 | Standalone Alarm Box | Proposed | Rated buzzer, source and verified wiring |
-| 8 | Invisible IR Tripwire | Proposed | Matched IR pair and test |
-| 9 | Talking/Moving Robot | Reported Elmo donor | Diagnose supply and characterize actuators |
+| ID | Invention | Best actual evidence | Next electrical/mechanical gate | Status |
+|---|---|---|---|---|
+| 01 | Visible optical tripwire | Owner-reported working phone camera with red light at nominal 1, 3, 6, 10, 15 ft; blue emitter/LED-receiver Fluke experiment described | Verify safe transmitter resistor/current, record controlled DC light/dark readings, test 2N4401 switch, identify signal-conditioning chain; then qualify no-phone unit | **Phone demo reported / autonomous electronics unbuilt** |
+| 02 | Motion prank | Camera software architecture provided | Test camera stability or identify a real independent motion detector | Proposed |
+| 03 | Pop-up box | Cardboard/mechanical route available | Record dimensioned 20-cycle low-force latch test | Proposed |
+| 04 | Object-removal alarm | Mouse buttons salvaged | Fluke powered-OFF COM/NO/NC continuity; current-limited LED and 20 cycles | Bench feasible |
+| 05 | Wireless clicker | 433MHz-labeled key fob photographed | Identify matched receiver/decoder | Blocked |
+| 06 | Mouse-powered gadgets | Two mouse optical boards and switches photographed | Pin/contact mapping; first ten switch events | Bench feasible |
+| 07 | Standalone silent control box | 2N4401/2N4403 photographed, LEDs and batteries owned | NPN manual switch demonstration and verified low-voltage supply | Bench feasible |
+| 08 | Invisible infrared tripwire | Amazon R-NZ remote photographed; IR emitter unverified | Find matched IR receiver + source and actual output behavior | Blocked |
+| 09 | Moving / talking robot | Elmo donor reportedly available | Diagnose motor, power supply, drivers and mechanical limits | Blocked |
 
-**No independent finished hardware build is certified by this repository.**
+**Next execution order:** 01 sender-safety + 2N4401 switching and receiver measurements; 04 mouse switch alarm; 07 silent controller; 03 mechanical box. Defer 05/08/09 until hardware is specifically identified.
+
+See [full engineering master plan](ENGINEERING_MASTER_PLAN_2026-10-24.md), [standalone receiver guide](../web/public/beam-detector/standalone-lab.html), and [nine-project engineering control center](../web/public/beam-detector/engineering-hub.html). These documents contain conditional instructions; they are not claims of physical completion.
