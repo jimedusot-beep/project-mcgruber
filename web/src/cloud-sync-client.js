@@ -42,7 +42,7 @@ export class PrivateVault {
     cryptoApi=globalThis.crypto, onStatus=()=>{}}={}) {
     this.fetcher=fetcher;this.prefs=prefs;this.sessionPrefs=sessionPrefs;
     this.cryptoApi=cryptoApi;this.onStatus=onStatus;
-    this.config=null;this.session=null;this.autoPass=null;this.timer=null;this.inFlight=null;
+    this.config=null;this.session=null;this.autoPass=null;this.timer=null;this.inFlight=null;this.lastUploadAt=0;
     try{const saved=JSON.parse(this.prefs?.getItem(CONFIG_KEY)||"null");if(saved)this.config=validateCloudConfig(saved);}catch{}
     this.loadSession();
   }
@@ -210,6 +210,7 @@ export class PrivateVault {
       body:{p_expected_revision:actual,p_new_revision:newRevision,p_object_path:objectPath,p_size_bytes:byteLength}});
     if(!Array.isArray(response)||response[0]?.revision!==newRevision)throw Error("Private vault did not confirm commit.");
     this.rememberBaseline(newRevision,localRevision);
+    this.lastUploadAt=Date.now();
     this.status("Encrypted cloud snapshot saved. Local backup and prior cloud head were protected.");
     return response[0];
   }
@@ -234,6 +235,7 @@ export class PrivateVault {
   scheduleAfterLocalSave(){
     if(!this.autoPass || !this.readCurrent)return;
     if(this.timer!==null)clearTimeout(this.timer);
+    const delay=Math.max(45000, (this.lastUploadAt+10*60*1000)-Date.now());
     this.timer=setTimeout(async()=>{
       this.timer=null;
       if(!this.autoPass||!this.readCurrent)return;
@@ -246,6 +248,24 @@ export class PrivateVault {
         this.stopAuto();
         this.status("Automatic sync PAUSED: "+error.message);
       }
-    },6000);
+    },delay);
+  }
+  async pruneOld(){
+    const head=await this.getHead();
+    const user=this.session.user.id,keep=head?.object_path;
+    const records=await this.request("/storage/v1/object/list/mcgruber-private",{
+      method:"POST",body:{prefix:user+"/",limit:100,sortBy:{column:"created_at",order:"asc"}}});
+    if(!Array.isArray(records))throw Error("Storage cleanup listing failed.");
+    const oldest=Date.now()-24*60*60*1000;
+    const candidate=records.filter(x=>x?.name &&
+       isUUID(String(x.name).replace(/\.mcgruber$/,"")) &&
+       Date.parse(x.created_at)<oldest &&
+       user+"/"+x.name!==keep
+    ).slice(0,50).map(x=>user+"/"+x.name);
+    if(!candidate.length)return 0;
+    await this.request("/storage/v1/object/mcgruber-private",{
+      method:"DELETE",body:{prefixes:candidate}});
+    this.status("Removed "+candidate.length+" old, unreferenced encrypted snapshot objects.");
+    return candidate.length;
   }
 }
