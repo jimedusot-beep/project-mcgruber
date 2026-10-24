@@ -1,0 +1,90 @@
+{
+  "collection": "Owner-confirmed arrivals",
+  "date": "2026-10-24",
+  "source": "User supplied 3 photographs and reported receiving this kit on October 24, 2026",
+  "itemCount": 1,
+  "disclaimer": "This is a separate new-arrivals record, not a replacement for the 23-entry October 23 Rev 4 salvage PDF. No individual discs were counted or tested.",
+  "items": [
+    {
+      "id": "ARR-001",
+      "name": "Dedeco SUNBURST Deluxe radial abrasive assortment",
+      "manufacturer": "Dedeco",
+      "line": "SUNBURST abrasive radial bristle discs",
+      "marking": "DELUxE ASSORTMENT — RADIAL DISCS PINS & MIDGETS — No. 1209",
+      "kitNo": "1209",
+      "packageCount": "116 pieces (printed on kit label; individual items not counted)",
+      "quantity": "1 kit",
+      "acquiredDate": "2026-10-24",
+      "ownership": "Owner-confirmed delivery and shown in three photographs",
+      "evidence": "Owner-supplied photographs: packaging, contents, and printed color/grit reference",
+      "condition": "Kit and loose accessories visibly present in compartments; individual wear and completeness not verified",
+      "category": "Workshop tools and consumables",
+      "kind": "mechanical",
+      "uses": [
+        "Deburring and smoothing 3D-printed enclosures and non-electrical housing edges",
+        "Cleaning oxidation or burrs from suitable disconnected, unplated metal brackets and screws",
+        "Fine finishing of mechanical robot mounts and prototype enclosure surfaces",
+        "Shaping and smoothing small metal/plastic/wood/ceramic parts as appropriate to disc specification"
+      ],
+      "colorGrit": [
+        {
+          "color": "Yellow",
+          "label": "80 grit",
+          "abrasive": "A/O"
+        },
+        {
+          "color": "White",
+          "label": "120 grit",
+          "abrasive": "A/O"
+        },
+        {
+          "color": "Burgundy / maroon",
+          "label": "220 grit",
+          "abrasive": "A/O"
+        },
+        {
+          "color": "Dark blue",
+          "label": "400 grit",
+          "abrasive": "A/O"
+        },
+        {
+          "color": "Pink",
+          "label": "600 grit",
+          "abrasive": "Pumice"
+        },
+        {
+          "color": "Beige / tan",
+          "label": "6 micron",
+          "abrasive": "A/O"
+        },
+        {
+          "color": "Light green",
+          "label": "1 micron",
+          "abrasive": "A/O"
+        }
+      ],
+      "included": [
+        "Multiple color-coded radial bristle discs in molded compartments",
+        "Small pointed abrasive polishing pins / midgets",
+        "Mandrels / metal holders and rotary tool attachments shown",
+        "Assorted thin abrasive finishing pins / sticks",
+        "Printed color/grit assortment guide and quick reference booklet"
+      ],
+      "compatibility": [
+        "A compatible rotary handpiece or motor tool and correct-size mandrel are still required; none shown in these photographs.",
+        "Mandrel/shaft fit, disc mounting method, rated RPM, and exact abrasive composition must be confirmed before powered use.",
+        "No price, individual piece counts, electrical ratings, wear condition or suitable maximum speed were established."
+      ],
+      "safety": [
+        "Wear impact-rated eye protection; use suitable dust capture/ventilation and secure each workpiece.",
+        "Verify disc mounting, manufacturer's operating speed and tool compatibility before running; keep hair, sleeves and hands clear.",
+        "Begin gently on scrap; abrasives can remove plating, solder mask, PCB copper, printed markings or delicate plastic quickly.",
+        "Use only on unpowered, disconnected parts. Do not grind live circuits, assembled battery packs, lithium cells or energized equipment.",
+        "Avoid contact with the skin and never exceed rated speed or use cracked/damaged attachments."
+      ],
+      "photosPublished": false,
+      "photoNote": "Three photographs were supplied privately in chat. Image files/EXIF have not been published to the public GitHub repo; upload copies to your private McGruber workspace only if desired.",
+      "originalRev4Member": false
+    }
+  ]
+}
