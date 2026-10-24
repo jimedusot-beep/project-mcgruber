@@ -132,7 +132,7 @@ const projects = await Promise.all(
     const folder = "projects/" + slug,
       build = await read(folder + "/BUILD.md");
     const procedure =
-      build.split("## Procedure")[1]?.split("## Pass gate")[0] || "";
+      build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] || "";
     return {
       id: "P" + String(i + 1).padStart(2, "0"),
       slug,
