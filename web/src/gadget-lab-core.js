@@ -35,7 +35,7 @@ const labs = [
   description:"Explore advertisement rotation and RSSI uncertainty with synthetic examples; avoid assuming an unknown BLE identifier proves tracking.",
   scenarios:[["passing","Passing broadcast"],["rotating","Identifier rotation"],["multipath","Crowded room / multipath"]],
   checks:[...baseChecks,
-   {id:"privacy",name:"Document privacy retention and false-positive handling",detail:"BLE addresses can rotate and RSSI is not distance. Avoid logging or linking bystander identities without consent."}],
+   {id:"privacy",name:"Document privacy retention and false-positive handling",detail:"BLE addresses can rotate and RSSI is not distance. The nRF24L01 is not a native general-purpose BLE scanner: special advertising emulation does not make it a drop-in BLE discovery radio. Avoid logging or linking bystander identities without consent."}],
   caution:"The examples are fictional and non-identifying. They do not locate trackers, prove ownership or inspect live Bluetooth devices."},
  {id:"G08",title:"RTL-SDR receive-only radio workbench",kind:"spectrum",project:"P05",unit:"simulated relative dB",mode:"Synthetic spectrum exploration",
   description:"Read plotted relative-power frequency bins and practice distinguishing peaks from noise without opening, demodulating or recording any real radio source.",
