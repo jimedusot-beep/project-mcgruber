@@ -82,3 +82,20 @@ This is manual transfer, not automatic cloud synchronization, server upload
 or account recovery. Lost passphrases cannot be recovered. Retain a verified
 backup before clearing a source browser. Plain JSON backups remain available.
 See docs/CLOUD_SYNC_DESIGN.md for limitations and a future private sync plan.
+
+## Gadget Research Library (13 curated references)
+
+Open the Gadget research library (`#/gadgets`) to explore the supplied list of
+13 grouped gadget and DIY concepts. Search by capability, input, material or
+project. Filter by area and development priority. Each record has research
+sources, starter ingredients, a conservative first experiment, specific
+limitations and permission boundaries, links to existing McGruber invention
+pages, and a downloadable Markdown investigation checklist. The library
+contains reference ideas, **not 13 owned gadgets**. Related Rev 4 parts are
+investigation leads only—not approved wiring, validated component fits,
+operating radio devices or proof of electrical performance. Where relevant,
+the library links to Device Brain (virtual sensors and outputs), the Notebook
+and 3D Lab. Nothing transmits RF, collects Bluetooth identifiers, clones
+credentials, tampers with cellular equipment, or opens physical locks.
+All research records are curated; this release does not add an account or
+purchase products, install firmware or claim physical testing.
