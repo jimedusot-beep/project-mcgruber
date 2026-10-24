@@ -24,6 +24,8 @@ Implemented in the existing repository: nine invention workspaces, actual-source
 
 ### Next engineering milestone
 
+The donor-to-power workflow now ships in **Salvage workbench**: mouse/corded-phone/cordless-phone checklists, normalized photo labels, recovered-part links, structured test summaries, explicit requirement matching and low-voltage supply-path checks. See [usage and boundaries](SALVAGE_WORKBENCH.md). The next salvage milestone requires an actual identified donor, real component documentation and measurements; automatic photo recognition remains unimplemented.
+
 1. Validate the app on an actual iPhone Safari, including file selection, multi-touch 3D, interruption/resume, storage pressure and backup transfer. Desktop and emulated WebKit results must remain labeled as such.
 2. Complete a real object-removal alarm evidence package in issue #7: exact switch contact map, loaded supply, resistor and LED ratings, measured results and 20 genuine trials. Keep unknown pinouts unknown.
 3. Media content deduplication, explicit cleanup and multi-tab revision guards now ship. Next, deduplicate mesh assets, add versioned schema migrations and test actual browser quota failures before enlarging local project limits. Keep the ten-revision recovery and export behavior visible.

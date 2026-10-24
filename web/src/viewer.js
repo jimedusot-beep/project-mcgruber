@@ -470,6 +470,8 @@ export async function mountViewer(host, saved, onSave, notify) {
       if (d.schema !== 1 || d.units !== "mm")
         throw Error("Unsupported scene format.");
       const imported = restoreParts(d.parts);
+      // Import adds independent instances; restoring the workspace preserves IDs.
+      imported.forEach((p) => { p.userData.id = newId(); });
       append(imported);
       notify("Scene imported; existing parts retained.");
     } catch (err) {

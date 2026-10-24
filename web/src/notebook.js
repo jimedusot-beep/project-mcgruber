@@ -2,6 +2,7 @@ import { newId } from "./id.js";
 import {
   evidenceTypes,
   validateRecord,
+  validateEvidence,
   repeatExperiment,
   csvExport,
 } from "./core.js";
@@ -53,6 +54,9 @@ export function mountNotebook(ctx) {
       host.innerHTML = "";
       return;
     }
+    // Old records may omit a date; render a usable editor without throwing.
+    draft = { ...emptyRecord(), ...draft };
+    if (Number.isNaN(new Date(draft.date).getTime())) draft.date = new Date().toISOString();
     host.innerHTML = `<form id="experiment-form" class="panel record-form"><div class="section-title"><h2>${records().some((r) => r.id === draft.id) ? "Edit experiment" : "New experiment"}</h2><button type="button" id="close-record">Close editor</button></div><div class="form-grid"><label>Experiment name<input name="name" required maxlength="160" value="${escape(draft.name)}"></label><label>Project<select name="project">${projectOptions(ctx.catalog.projects, draft.project)}</select></label><label>Evidence classification<select name="evidence">${evidenceTypes.map((t) => `<option ${t === draft.evidence ? "selected" : ""}>${escape(t)}</option>`).join("")}</select></label><label>Date and time<input name="date" type="datetime-local" required value="${escape(new Date(new Date(draft.date).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16))}"></label><label>Trial number<input type="number" name="trial" min="1" max="1000000" value="${Number(draft.trial) || 1}"></label><label>Component / asset IDs<input name="componentIds" maxlength="500" value="${escape(draft.componentIds)}" placeholder="EQ-007, C04…"></label><label>Actual measured voltage (V)<input name="voltage" type="number" step="any" value="${escape(draft.voltage)}" placeholder="Leave blank if not measured"></label><label>Actual measured current (mA)<input name="current" type="number" step="any" value="${escape(draft.current)}" placeholder="Leave blank if not measured"></label><label>Instrument and range<input name="instrument" maxlength="300" value="${escape(draft.instrument)}" placeholder="Actual instrument; never inferred"></label><label>Result<select name="result" aria-label="Result">${["Not tested", "Pass", "Fail", "Inconclusive"].map((t) => `<option ${t === draft.result ? "selected" : ""}>${t}</option>`).join("")}</select></label><label class="wide">Configuration / settings<textarea name="configuration" rows="3" maxlength="20000">${escape(JSON.stringify(draft.configuration || {}, null, 2))}</textarea></label><label class="wide">Pass / fail criteria<textarea name="criteria" rows="2" maxlength="3000">${escape(draft.criteria)}</textarea></label><label class="wide">Observations, failures and follow-up tasks<textarea name="observations" rows="4" maxlength="20000">${escape(draft.observations)}</textarea></label><label class="wide">Attach photos or short video (12 MB each, up to 20)<input id="record-media" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/quicktime,video/webm" multiple></label></div><div id="draft-media" class="media-gallery"></div><p class="small muted">Simulation records cannot contain physical measurement fields. “Independently reproduced” requires your named reproduction procedure and evidence. Saving a record does not verify a build.</p><div id="record-error" role="alert"></div><button class="primary" type="submit">Save experiment</button><span id="draft-status" class="small muted">Draft autosaves on this device</span></form>`;
     const form = $("#experiment-form");
     function updateDraft() {
@@ -74,7 +78,9 @@ export function mountNotebook(ctx) {
       const date = new Date(data.date);
       if (!Number.isNaN(date.getTime())) draft.date = date.toISOString();
       try {
-        draft.configuration = JSON.parse(data.configuration);
+        const configuration = JSON.parse(data.configuration);
+        if (configuration && typeof configuration === "object" && !Array.isArray(configuration))
+          draft.configuration = configuration;
       } catch {
         /* Keep last valid configuration while editing. */
       }
@@ -106,44 +112,13 @@ export function mountNotebook(ctx) {
       e.preventDefault();
       try {
         const data = Object.fromEntries(new FormData(form));
-        draft.configuration = JSON.parse(data.configuration);
+        const configuration = JSON.parse(data.configuration);
+        if (!configuration || typeof configuration !== "object" || Array.isArray(configuration))
+          throw Error("Configuration must be a JSON object.");
+        draft.configuration = configuration;
         updateDraft();
         if (!draft.name.trim()) throw Error("Enter an experiment name.");
-        if (
-          draft.evidence === "Simulation data" &&
-          (draft.voltage !== "" ||
-            draft.current !== "" ||
-            draft.instrument.trim())
-        )
-          throw Error(
-            "Keep simulation readings in configuration. Physical measurement fields must remain blank.",
-          );
-        if (
-          [
-            "Physically measured result",
-            "Independently reproduced result",
-          ].includes(draft.evidence)
-        ) {
-          if (
-            !draft.instrument.trim() ||
-            !draft.observations.trim() ||
-            !draft.criteria.trim()
-          )
-            throw Error(
-              "Measured evidence needs an instrument, observations and criteria.",
-            );
-          if (draft.voltage === "" && draft.current === "")
-            throw Error(
-              "Enter an actual voltage or current measurement, or use Reported observation for a mechanical test.",
-            );
-          if (
-            draft.evidence === "Independently reproduced result" &&
-            !draft.attachments.length
-          )
-            throw Error(
-              "Attach evidence of the independently reproduced test.",
-            );
-        }
+        validateEvidence(draft);
         validateRecord(draft);
         const old = records().findIndex((r) => r.id === draft.id);
         if (old >= 0) ctx.workspace.records[old] = structuredClone(draft);

@@ -6,6 +6,7 @@ import { projectHTML, mountProject } from "./project.js";
 import { circuitHTML, mountCircuit } from "./circuit.js";
 import { notebookHTML, mountNotebook } from "./notebook.js";
 import { inventoryHTML, mountInventory } from "./inventory.js";
+import { salvageHTML, mountSalvage } from "./salvage.js";
 const app = $("#app");
 let cleanup,
   renderEpoch = 0,
@@ -110,6 +111,7 @@ const ctx = {
 };
 const nav = [
   ["", "home", "Workshop"],
+  ["salvage", "parts", "Salvage workbench"],
   ["circuit", "circuit", "Circuit lab"],
   ["viewer", "cube", "3D lab"],
   ["components", "parts", "Component bank"],
@@ -495,9 +497,12 @@ async function route() {
       if (epoch === renderEpoch) cleanup = dispose;
       else dispose();
       document.title = "Tripwire 3D assembly — McGruber Lab";
+    } else if (name === "salvage") {
+      main.innerHTML = salvageHTML();
+      cleanup = mountSalvage(ctx, parts[1]);
     } else if (name === "components") {
       main.innerHTML = inventoryHTML();
-      mountInventory(ctx);
+      mountInventory(ctx, { deviceId: parts[1], partId: parts[2] });
     } else if (name === "notebook") {
       main.innerHTML = notebookHTML(ctx);
       cleanup = mountNotebook(ctx);

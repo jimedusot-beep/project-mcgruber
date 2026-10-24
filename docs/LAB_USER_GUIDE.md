@@ -8,6 +8,12 @@ Open an invention and choose **Experiment** for a labeled conceptual/logic demon
 
 New workspaces open with a colorful light theme: yellow, coral, lavender, blue and mint backgrounds with readable content panels. Use the theme button for the darker purple/blue/teal palette. Your saved theme choice is retained.
 
+## Salvage a mouse or landline phone
+
+Open **Salvage workbench** to create a donor-device record, follow a preparation checklist, label your own teardown photos, link recovered parts, record their tests and plan a battery supply. The live shortlist updates from explicitly associated inventory and passing test summaries. Battery plans check operating ranges, startup current, regulator constraints, polarity and supporting circuits; unknowns prevent a candidate result. A worked switch/LED example uses clearly labeled teaching values. See the [salvage workbench guide](SALVAGE_WORKBENCH.md) for the complete workflow and limitations.
+
+Full backups include the new records, plans, photos and labels. There is no automatic photo identification or charging-circuit design.
+
 ## Inspecting models
 
 1. Open **3D lab**. It loads the original generic angle-support STL. This model is unprinted and fit-unverified.
