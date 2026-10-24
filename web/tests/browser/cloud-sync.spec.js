@@ -18,6 +18,8 @@ test("mocked provider performs verified opt-in encrypted first push without expo
  await page.route("https://mock-lab.supabase.co/**",async route=>{
    const url=new URL(route.request().url());
    const path=url.pathname,method=route.request().method();
+   const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"apikey,authorization,content-type,x-upsert","Access-Control-Allow-Methods":"GET,POST,OPTIONS,DELETE"};
+   if(method==="OPTIONS"){await route.fulfill({status:204,headers:cors});return;}
    let status=200,body={};
    if(path==="/auth/v1/otp"){body={sent:true};}
    else if(path==="/auth/v1/verify")body={
@@ -40,7 +42,7 @@ test("mocked provider performs verified opt-in encrypted first push without expo
        body=[head];
      }
    }else{status=404;body={message:"unknown mocked route "+path};}
-   await route.fulfill({status,contentType:"application/json",body:JSON.stringify(body)});
+   await route.fulfill({status,headers:cors,contentType:"application/json",body:JSON.stringify(body)});
  });
  await page.goto("/#/settings");
  await page.locator("#cloud-config-area summary").click();
