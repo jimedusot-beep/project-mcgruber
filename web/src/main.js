@@ -395,7 +395,10 @@ async function mountSettings() {
       await route();
     } catch (err) {
       if (err instanceof storage.WorkspaceConflictError) showSaveProblem(err);
-      else notify(err.message);
+      else {
+        $("#backup-status").textContent = "Import rejected: " + err.message + ". Existing workspace retained.";
+        notify(err.message);
+      }
     }
     e.target.value = "";
   };
