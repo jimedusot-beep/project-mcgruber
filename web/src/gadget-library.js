@@ -41,6 +41,7 @@ export function mountGadgetLibrary(ctx) {
      '</details>'+
      '<div class="small gadget-sources"><strong>Sources:</strong> '+g.sources.map(([name,url])=>link(url,name)).join(" · ")+'</div>'+
      '<div class="row wrap gadget-actions"><a class="button" href="#/'+escape(g.tool)+'">Open '+escape(g.tool==="device-brain"?"Device Brain":g.tool==="viewer"?"3D Lab":g.tool==="assistant"?"Workshop Intelligence":g.tool==="notebook"?"Notebook":g.tool==="salvage"?"Salvage Workbench":"Circuit Lab")+'</a>'+
+     (g.priority==="Start"?'<a class="button primary" href="#/labs/'+escape(g.id)+'">Open simulation & readiness →</a>':'')+
      '<button type="button" data-gadget-export="'+escape(g.id)+'">Export research checklist</button></div>'+
      '</article>').join(""):'<div class="panel"><h3>No matches found</h3><p>Try a different category or search term.</p></div>';
    $$("[data-gadget-export]").forEach(b=>b.onclick=()=>{
