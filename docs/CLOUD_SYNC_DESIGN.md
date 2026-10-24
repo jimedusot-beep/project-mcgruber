@@ -21,3 +21,27 @@ Local storage can be evicted, especially in temporary/private browsing. A persis
 Workspace writes compare revision IDs inside the same IndexedDB transaction as the new snapshot. A stale tab cannot replace a newer workspace; it pauses autosave and offers export or preservation of its local draft before loading the latest version. Recovery drafts count toward the ten-revision history limit. There is no semantic merge across records. Existing schema-1 workspaces gain revision metadata on their next successful save without dropping their content.
 
 Secure-context uploads use a content hash of MIME type and bytes to share identical media. An insecure development preview falls back to unique IDs. Backup restore remaps media IDs and writes imported bytes and workspace atomically, protecting older revisions from ID collisions. Manual cleanup checks current, draft and recovery references in one transaction, checks the workspace revision and keeps unused uploads for at least 24 hours. The Settings panel reports stored and referenced media. Actual iPhone eviction, quota failure and interruption behavior still require device testing.
+
+
+## Implemented milestone: encrypted *manual* cross-device transfer
+
+McGruber now offers an optional encrypted full-backup workflow in Settings. It uses
+WebCrypto PBKDF2-HMAC-SHA-256 (310,000 iterations, a fresh 128-bit salt) to derive
+an AES-256-GCM key with a fresh 96-bit nonce per export and authenticated
+encryption. The file includes the existing full backup, including media and
+workspace records, and never uploads it. Neither passwords nor derived keys
+are persisted. Export requires a confirmed passphrase of 12–256 characters;
+restore authenticates the file *before* asking to replace local workspace.
+Incorrect keys, malformed or tampered files leave the existing workspace
+unchanged. Plaintext full backups are still available, labeled accordingly.
+
+This is **not automatic cloud synchronization** or account-based recovery.
+It is explicit, portable, passphrase-protected file transfer. Lost passphrases
+cannot be recovered. Large backups may require substantial memory when
+encrypting/decrypting in a mobile browser. Do not treat manual file transfer as
+a substitute for a dedicated private, authenticated backend.
+
+Future optional live sync requires a backend with per-account authentication,
+least-privilege storage, media APIs, server-side access control, conflict-safe
+revisions, revocation, rate/size limits, encrypted transport and recovery tests.
+Never upload personal inventories or photos to the public GitHub Pages repository.
