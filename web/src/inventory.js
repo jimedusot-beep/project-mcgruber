@@ -5,8 +5,9 @@ import { csvExport } from "./core.js";
 import { partKinds, unpoweredTests, validateInventoryPart } from "./salvage-core.js";
 import { matchHTML } from "./salvage.js";
 import { referenceInventoryHTML, referenceToPersonalPart } from "./rev4-inventory.js";
+import { ownerArrivalsHTML, arrivalToPersonalPart } from "./new-arrivals.js";
 export function inventoryHTML() {
-  return `${heading("Make the most of what you have", "Component bank", "Sixteen requirements, twelve earlier equipment reports, and your 23-entry Rev 4 salvage reference.", '<button id="add-component" class="primary">+ Identify / add a part</button><a class="button" href="#/assistant">What can I build? →</a>')}<div class="notice">Reported ownership is separate from tested function. The dependency matrix describes planned use, not established electrical compatibility. Unknown salvaged parts retain unknown pinouts.</div><div class="row wrap tools"><label class="search">Search components & equipment<input id="component-search" type="search" placeholder="Switch, Fluke, sensor, asset ID…"></label><label>View<select id="component-view"><option value="requirements">16 component requirements</option><option value="equipment">12 earlier equipment groups</option><option value="reference">23 Rev 4 reference entries</option><option value="personal">My identified inventory</option><option value="dependencies">Project dependencies</option></select></label><label>Category / status<select id="component-filter"><option value="all">All</option><option>Detection</option><option>Control</option><option>Outputs</option><option>Power and Construction</option><option>Owned</option><option>Needed</option><option>Salvaged</option><option>Donated</option><option>Purchased</option><option>Unverified</option><option>Optics</option><option>Power</option><option>Wiring</option><option>Other</option></select></label><button id="component-export">Export my inventory CSV</button></div><div id="component-editor"></div><div id="component-compare"></div><div id="component-results"></div>`;
+  return `${heading("Make the most of what you have", "Component bank", "Sixteen requirements, twelve earlier equipment reports, your 23-entry Rev 4 salvage reference, and separately tracked new arrivals.", '<button id="add-component" class="primary">+ Identify / add a part</button><a class="button" href="#/assistant">What can I build? →</a>')}<div class="notice">Reported ownership is separate from tested function. The dependency matrix describes planned use, not established electrical compatibility. Unknown salvaged parts retain unknown pinouts.</div><div class="row wrap tools"><label class="search">Search components & equipment<input id="component-search" type="search" placeholder="Switch, Fluke, sensor, asset ID…"></label><label>View<select id="component-view"><option value="requirements">16 component requirements</option><option value="equipment">12 earlier equipment groups</option><option value="reference">23 Rev 4 reference entries</option><option value="arrivals">New arrivals · owned kits</option><option value="personal">My identified inventory</option><option value="dependencies">Project dependencies</option></select></label><label>Category / status<select id="component-filter"><option value="all">All</option><option>Detection</option><option>Control</option><option>Outputs</option><option>Power and Construction</option><option>Owned</option><option>Needed</option><option>Salvaged</option><option>Donated</option><option>Purchased</option><option>Unverified</option><option>Optics</option><option>Power</option><option>Wiring</option><option>Other</option><option>Workshop tools and consumables</option></select></label><button id="component-export">Export my inventory CSV</button></div><div id="component-editor"></div><div id="component-compare"></div><div id="component-results"></div>`;
 }
 export function mountInventory(ctx, { deviceId, partId } = {}) {
   let compared = new Set();
@@ -52,6 +53,8 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
         )}</tbody></table></div><p class="small muted">User inventory associations do not automatically mark the original requirements compatible or verified. Final electrical matching needs measured interfaces and revision-specific evidence.</p></div>`;
     } else if (view === "reference") {
       html = referenceInventoryHTML(ctx.catalog.rev4Inventory, query, filter, ctx.workspace.inventory);
+    } else if (view === "arrivals") {
+      html = ownerArrivalsHTML(ctx.catalog.newArrivals, query, ctx.workspace.inventory);
     } else if (view === "equipment") {
       const list = ctx.catalog.inventory.filter((c) =>
         JSON.stringify(c).toLowerCase().includes(query),
@@ -93,6 +96,21 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
       ctx.workspace.inventory.push(part);
       return true;
     }
+    $$("[data-import-arrival]").forEach((button) => {
+      button.onclick = () => {
+        const entry=ctx.catalog.newArrivals?.items.find((x)=>x.id===button.dataset.importArrival);
+        if (!entry || ctx.workspace.inventory.some((p)=>p.sourceArrivalId===entry.id)) {
+          ctx.notify("This arrival has already been saved to your private inventory.");
+          return;
+        }
+        const part=arrivalToPersonalPart(entry,"PART-"+newId().slice(0,8));
+        validateInventoryPart(part);
+        ctx.workspace.inventory.push(part);
+        ctx.save();
+        render();
+        ctx.notify("Dedeco SUNBURST kit saved as one privately owned workshop tool; no performance or individual quantity claims added.");
+      };
+    });
     $$("[data-import-reference]").forEach((button) => {
       button.onclick = () => {
         const item = ctx.catalog.rev4Inventory.items.find((entry) => entry.id === button.dataset.importReference);

@@ -30,3 +30,21 @@ Private inventory data lives in the current browser’s IndexedDB. Export a full
 4. Verify optical geometry and shielding before attempting 6–15 feet; no suitable matched detector or retroreflector has been established.
 
 Keep all unknown rechargeable cells and the HyperGear bank intact; unplug any legacy telephone from its line before accessing components. Use manufacturer identification and evidence before powered experiments.
+
+## Later owner-confirmed arrivals
+
+The October 23 Rev 4 PDF is an immutable historic source and intentionally remains 23 entries.
+On October 24, 2026 the owner supplied three photographs of a newly delivered Dedeco
+SUNBURST No. 1209 Deluxe Radial Discs, Pins & Midgets Assortment, marked 116 pieces.
+It is a separate *owned workshop tool kit* (not electronic salvage) in
+[owner-new-arrivals.json](owner-new-arrivals.json), item ARR-001. The kit is
+visible in photographs, but its 116 individually packaged pieces have not been
+counted or assessed for wear or speed ratings.
+
+Open **Component Bank → View → New arrivals · owned kits** to inspect the color/grit
+reference and safety notes. The optional **Add this kit to My inventory** action
+creates one owned, untested local item and refuses duplicate ARR-001 imports.
+Do not tally 116 individually verified spare parts or treat abrasives as a PCB
+electronic requirement. The owner's three original photos are **not** published
+to public GitHub; the source record is text-only. Local photo attachments can
+be added privately later.
