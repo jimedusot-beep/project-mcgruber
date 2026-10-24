@@ -2,13 +2,13 @@
 
 ## Shipping behavior
 
-All user-created records, inventory identifications, drafts, media and mesh scenes stay in browser IndexedDB. A full JSON backup is the supported device-transfer method. The public repository and GitHub Pages contain only source code and original published repository assets. No credential is requested or stored by the app. Local autosave and public contribution are distinct actions.
+All user-created records, inventory identifications, drafts, media and mesh scenes stay in browser IndexedDB. A full JSON backup is the supported device-transfer method. The public repository and GitHub Pages contain only source code and original published repository assets. No privileged server secret is requested by the app. Once explicitly configured, the private vault accepts a public Supabase publishable key, a tab-scoped email-auth session and an in-memory encryption passphrase. Local autosave and public contribution are distinct actions.
 
-Account sync is **not implemented**. GitHub Pages cannot keep an OAuth client secret or a privileged installation token confidential. A PAT in JavaScript, local storage, a query string or a checked-in environment file is not an acceptable substitute.
+Account sync is **not enabled by default**. An optional encrypted Supabase vault integration now exists in this repository, but it is not usable until the owner provisions the private backend and explicitly opts in. GitHub Pages cannot keep an OAuth client secret or a privileged installation token confidential. A PAT in JavaScript, local storage, a query string or a checked-in environment file is not an acceptable substitute.
 
 ## Proposed backend boundary
 
-If the user later chooses an eligible free host and explicitly authorizes account setup, deploy a small authenticated backend with a GitHub App configured for only the repositories and operations needed. Use server-side OAuth code exchange with state/CSRF protection, short-lived app installation tokens, exact redirect allowlisting, Secure/HttpOnly/SameSite cookies, authorization on every project operation, upload size/type limits and revision conflicts. Keep secrets in the host's secret store, not frontend bundles. Review the provider's then-current free plan, retention, private-storage guarantees and limits before activation; no subscription or spending is authorized here.
+The implemented optional provider is a private Supabase project configured by the owner, rather than a GitHub App. No GitHub App credential or installation token is required for private vault data; the public GitHub repository is never the storage target. For publishing as a separate future feature, use independently reviewed OAuth code exchange and GitHub App permissions. Use server-side OAuth code exchange with state/CSRF protection, short-lived app installation tokens, exact redirect allowlisting, Secure/HttpOnly/SameSite cookies, authorization on every project operation, upload size/type limits and revision conflicts. Keep secrets in the host's secret store, not frontend bundles. Review the provider's then-current free plan, retention, private-storage guarantees and limits before activation; no subscription or spending is authorized here.
 
 Use private storage for drafts and attachments. Publishing a draft to the public McGruber repository must have a separate explicit review screen displaying exact files, audience, evidence classification and revision. Saving must never publish as a side effect. GitHub's public repository is not the private media backend.
 
@@ -45,3 +45,16 @@ Future optional live sync requires a backend with per-account authentication,
 least-privilege storage, media APIs, server-side access control, conflict-safe
 revisions, revocation, rate/size limits, encrypted transport and recovery tests.
 Never upload personal inventories or photos to the public GitHub Pages repository.
+
+
+## Implemented opt-in vault integration (backend still requires owner setup)
+
+See [Supabase operator instructions](../supabase/README.md) and [private vault migration](../supabase/migrations/202610240001_private_vault.sql).
+
+McGruber's new Settings panel supports a configured Supabase project URL and **public** publishable/anon key, numerical Email OTP account authentication, client-side encrypted full-workspace snapshots (AES-256-GCM), private Storage bucket paths scoped to the authenticated account, and a PostgreSQL RPC which atomically compares the stored remote revision before replacing its head pointer. It preserves local IndexedDB saving even if the remote upload, auth or quota fails.
+
+When the owner uploads to an empty vault, that initial encrypted snapshot is the base. A second device must explicitly decrypt and restore the current cloud head before uploading. A newer remote head or concurrent upload triggers a **visible conflict**, not a last-writer-wins overwrite. A successful download is authenticated and decrypted before local restore confirmation. Missing media aborts the snapshot, and existing local recovery history is protected. The optional auto-upload switch operates only while this browser tab is open, with a 45-second debounce / 10-minute minimum interval and the passphrase held in memory. It never silently downloads and overwrites another device's changes.
+
+RLS guards both owner-only database head reads and private ciphertext objects. Encrypted orphan objects older than 24 hours can be pruned by the owner after checking they are not active. Object size is capped at 30 MiB; large backups may require the existing manual encrypted transfer instead. Account metadata and ciphertext size are visible to the provider. The client stores only the public project endpoint in localStorage; the account refresh token is scoped to sessionStorage, and the encryption passphrase is neither stored nor recoverable.
+
+**No Supabase project, email SMTP, bucket, account or live cloud service has been created by these changes.** This is a deployable but disabled-by-default implementation. Mock-authentication and concurrency unit/browser tests cannot replace an end-to-end live RLS and mobile-device security test.
