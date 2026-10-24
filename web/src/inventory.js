@@ -4,8 +4,9 @@ import { download } from "./storage.js";
 import { csvExport } from "./core.js";
 import { partKinds, unpoweredTests, validateInventoryPart } from "./salvage-core.js";
 import { matchHTML } from "./salvage.js";
+import { referenceInventoryHTML, referenceToPersonalPart } from "./rev4-inventory.js";
 export function inventoryHTML() {
-  return `${heading("Make the most of what you have", "Component bank", "Sixteen requirements. Twelve reported equipment groups. One honest view of what is ready.", '<button id="add-component" class="primary">+ Identify / add a part</button>')}<div class="notice">Reported ownership is separate from tested function. The dependency matrix describes planned use, not established electrical compatibility. Unknown salvaged parts retain unknown pinouts.</div><div class="row wrap tools"><label class="search">Search components & equipment<input id="component-search" type="search" placeholder="Switch, Fluke, sensor, asset ID…"></label><label>View<select id="component-view"><option value="requirements">16 component requirements</option><option value="equipment">12 reported equipment groups</option><option value="personal">My identified inventory</option><option value="dependencies">Project dependencies</option></select></label><label>Category / status<select id="component-filter"><option value="all">All</option><option>Detection</option><option>Control</option><option>Outputs</option><option>Power and Construction</option><option>Owned</option><option>Needed</option><option>Salvaged</option><option>Donated</option><option>Purchased</option><option>Unverified</option></select></label><button id="component-export">Export my inventory CSV</button></div><div id="component-editor"></div><div id="component-compare"></div><div id="component-results"></div>`;
+  return `${heading("Make the most of what you have", "Component bank", "Sixteen requirements, twelve earlier equipment reports, and your 23-entry Rev 4 salvage reference.", '<button id="add-component" class="primary">+ Identify / add a part</button>')}<div class="notice">Reported ownership is separate from tested function. The dependency matrix describes planned use, not established electrical compatibility. Unknown salvaged parts retain unknown pinouts.</div><div class="row wrap tools"><label class="search">Search components & equipment<input id="component-search" type="search" placeholder="Switch, Fluke, sensor, asset ID…"></label><label>View<select id="component-view"><option value="requirements">16 component requirements</option><option value="equipment">12 earlier equipment groups</option><option value="reference">23 Rev 4 reference entries</option><option value="personal">My identified inventory</option><option value="dependencies">Project dependencies</option></select></label><label>Category / status<select id="component-filter"><option value="all">All</option><option>Detection</option><option>Control</option><option>Outputs</option><option>Power and Construction</option><option>Owned</option><option>Needed</option><option>Salvaged</option><option>Donated</option><option>Purchased</option><option>Unverified</option><option>Optics</option><option>Power</option><option>Wiring</option><option>Other</option></select></label><button id="component-export">Export my inventory CSV</button></div><div id="component-editor"></div><div id="component-compare"></div><div id="component-results"></div>`;
 }
 export function mountInventory(ctx, { deviceId, partId } = {}) {
   let compared = new Set();
@@ -49,6 +50,8 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
         .join(
           "",
         )}</tbody></table></div><p class="small muted">User inventory associations do not automatically mark the original requirements compatible or verified. Final electrical matching needs measured interfaces and revision-specific evidence.</p></div>`;
+    } else if (view === "reference") {
+      html = referenceInventoryHTML(ctx.catalog.rev4Inventory, query, filter, ctx.workspace.inventory);
     } else if (view === "equipment") {
       const list = ctx.catalog.inventory.filter((c) =>
         JSON.stringify(c).toLowerCase().includes(query),
@@ -83,6 +86,30 @@ export function mountInventory(ctx, { deviceId, partId } = {}) {
         : '<div class="empty panel"><h2>No matching items.</h2><p>Add a part to record markings, evidence and project associations.</p></div>';
     }
     $("#component-results").innerHTML = html;
+    function importReference(item) {
+      if (!item || item.subassemblyOf || ctx.workspace.inventory.some((part) => part.sourceReferenceId === item.id)) return false;
+      const part = referenceToPersonalPart(item, "PART-" + newId().slice(0, 8));
+      validateInventoryPart(part);
+      ctx.workspace.inventory.push(part);
+      return true;
+    }
+    $$("[data-import-reference]").forEach((button) => {
+      button.onclick = () => {
+        const item = ctx.catalog.rev4Inventory.items.find((entry) => entry.id === button.dataset.importReference);
+        if (!importReference(item)) { ctx.notify("Already imported or linked under remote #10."); return; }
+        ctx.save();
+        render();
+        ctx.notify("Reference added to your private inventory as untested equipment.");
+      };
+    });
+    const importAll = $("#import-master-inventory");
+    if (importAll) importAll.onclick = () => {
+      let count = 0;
+      for (const item of ctx.catalog.rev4Inventory.items) if (importReference(item)) count++;
+      if (count) ctx.save();
+      render();
+      ctx.notify(count ? count + " new groups copied privately. No test results were invented." : "All 22 distinct groups are already recorded on this device.");
+    };
     $$("[data-component-compare]").forEach(
       (el) =>
         (el.onchange = () => {

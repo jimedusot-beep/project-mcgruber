@@ -171,6 +171,9 @@ const components = requirements.map((r, i) => ({
   note: matrix[i].notes,
 }));
 const inventory = csv(await read("component-bank/inventory-v2.csv"));
+const rev4Inventory = JSON.parse(await read("component-bank/master-salvage-inventory.json"));
+if (rev4Inventory.items.length !== 23 || rev4Inventory.items.filter((item) => !item.subassemblyOf).length !== 22 || new Set(rev4Inventory.items.map((item) => item.id)).size !== 23)
+  throw Error("Rev 4 master inventory coverage regression");
 const documents = [];
 await rm(path.join(publicDir, "repository"), { recursive: true, force: true });
 for (const dir of [
@@ -213,6 +216,7 @@ const catalog = {
   projects,
   components,
   inventory,
+  rev4Inventory,
   documents,
 };
 await mkdir(path.join(publicDir, "licenses"), { recursive: true });
@@ -226,6 +230,6 @@ await cp(
 );
 await writeFile(path.join(publicDir, "catalog.json"), JSON.stringify(catalog));
 console.log(
-  `Catalog: ${projects.length} inventions, ${components.length} requirements, ${inventory.length} equipment groups, ${documents.length} source files.`,
+  `Catalog: ${projects.length} inventions, ${components.length} requirements, ${inventory.length} legacy equipment groups, ${rev4Inventory.items.length} Rev 4 records, ${documents.length} source files.`,
 );
 
