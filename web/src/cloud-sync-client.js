@@ -41,12 +41,12 @@ export class PrivateVault {
     prefs=globalThis.localStorage, sessionPrefs=globalThis.sessionStorage,
     cryptoApi=globalThis.crypto, onStatus=()=>{}}={}) {
     this.fetcher=fetcher;this.prefs=prefs;this.sessionPrefs=sessionPrefs;
-    this.cryptoApi=cryptoApi;this.onStatus=onStatus;
+    this.cryptoApi=cryptoApi;this.onStatus=onStatus;this.lastStatus="Local autosave is active. Cloud sync has not been enabled.";
     this.config=null;this.session=null;this.autoPass=null;this.timer=null;this.inFlight=null;this.lastUploadAt=0;
     try{const saved=JSON.parse(this.prefs?.getItem(CONFIG_KEY)||"null");if(saved)this.config=validateCloudConfig(saved);}catch{}
     this.loadSession();
   }
-  status(text){this.onStatus(text);}
+  status(text){this.lastStatus=text;this.onStatus(text);}
   configSessionKey(){return prefix+"session:"+this.config?.url;}
   baselineKey(){return prefix+"base:"+this.config?.url+":"+(this.session?.user?.id||"signed-out");}
   loadSession(){
