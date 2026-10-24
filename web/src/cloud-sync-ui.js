@@ -134,11 +134,12 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
    vault.enableAuto(pass,freeze);
    scrub();
  });
- get("cloud-stop").onclick=()=>{vault.stopAuto();text("cloud-status","Automatic cloud sync paused. Local autosave remains enabled.");refresh();};
+ get("cloud-stop").onclick=()=>{vault.stopAuto();vault.status("Automatic cloud sync paused. Local autosave remains enabled.");refresh();};
  get("cloud-prune").onclick=withError(async()=>{
    if(!confirm("Delete only your encrypted cloud objects older than 24 hours that are not the currently active revision? Local data is unaffected."))return;
    const count=await vault.pruneOld();
    text("cloud-status",count ? count+" old encrypted snapshots removed. Current revision retained." : "No eligible old cloud snapshots found.");
  });
  refresh();
+ text("cloud-status",vault.lastStatus);
 }
