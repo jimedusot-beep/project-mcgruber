@@ -6,10 +6,20 @@ import { encryptTransfer, decryptTransfer } from "./secure-transfer.js";
 export const MAX_CLOUD_BYTES = 30 * 1024 * 1024;
 const CONFIG_KEY = "mcgruber-sync-public-endpoint-v1";
 const prefix = "mcgruber-sync-";
+function publicKeyOnly(key){
+  if(/^sb_publishable_[A-Za-z0-9_-]+$/.test(key)) return true;
+  // Legacy anon key is a JWT. Reject embedded service_role (server secret)
+  // rather than saving it to the browser as a supposed public key.
+  if(!/^eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(key))
+    return false;
+  try{
+    const payload=JSON.parse(atob(key.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+    return payload.role==="anon";
+  }catch{return false;}
+}
 const allowedConfig = (url,key) =>
   /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url) &&
-  /^(?:sb_publishable_[A-Za-z0-9_-]+|eyJ[A-Za-z0-9_.-]+)$/.test(key) &&
-  key.length <= 2400;
+  publicKeyOnly(key) && key.length <= 2400;
 const metaRevision = (s) => s?.revision || null;
 export class RemoteConflictError extends Error {
   constructor() {
@@ -196,6 +206,9 @@ export class PrivateVault {
     // even when its contents may resemble this device's inventory.
     if(actual !== (base?.remoteRevision??null))throw new RemoteConflictError();
     if(base?.remoteRevision && !remote)throw new RemoteConflictError();
+    // Prevent an accidental wrong-passphrase upload from replacing the only
+    // readable cloud copy. A subsequent push must unlock the current head.
+    if(remote) await decryptTransfer(await this.downloadEncrypted(remote),passphrase,this.cryptoApi);
     const encrypted=await encryptTransfer(backupText,passphrase,this.cryptoApi);
     const byteLength=new TextEncoder().encode(encrypted).byteLength;
     if(byteLength>MAX_CLOUD_BYTES)throw Error("Encrypted cloud backup exceeds 30 MB. Use a local encrypted export, reduce media or provision an approved larger backend.");
