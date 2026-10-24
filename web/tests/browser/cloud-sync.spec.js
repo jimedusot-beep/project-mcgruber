@@ -7,7 +7,7 @@ test("private vault stays disabled until explicitly configured; no cloud upload 
  await expect(page.getByRole("heading",{name:"Secure cross-device sync"})).toBeVisible();
  await expect(page.locator("#cloud-upload")).toBeDisabled();
  await expect(page.locator("#cloud-restore")).toBeDisabled();
- await expect(page.locator("#cloud-status")).toContainText("Local saving continues");
+ await expect(page.locator("#cloud-status")).toContainText("Local autosave is active");
  await expect(page.locator("#cloud-connection-note")).toContainText("No private cloud provider configured");
  expect(errors).toEqual([]);
 });
