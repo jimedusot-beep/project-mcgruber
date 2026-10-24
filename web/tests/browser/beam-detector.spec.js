@@ -18,9 +18,9 @@ async function syntheticCamera(page) {
     };
   });
 }
-test('V4 automatically counts ten synthetic crossings and invalidates a running range test on stop',async({page})=>{
+test('V5 automatically counts ten synthetic crossings and invalidates a running range test on stop',async({page})=>{
   await syntheticCamera(page);await page.goto('/beam-detector/');
-  await expect(page.locator('#build-version')).toHaveText('V4 · Build + Test');
+  await expect(page.locator('#build-version')).toHaveText('V5 · Camera + Standalone Engineering Lab');
   await page.locator('#start').click();await page.waitForTimeout(600);await page.locator('#arm').click();
   await expect(page.locator('#state')).toHaveText('BEAM DETECTED');await page.locator('#begin-test').click();
   for(let i=0;i<10;i++){await page.evaluate(()=>window.testLight=false);await page.waitForTimeout(350);await page.evaluate(()=>window.testLight=true);await page.waitForTimeout(350);}
