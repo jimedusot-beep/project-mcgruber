@@ -28,16 +28,18 @@ export function cloudSettingsHTML(){
  '<div class="row wrap"><button type="button" id="cloud-send-code">Email me a sign-in code</button>'+
  '<button type="button" id="cloud-verify-code">Verify code</button><button type="button" id="cloud-sign-out">Sign out of cloud</button></div>'+
  '<p id="cloud-login-note" class="small muted">Cloud account not signed in.</p>'+
- '<label>Separate vault-encryption passphrase (12+ characters)<input type="password" id="cloud-passphrase" minlength="12" maxlength="256" autocomplete="off" placeholder="Same passphrase on both devices"></label>'+
+ '<div class="form-grid"><label>Separate vault-encryption passphrase (12+ characters)<input type="password" id="cloud-passphrase" minlength="12" maxlength="256" autocomplete="off" placeholder="Same passphrase on both devices"></label>'+
+ '<label>Confirm passphrase for upload<input type="password" id="cloud-passphrase-confirm" minlength="12" maxlength="256" autocomplete="off" placeholder="Retype before uploading"></label></div>'+
  '<p class="small muted">This passphrase only stays in memory while this tab is open. It cannot be recovered by the provider. Keep it securely; a lost passphrase means losing access to the encrypted cloud content.</p>'+
  '<div class="row wrap"><button type="button" id="cloud-check">Check latest remote revision</button>'+
  '<button type="button" id="cloud-upload" class="primary">Encrypt and sync this browser now</button>'+
  '<button type="button" id="cloud-restore">Restore cloud copy to this browser</button>'+
  '<button type="button" id="cloud-download">Download encrypted cloud snapshot</button></div>'+
  '<div class="row wrap"><button type="button" id="cloud-auto">Enable auto-sync for this tab</button>'+
- '<button type="button" id="cloud-stop">Pause automatic sync</button></div>'+
+ '<button type="button" id="cloud-stop">Pause automatic sync</button>'+
+ '<button type="button" id="cloud-prune">Remove old unreferenced cloud snapshots</button></div>'+
  '<p class="small muted">A first upload is allowed only when the cloud vault is empty. An existing remote revision must first be restored and accepted locally. A stale tab or second device cannot overwrite a newer cloud revision; conflicts pause auto-sync instead of silently merging. Encryption protects contents, not metadata such as account identity or file size.</p>'+
- '<p class="small muted"><strong>Quota:</strong> max 30 MB per encrypted snapshot. Old encrypted uploads are not yet automatically cleaned up; repeated syncs consume provider storage. Automatic sync is session-only and is paused after errors. On phone, restore using the same account and passphrase. Do not mistake the workflow for a continuously running background service.</p>'+
+ '<p class="small muted"><strong>Quota:</strong> max 30 MB per encrypted snapshot. Old encrypted uploads are not yet automatically cleaned up; repeated syncs consume provider storage. Automatic sync is session-only, debounced and rate-limited to reduce storage costs; it pauses after errors. Old uploaded files can be removed after 24 hours. On phone, restore using the same account and passphrase. Do not mistake the workflow for a continuously running background service.</p>'+
  '<p id="cloud-head" class="small muted"></p><p id="cloud-status" role="status" aria-live="polite">Local saving continues; cloud sync has not been activated.</p>'+
  '<a href="#/docs/docs/CLOUD_SYNC_DESIGN.md">Security model and complete setup instructions →</a>'+
  '</section>';
@@ -47,7 +49,7 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
  const get=(id)=>$("#"+id);
  const text=(id,value)=>{const e=get(id);if(e)e.textContent=value;};
  const passphrase=()=>get("cloud-passphrase")?.value||"";
- const scrub=()=>{const e=get("cloud-passphrase");if(e)e.value="";};
+ const scrub=()=>{for(const id of ["cloud-passphrase","cloud-passphrase-confirm"]){const e=get(id);if(e)e.value="";}};
  const freeze=async()=>{
    await flushSave();
    const snapshot=structuredClone(getWorkspace());
@@ -63,6 +65,7 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
    get("cloud-check").disabled=!vault.signedIn;
    get("cloud-restore").disabled=!vault.signedIn;
    get("cloud-download").disabled=!vault.signedIn;
+   get("cloud-prune").disabled=!vault.signedIn;
    get("cloud-stop").disabled=!vault.autoPass;
  };
  const withError=(task)=>async()=>{
@@ -99,8 +102,10 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
      :"This cloud account has no McGruber snapshot yet. A first encrypted upload can initialize it.");
  });
  get("cloud-upload").onclick=withError(async()=>{
+   const pass=passphrase();
+   if(pass!==get("cloud-passphrase-confirm").value)throw Error("Vault passphrase confirmation does not match. Nothing uploaded.");
    const {text:backup,revision}=await freeze();
-   const result=await vault.push(backup,passphrase(),revision);
+   const result=await vault.push(backup,pass,revision);
    text("cloud-head","Encrypted vault updated: "+result.revision+".");
    scrub();
  });
@@ -130,5 +135,10 @@ export function mountCloudSettings({getWorkspace,flushSave,replaceWorkspace,noti
    scrub();
  });
  get("cloud-stop").onclick=()=>{vault.stopAuto();text("cloud-status","Automatic cloud sync paused. Local autosave remains enabled.");refresh();};
+ get("cloud-prune").onclick=withError(async()=>{
+   if(!confirm("Delete only your encrypted cloud objects older than 24 hours that are not the currently active revision? Local data is unaffected."))return;
+   const count=await vault.pruneOld();
+   text("cloud-status",count ? count+" old encrypted snapshots removed. Current revision retained." : "No eligible old cloud snapshots found.");
+ });
  refresh();
 }
