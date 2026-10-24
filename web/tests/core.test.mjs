@@ -247,7 +247,7 @@ test("catalog covers real repository files, all nine procedures, and preserves u
   assert.equal(data.components.length, 16);
   assert.equal(data.inventory.length, 12);
   for (const p of data.projects) {
-    assert.equal(p.steps.length, 5);
+    assert.equal(p.steps.length, p.id === "P01" ? 10 : 5);
     assert.equal(p.cost, null);
     for (const f of p.files)
       assert.ok((await stat(new URL("../../" + f, import.meta.url))).isFile());
