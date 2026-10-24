@@ -40,3 +40,19 @@ CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` im
 - `scripts/verify-build.mjs` verifies static assets and emits the offline service worker.
 
 See [user guide](../docs/LAB_USER_GUIDE.md), [acceptance evidence](../docs/LAB_ACCEPTANCE.md), [integration research](../docs/ENGINEERING_INTEGRATIONS.md), and [sync design](../docs/CLOUD_SYNC_DESIGN.md).
+
+## Workshop intelligence (rules-based, offline)
+
+Open Workshop intelligence from the sidebar (#/assistant). It joins the nine project
+requirements, owner-supplied Rev 4 reference items and browser-local identified inventory to
+provide conservative next-test guidance. Build Navigator lists original required
+categories, explicit test status, potential photo-derived salvage leads, and missing evidence.
+Electronics Detective guides safe, mostly unpowered identification for all 23 Rev 4
+reference entries. Export build investigations and inspection worksheets as editable Markdown.
+Select Record next test to open a prefilled private Notebook draft. Existing drafts are never
+replaced and no physical measurements, pass results, compatibility claims or automated chip
+identifications are invented. All data remains local unless explicitly exported.
+
+The src/workshop-intelligence.js file contains pure, testable rules; src/workshop.js is the
+presentation. This is not a generative AI API, device connection system, automatic component
+recognizer or a qualified electrical BOM. Prioritize safe documentation over guesses.
