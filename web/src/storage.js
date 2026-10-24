@@ -243,6 +243,7 @@ export function attachmentIds(workspace) {
   return [
     ...(workspace?.records || []).flatMap((r) => r.attachments || []),
     ...(workspace?.draftRecord?.attachments || []),
+    ...(workspace?.salvage?.devices || []).flatMap((d) => d.photos.map((p) => p.mediaId)),
   ];
 }
 export async function backup(workspace) {
@@ -320,6 +321,8 @@ export async function restore(text, currentWorkspace) {
     ...(workspace.draftRecord ? [workspace.draftRecord] : []),
   ])
     record.attachments = record.attachments.map((id) => ids.get(id));
+  for (const device of workspace.salvage.devices)
+    for (const photo of device.photos) photo.mediaId = ids.get(photo.mediaId);
   const reference = currentWorkspace || (await load());
   const operation = queue
     .catch(() => {})

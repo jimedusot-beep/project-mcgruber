@@ -3,11 +3,8 @@ import * as THREE from "three";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-export const MESH_LIMITS = {
-  bytes: 20 * 1024 * 1024,
-  triangles: 500000,
-  parts: 100,
-};
+import { SCENE_LIMITS, validateSceneParts } from "./scene-validation.js";
+export const MESH_LIMITS = SCENE_LIMITS;
 export function inspectGeometry(g) {
   const a = g.getAttribute("position");
   if (!a || a.count < 3 || a.itemSize !== 3)
@@ -155,8 +152,7 @@ export function serializeParts(parts) {
   }));
 }
 export function restoreParts(data) {
-  if (!Array.isArray(data) || data.length > MESH_LIMITS.parts)
-    throw Error("Invalid saved scene.");
+  validateSceneParts(data);
   const loader = new THREE.BufferGeometryLoader();
   return data.map((d) => {
     if (

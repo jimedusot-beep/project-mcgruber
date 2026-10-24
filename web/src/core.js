@@ -1,4 +1,6 @@
 import { newId } from "./id.js";
+import { validateScene } from "./scene-validation.js";
+import { validateSalvage } from "./salvage-core.js";
 export const SCHEMA = 1;
 export const evidenceTypes = [
   "Simulation data",
@@ -13,7 +15,8 @@ export function finite(
   max = Infinity,
 ) {
   if (
-    value === "" ||
+    !["string", "number"].includes(typeof value) ||
+    (typeof value === "string" && value.trim() === "") ||
     value === null ||
     typeof value === "boolean" ||
     !Number.isFinite(Number(value))
@@ -430,15 +433,29 @@ export function freshWorkspace() {
     progress: {},
     records: [],
     inventory: [],
+    salvage: { devices: [], plans: [] },
     simulations: {},
     circuit: {},
     theme: "light",
   };
 }
-export function validateRecord(r) {
+export function validateEvidence(r) {
+  const filled = (v) => v !== "" && v != null;
+  if (r.evidence === "Simulation data" &&
+      (filled(r.voltage) || filled(r.current) || r.instrument?.trim()))
+    throw Error("Simulation records must not contain physical measurement fields.");
+  if (["Physically measured result", "Independently reproduced result"].includes(r.evidence)) {
+    if (!r.instrument?.trim() || !r.observations?.trim() || !r.criteria?.trim() ||
+        (!filled(r.voltage) && !filled(r.current)))
+      throw Error("Measured evidence needs an instrument, observations, criteria and an actual measurement.");
+    if (r.evidence === "Independently reproduced result" && !r.attachments.length)
+      throw Error("Independently reproduced results need attached evidence.");
+  }
+}
+export function validateRecord(r, { draft = false } = {}) {
   if (
     !r ||
-    typeof r.id !== "string" ||
+    typeof r.id !== "string" || !r.id || r.id.length > 200 ||
     typeof r.name !== "string" ||
     !/^P0[1-9]$/.test(r.project) ||
     !evidenceTypes.includes(r.evidence) ||
@@ -458,22 +475,25 @@ export function validateRecord(r) {
   for (const k of ["voltage", "current"])
     if (r[k] !== "" && r[k] != null) finite(r[k], k);
   if (
-    r.date !== undefined &&
+    (draft || r.date !== undefined) &&
     (typeof r.date !== "string" || Number.isNaN(new Date(r.date).getTime()))
   )
     throw Error("Invalid experiment date.");
   if (
     r.trial !== undefined &&
-    (!Number.isInteger(r.trial) || r.trial < 1 || r.trial > 1000000)
+    (!Number.isInteger(r.trial) || r.trial < (draft ? 0 : 1) || r.trial > 1000000)
   )
     throw Error("Invalid trial number.");
+  if (r.configuration != null &&
+      (typeof r.configuration !== "object" || Array.isArray(r.configuration)))
+    throw Error("Experiment configuration must be an object.");
   if (
     r.configuration?.samples &&
     (!Array.isArray(r.configuration.samples) ||
       r.configuration.samples.length > 10000 ||
       r.configuration.samples.some(
         (s) =>
-          !Number.isFinite(s.value) ||
+          !s || !Number.isFinite(s.value) ||
           !Number.isFinite(s.time) ||
           typeof s.output !== "boolean",
       ))
@@ -481,8 +501,9 @@ export function validateRecord(r) {
     throw Error("Invalid simulation samples.");
   if (!["Not tested", "Pass", "Fail", "Inconclusive"].includes(r.result))
     throw Error("Invalid experiment result.");
-  if (!r.attachments.every((a) => typeof a === "string"))
+  if (!r.attachments.every((a) => typeof a === "string" && a.length > 0 && a.length <= 200))
     throw Error("Invalid attachment references.");
+  if (!draft) validateEvidence(r);
   return r;
 }
 export function validateWorkspace(w) {
@@ -495,10 +516,13 @@ export function validateWorkspace(w) {
     !Array.isArray(w.recent) ||
     !w.progress ||
     typeof w.progress !== "object" ||
+    Array.isArray(w.progress) ||
     !w.simulations ||
     typeof w.simulations !== "object" ||
+    Array.isArray(w.simulations) ||
     !w.circuit ||
     typeof w.circuit !== "object" ||
+    Array.isArray(w.circuit) ||
     w.records.length > 5000
   )
     throw Error("Not a supported McGruber Lab backup.");
@@ -512,7 +536,11 @@ export function validateWorkspace(w) {
     (!Number.isSafeInteger(w.sequence) || w.sequence < 0)
   )
     throw Error("Invalid workspace sequence.");
-  w.records.forEach(validateRecord);
+  w.records.forEach((r) => validateRecord(r));
+  if (new Set(w.records.map((r) => r.id)).size !== w.records.length)
+    throw Error("Duplicate experiment IDs.");
+  if (w.draftRecord != null) validateRecord(w.draftRecord, { draft: true });
+  if (w.scene != null) validateScene(w.scene);
   if (
     w.inventory.length > 5000 ||
     w.inventory.some(
@@ -525,6 +553,9 @@ export function validateWorkspace(w) {
     )
   )
     throw Error("Invalid inventory records.");
+  if (new Set(w.inventory.map((p) => p.id)).size !== w.inventory.length)
+    throw Error("Duplicate inventory IDs.");
+  validateSalvage(w);
   for (const arr of [w.favorites, w.recent])
     if (arr.some((p) => typeof p !== "string" || !/^P0[1-9]$/.test(p)))
       throw Error("Invalid project references.");

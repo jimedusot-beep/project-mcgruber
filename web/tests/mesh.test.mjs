@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { validateWorkspace, freshWorkspace } from "../src/core.js";
 import * as THREE from "three";
 import {
   parseModel,
@@ -65,4 +66,22 @@ test("broad-phase bounding overlap reports only visible candidate pairs", () => 
   b.position.x = 0;
   b.visible = false;
   assert.equal(interferencePairs([a, b]).length, 0);
+});
+test("scene imports reject incomplete transforms, invalid Euler orders and corrupt mesh data before restoration",async()=>{
+  const parts=await parseModel(new File(["v 0 0 0\nv 1 0 0\nv 0 1 0\nf 1 2 3\n"],"scene.obj"));
+  const valid=serializeParts(parts);
+  for(const mutate of [
+    p=>p.position=[],p=>p.position=[1,2],p=>p.position=[0,Infinity,0],
+    p=>p.scale=[],p=>p.scale=[0,1,1],p=>p.rotation=[],p=>p.rotation=[0,0,0,"BAD"],
+    p=>p.geometry.data.attributes.position.array[0]="1",p=>p.geometry.data.index={type:"Uint16Array",array:[0,1,999]},
+  ]){
+    const bad=structuredClone(valid);mutate(bad[0]);
+    assert.throws(()=>restoreParts(bad));
+    const w=freshWorkspace();w.scene={schema:1,units:"mm",parts:bad};assert.throws(()=>validateWorkspace(w));
+  }
+  const clone=structuredClone(valid[0]);
+  assert.throws(()=>restoreParts([valid[0],clone]),/duplicate/);
+  assert.throws(()=>restoreParts(Array.from({length:101},()=>clone)),/100 parts/);
+  const restored=restoreParts(valid)[0];restored.updateMatrixWorld(true);
+  assert.ok(restored.matrixWorld.elements.every(Number.isFinite));
 });

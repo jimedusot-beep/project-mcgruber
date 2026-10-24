@@ -195,7 +195,7 @@ test("cleanup removes only old unused media and protects history, local drafts a
   await save(w);
   w.records = [];
   await save(w);
-  w.draftRecord = { attachments: ["gc-draft"] };
+  w.draftRecord = { id:"draft-gc",name:"",project:"P04",evidence:"Reported observation",date:now,result:"Not tested",attachments:["gc-draft"] };
   const result = await cleanupMedia(w);
   assert.ok(result.removed >= 1);
   assert.equal(await read("media", "gc-unused"), undefined);
@@ -243,4 +243,32 @@ test("full backup restore validates before mutation and missing media never dest
     /missing/,
   );
   assert.deepEqual((await load()).favorites, ["P03"]);
+});
+test("malformed notebook drafts and mixed evidence imports cannot change current data or recovery history",async()=>{
+  const before=await load(), history=(await all("history")).map((x)=>x.id), media=(await all("media")).map((x)=>x.id);
+  const base={id:"draft-bad",name:"",project:"P04",evidence:"Reported observation",date:"bad-date",result:"Not tested",attachments:[]};
+  for(const invalid of [
+    {...freshWorkspace(),draftRecord:base},
+    {...freshWorkspace(),records:[{...base,date:"2026-10-24T12:00:00Z",name:"Mixed",evidence:"Simulation data",voltage:5}]},
+    {...freshWorkspace(),scene:{schema:1,units:"mm",parts:[{name:"bad",position:[],scale:[],rotation:[]}]}}
+  ]){
+    await assert.rejects(restore(JSON.stringify({application:"mcgruber-lab",version:1,workspace:invalid,media:[]}),before));
+    assert.deepEqual(await load(),before);
+    assert.deepEqual((await all("history")).map((x)=>x.id),history);
+    assert.deepEqual((await all("media")).map((x)=>x.id),media);
+  }
+});
+test("teardown photos and normalized labels survive full backup restore and remain protected from cleanup",async()=>{
+  const mediaId=await addMedia(new File([new Uint8Array([31,32,33])],"board.png",{type:"image/png"}));
+  const w=await load();
+  w.salvage={devices:[{id:"donor-photo",name:"Fixture mouse",kind:"mouse",isolated:true,steps:[true],photos:[{id:"photo-1",mediaId,annotations:[{id:"annotation",label:"Switch fixture",x:0.25,y:0.75,partId:""}]}]}],plans:[]};
+  await save(w);
+  // Node has no FileReader; exercise the actual restore envelope with fixture bytes.
+  const restored=await restore(JSON.stringify({application:"mcgruber-lab",version:1,workspace:w,media:[{id:mediaId,name:"board.png",type:"image/png",data:"data:image/png;base64,HyAh"}]}),w);
+  const photo=restored.salvage.devices[0].photos[0];
+  assert.notEqual(photo.mediaId,mediaId);
+  assert.deepEqual(photo.annotations,w.salvage.devices[0].photos[0].annotations);
+  assert.deepEqual([...new Uint8Array((await read("media",photo.mediaId)).bytes)],[31,32,33]);
+  await cleanupMedia(restored);
+  assert.ok(await read("media",mediaId));assert.ok(await read("media",photo.mediaId));
 });

@@ -27,6 +27,16 @@ This is a software release assessment, not a declaration that the entire enginee
 
 ## Verification boundaries
 
+### Salvage and restore hardening — October 24, 2026
+
+The new salvage workbench links donor records, preparation checklists, teardown photos/normalized labels, inventory parts, test summaries, live requirement shortlists and low-voltage battery/regulator plans. Photos are included in backup/restore and protected by reference-aware media cleanup. Part identification and electrical evidence remain user-entered. A candidate power result is a calculated first-test proposal, never a physical verification.
+
+The three audit defects are addressed by shared committed-record evidence rules, structurally validated notebook drafts and pre-allocation scene validation. Unit/integration regressions reject malformed draft dates, missing attachments, mixed simulation/measurement imports, incomplete transforms, bad Euler orders, corrupt mesh indices and invalid salvage references. Atomic-restore checks verify that rejection changes neither current data, history nor stored media. See [salvage guide](SALVAGE_WORKBENCH.md).
+
+Local checks at implementation: **41 web tests and 14 original Python tests passed**, production asset verification passed, dependency audit reported zero vulnerabilities. New browser regressions cover mouse inventory matching, phone-component power mismatch persistence, annotated-photo backups and invalid-draft rejection; see [PR #23](https://github.com/jimedusot-beep/project-mcgruber/pull/23) for full CI results. Rejected restore errors remain visible beside the backup controls as well as in the notification.
+
+A manual desktop preview created a clearly labeled QA donor and switch test record, checked live shortlist updates and calculated the teaching LED example. [Salvage workbench preview](screenshots/salvage-workbench.jpg). The screenshot contains software QA fixtures, not physically measured component evidence. Pages remains blocked by missing owner-side configuration; no live release is claimed here.
+
 No physical hardware tests, RF connection, printed fit, original build photographs, successful real-world trials or manufacturer-specific unknown pinouts have been invented. CI fixtures explicitly identify themselves as software test inputs. User-selected evidence labels are assertions until the actual procedure and evidence are reviewed.
 
 **NOT IMPLEMENTED:** account/cloud sync, general SPICE execution inside the app, free circuit rewiring, true Boolean union, STEP/3MF/parametric CAD editing, assembly joints/constraints, exact mesh collision/self-intersection checks, automatic component identification and calibrated physical measurements.
