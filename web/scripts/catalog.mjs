@@ -155,7 +155,7 @@ const projects = await Promise.all(
         "TEST_LOG.csv",
         "diagrams/architecture.svg",
         ...([3, 6].includes(i) ? ["diagrams/wiring-example-5v.svg"] : []),
-        ...(i === 0 ? ["diagrams/exploded-assembly.svg", "diagrams/signal-flow.svg", "ASSEMBLY_VIEW.md", "BUILD_WORKBOOK.md", "THREE_D_HANDOFF.md"] : []),
+        ...(i === 0 ? ["diagrams/exploded-assembly.svg", "diagrams/signal-flow.svg", "ASSEMBLY_VIEW.md", "BUILD_WORKBOOK.md", "THREE_D_HANDOFF.md", "PHONE_BUILD_TEST.md", "PHONE_BOM.csv", "PHONE_TEST_LOG.csv", "PHONE_VERIFICATION.md", "diagrams/phone-led-wiring.svg"] : []),
       ].map((f) => folder + "/" + f),
     };
   }),
@@ -228,3 +228,4 @@ await writeFile(path.join(publicDir, "catalog.json"), JSON.stringify(catalog));
 console.log(
   `Catalog: ${projects.length} inventions, ${components.length} requirements, ${inventory.length} equipment groups, ${documents.length} source files.`,
 );
+

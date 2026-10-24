@@ -1,10 +1,14 @@
 # Light-Beam Tripwire
 
-**Goal:** Interrupt a visible light beam to trigger an alarm.
+**Goal:** Interrupt a visible light beam for a silent on-screen indication using an iPhone receiver; standalone hardware is a separate later track.
 
 **Status:** Owner-reported automatic red-light / iPhone-camera interruption detection at nominal 1, 3, 6, 10 and 15 ft (October 23, 2026); fixed-mount reliability, electrical details and independent hardware receiver remain unverified. See [field report](FIELD_TEST_2026-10-23.md).
 
-## Required hardware or software (proposed)
+## Current phone-only build
+
+[Phone build and test package](PHONE_BUILD_TEST.md) contains the required/optional parts, electrical measurements, range tests and recovery gate. [Open the public detector](https://jimedusot-beep.github.io/3D-vision/beam-detector/) and check its displayed version; a PR is not a deployed release. The printable guide and wiring SVG ship with the app.
+
+## Future standalone hardware or software (proposed)
 Visible emitter and correct resistor; light detector (LDR/phototransistor); threshold circuit; rated alarm output; regulated power and aligned supports.
 
 ## Next verification
@@ -36,3 +40,4 @@ https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v
 - [Blank physical test log](TEST_LOG.csv) — **NOT_RUN** until real tests
 
 See [project-wide requirements](../../docs/BUILD_STANDARD.md) and [tracking issues](../../docs/ISSUE_TRACKING.md).
+

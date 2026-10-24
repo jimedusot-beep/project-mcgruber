@@ -17,6 +17,10 @@ A mobile-first web application now lives in [web/](https://github.com/jimedusot-
 
 **Deployment audit:** The software tests/build pass, but McGruber Lab is **not yet publicly deployed** because GitHub Pages must be enabled manually by the repository owner. [Read the verified 2026-10-23 failure and exact setup steps](docs/PUBLISH.md). The updated workflow retains a downloadable static preview artifact even while Pages is disabled. For an already-published 3D tripwire view, use [3D Vision's exploded 13-part concept](https://jimedusot-beep.github.io/3D-vision/?example=mcgruber-tripwire-exploded) or [the Cyborg hardware case study](https://github.com/jimedusot-beep/Herbie-cyborg-hardware/tree/main/examples/mcgruber-light-beam-tripwire). The conceptual model is not physical measurement or evidence of working hardware.
 
+## Silent phone tripwire — build and test
+
+[Complete phone-only build/test package](projects/01-light-beam-tripwire/PHONE_BUILD_TEST.md): required and optional parts, current-limited LED wiring, multimeter measurements, six distances, timed stability tests and restart recovery. V4 adds measured camera counts, operator-confirmed crossing truth, local results and JSON export. Hardware performance and optical range remain unverified; the public app must display V4 before following the new test controls.
+
 ## All nine inventions
 
 | # | Project | Current progress |
@@ -77,3 +81,4 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 - [Current ten-item improvement audit](docs/UPGRADE_CHECKLIST.md)
 - [Conditional object-alarm wiring illustration](projects/04-object-removal-alarm/diagrams/wiring-example-5v.svg)
 - [Conditional standalone-buzzer wiring illustration](projects/07-standalone-control-box/diagrams/wiring-example-5v.svg)
+
