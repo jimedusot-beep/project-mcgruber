@@ -14,6 +14,12 @@ Open **Salvage workbench** to create a donor-device record, follow a preparation
 
 Full backups include the new records, plans, photos and labels. There is no automatic photo identification or charging-circuit design.
 
+## Engineering Control Center
+
+The sidebar now includes **Engineering handbook**, and the home screen provides **Engineering readiness**. These open `beam-detector/engineering-hub.html` in the same McGruber site, showing all nine inventions, owner-reported working components, remaining blockers and physical acceptance gates. The 9-stage **Standalone Receiver Lab** is linked from it, with independent local test records and JSON export. These physical test logs use separate browser storage from the main workshop notebook, so export both when backing up. Neither HTML page reads actual Fluke measurements electronically; values are user-entered.
+
+The full [engineering master plan](ENGINEERING_MASTER_PLAN_2026-10-24.md) and [electronics field guide](ELECTRONICS_ENGINEERING_FIELD_GUIDE.md) provide the calculations, reference pinouts, and evidence requirements. A simulated circuit or owner-marked pass must never be presented as independently measured hardware.
+
 ## Inspecting models
 
 1. Open **3D lab**. It loads the original generic angle-support STL. This model is unprinted and fit-unverified.
