@@ -99,3 +99,18 @@ and 3D Lab. Nothing transmits RF, collects Bluetooth identifiers, clones
 credentials, tampers with cellular equipment, or opens physical locks.
 All research records are curated; this release does not add an account or
 purchase products, install firmware or claim physical testing.
+
+## Six simulation and build-readiness labs
+
+Open `#/labs` or a Start-tagged entry within `#/gadgets`. Labs cover G02 Marauder-style
+wireless awareness, G03 Fanttik-inspired repair workflow, G04 nyanBOX-style
+BLE tracker uncertainty, G06 Cardputer pocket interface, G07 StickS3-style
+virtual controller and G08 RTL-SDR synthetic receive-only spectrum studies.
+Each lab has at least three deterministic simulation scenarios, fictional
+sample charts, individual observations, a persistent manual review checklist,
+a downloadable detailed readiness worksheet and private Notebook export.
+Checklist marks are REVIEWED, not tested/verified, and are included in existing
+encrypted and plain full workspace backups. Existing workspaces default to
+empty reviews. Notebook exports are Simulation data / Not tested and contain
+no physical measurements. This release does not scan nearby devices, transmit
+radio, receive spectrum, run firmware or control motors or soldering tools.
