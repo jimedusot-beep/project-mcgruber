@@ -27,7 +27,7 @@ Browser tests run in isolated contexts with explicitly labeled QA fixtures; they
 
 Playwright is pinned to 1.64.1, which includes the upstream [WebKit offline service-worker navigation fix](https://github.com/microsoft/playwright/pull/42894). Keep the offline reload workflow enabled when updating browser tooling.
 
-CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` image, pinned by digest, with browsers and OS dependencies preinstalled, following the [Playwright container guidance](https://playwright.dev/docs/ci#via-containers). Update the image, digest and package versions together. This avoids repeated Ubuntu package downloads during each check. The suite stops after five minutes so its reports can finish within the job limit.
+CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` image, pinned by digest, with browsers and OS dependencies preinstalled, following the [Playwright container guidance](https://playwright.dev/docs/ci#via-containers). Update the image, digest and package versions together. This avoids repeated Ubuntu package downloads during each check. The suite stops after six minutes so its reports can finish within the eight-minute browser job limit.
 
 ## Architecture
 
@@ -40,3 +40,19 @@ CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` im
 - `scripts/verify-build.mjs` verifies static assets and emits the offline service worker.
 
 See [user guide](../docs/LAB_USER_GUIDE.md), [acceptance evidence](../docs/LAB_ACCEPTANCE.md), [integration research](../docs/ENGINEERING_INTEGRATIONS.md), and [sync design](../docs/CLOUD_SYNC_DESIGN.md).
+
+## Workshop intelligence (rules-based, offline)
+
+Open Workshop intelligence from the sidebar (#/assistant). It joins the nine project
+requirements, owner-supplied Rev 4 reference items and browser-local identified inventory to
+provide conservative next-test guidance. Build Navigator lists original required
+categories, explicit test status, potential photo-derived salvage leads, and missing evidence.
+Electronics Detective guides safe, mostly unpowered identification for all 23 Rev 4
+reference entries. Export build investigations and inspection worksheets as editable Markdown.
+Select Record next test to open a prefilled private Notebook draft. Existing drafts are never
+replaced and no physical measurements, pass results, compatibility claims or automated chip
+identifications are invented. All data remains local unless explicitly exported.
+
+The src/workshop-intelligence.js file contains pure, testable rules; src/workshop.js is the
+presentation. This is not a generative AI API, device connection system, automatic component
+recognizer or a qualified electrical BOM. Prioritize safe documentation over guesses.

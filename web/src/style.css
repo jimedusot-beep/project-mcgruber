@@ -2729,3 +2729,21 @@ legend {
   .tw3d-intro h1 { font-size: 30px; }
   .tw3d-part button { padding: 9px; }
 }
+
+/* Integrated workshop intelligence: reuse existing theme variables and layouts. */
+.intel-top { align-items: start; margin: 22px 0; }
+.intel-top .panel { min-width: 0; }
+.intel-top select, .intel-top input[type="search"] { width: 100%; max-width: 100%; margin: 5px 0 12px; }
+.intel-top details { margin: 12px 0; }
+.intel-top details summary { cursor: pointer; }
+.intel-top li { padding: 3px 0; overflow-wrap: anywhere; }
+.intel-top h3 { margin: 12px 0 6px; }
+.intel-stats { margin: 17px 0; }
+.intel-stats strong { overflow-wrap: anywhere; }
+.intel-actions { margin: 14px 0 0; }
+.intel-actions .button, .intel-actions button, .intel-opportunity button { min-height: 40px; }
+.intel-text-button { display: inline; border: 0; padding: 0; margin: 0; background: none; color: var(--accent, currentColor); text-align: left; text-decoration: underline; font-size: inherit; cursor: pointer; }
+.intel-opportunity { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.intel-opportunity button { margin-top: auto; }
+.intel-opportunity p { overflow-wrap: anywhere; }
+@media (max-width: 700px) { .intel-top { grid-template-columns: minmax(0, 1fr); } .intel-actions .button, .intel-actions button { width: 100%; } }

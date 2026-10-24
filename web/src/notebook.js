@@ -1,4 +1,5 @@
 import { newId } from "./id.js";
+import { focus } from "./workshop-intelligence.js";
 import {
   evidenceTypes,
   validateRecord,
@@ -19,7 +20,7 @@ import {
 export function notebookHTML(ctx) {
   return `${heading("Your private lab notebook", "Make every experiment count.", "Record what happened, how you tested it, and what to try next.", '<button id="new-experiment" class="primary">+ New experiment</button>')}<div class="notice">Saved on this device. A private record is never published to GitHub. Keep a full backup from Settings before clearing Safari data or changing devices.</div><div class="row wrap tools"><label class="search">Search records<input id="record-search" type="search" placeholder="Name, observations, project…"></label><label>Evidence<select id="record-filter"><option value="all">All evidence types</option>${evidenceTypes.map((t) => `<option>${escape(t)}</option>`).join("")}</select></label><button id="export-records-json">Export records JSON</button><button id="export-records-csv">Export CSV</button></div><div id="record-editor"></div><div id="record-compare"></div><div id="record-list"></div>`;
 }
-export function mountNotebook(ctx) {
+export function mountNotebook(ctx, requestedProjectId) {
   let draft = ctx.workspace.draftRecord || null,
     selected = new Set(),
     objectURLs = [];
@@ -281,6 +282,20 @@ export function mountNotebook(ctx) {
   $("#export-records-csv").onclick = () =>
     download(csvExport(records()), "mcgruber-experiments.csv", "text/csv");
   renderList();
+  // Deep links from the navigator start an unmeasured draft, never a pass.
+  // Preserve an existing private draft even when a new link names another project.
+  if (!draft && requestedProjectId && Object.hasOwn(focus, requestedProjectId) &&
+      ctx.catalog.projects.some((p) => p.id === requestedProjectId)) {
+    const p = ctx.catalog.projects.find((x) => x.id === requestedProjectId);
+    draft = { ...emptyRecord(), project: p.id,
+      name: p.name + " — next bench investigation",
+      criteria: "Planned test only: " + focus[p.id].next,
+      configuration: { source: "workshop-intelligence", project: p.id },
+      evidence: "Reported observation", result: "Not tested", observations: "",
+      voltage: "", current: "", instrument: "" };
+    ctx.workspace.draftRecord = structuredClone(draft);
+    ctx.save();
+  }
   if (draft) renderEditor();
   return clearMedia;
 }
