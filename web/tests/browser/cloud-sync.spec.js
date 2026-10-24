@@ -1,4 +1,5 @@
 import {test, expect} from "@playwright/test";
+import {installVaultMock} from "./helpers/mock-private-vault.js";
 
 test("private vault stays disabled until explicitly configured; no cloud upload without auth",async({page})=>{
  const errors=[];
@@ -14,36 +15,7 @@ test("private vault stays disabled until explicitly configured; no cloud upload 
 
 test("mocked provider performs verified opt-in encrypted first push without exposing inventory",async({page})=>{
  const id="23456789-1234-4123-8123-123456789012";
- let head=null,encrypted="",uploadRequests=0,commitRequests=0;
- await page.route("https://mock-lab.supabase.co/**",async route=>{
-   const url=new URL(route.request().url());
-   const path=url.pathname,method=route.request().method();
-   const cors={"Access-Control-Allow-Origin":"*","Access-Control-Allow-Headers":"apikey,authorization,content-type,x-upsert","Access-Control-Allow-Methods":"GET,POST,OPTIONS,DELETE"};
-   if(method==="OPTIONS"){await route.fulfill({status:204,headers:cors});return;}
-   let status=200,body={};
-   if(path==="/auth/v1/otp"){body={sent:true};}
-   else if(path==="/auth/v1/verify")body={
-     access_token:"fake-session-jwt",refresh_token:"fake-refresh",expires_in:3600,
-     user:{id,email:"test@example.org"}
-   };
-   else if(path==="/auth/v1/user")body={id,email:"test@example.org"};
-   else if(path==="/rest/v1/mcgruber_sync_heads")body=head?[head]:[];
-   else if(path.startsWith("/storage/v1/object/mcgruber-private/")&&method==="POST"){
-     uploadRequests++;
-     encrypted=route.request().postData()||"";
-     body={Key:path};
-   }else if(path==="/rest/v1/rpc/mcgruber_commit_snapshot"){
-     commitRequests++;
-     const args=route.request().postDataJSON();
-     if((head?.revision||null)!==args.p_expected_revision){status=409;body={message:"SYNC_CONFLICT"};}
-     else {
-       head={revision:args.p_new_revision,object_path:args.p_object_path,size_bytes:args.p_size_bytes,
-         updated_at:"2026-10-24T19:40:00Z"};
-       body=[head];
-     }
-   }else{status=404;body={message:"unknown mocked route "+path};}
-   await route.fulfill({status,headers:cors,contentType:"application/json",body:JSON.stringify(body)});
- });
+ await installVaultMock(page,id);
  await page.goto("/#/settings");
  await page.locator("#cloud-config-area summary").click();
  await page.locator("#cloud-url").fill("https://mock-lab.supabase.co");
@@ -59,15 +31,16 @@ test("mocked provider performs verified opt-in encrypted first push without expo
  await page.locator("#cloud-passphrase-confirm").fill("does-not-match-private-key");
  await page.locator("#cloud-upload").click();
  await expect(page.locator("#cloud-status")).toContainText("confirmation does not match");
- expect(uploadRequests).toBe(0);
+ expect(await page.evaluate(()=>window.__vaultFake.uploads)).toBe(0);
  await page.locator("#cloud-passphrase-confirm").fill("correct-test-private-vault-key");
  await page.locator("#cloud-upload").click();
  await expect(page.locator("#cloud-head")).toContainText("Encrypted vault updated");
- expect(uploadRequests).toBe(1);expect(commitRequests).toBe(1);
- expect(head?.object_path).toMatch(new RegExp("^"+id+"/[0-9a-f-]+\\.mcgruber$"));
- expect(encrypted).toContain('"cipher":"AES-256-GCM"');
- expect(encrypted).not.toContain("McGruber Lab");
- expect(encrypted).not.toContain("salvage");
+ const mock=await page.evaluate(()=>window.__vaultFake);
+ expect(mock.uploads).toBe(1);expect(mock.commits).toBe(1);
+ expect(mock.head?.object_path).toMatch(new RegExp("^"+id+"/[0-9a-f-]+\\.mcgruber$"));
+ expect(mock.uploaded).toContain('"cipher":"AES-256-GCM"');
+ expect(mock.uploaded).not.toContain("McGruber Lab");
+ expect(mock.uploaded).not.toContain("salvage");
  await expect(page.locator("#cloud-passphrase")).toHaveValue("");
  await expect(page.locator("#cloud-passphrase-confirm")).toHaveValue("");
  await page.reload();
