@@ -45,9 +45,22 @@ USING (
   AND split_part(name,'/',1) = (select auth.uid())::text
 );
 
--- No DELETE/UPDATE policy for now: historical encrypted snapshots are immutable,
--- and no client can delete a concurrently referenced object. Private storage is
--- quota-limited; operators must establish retention/cleanup before heavy use.
+-- Keep active snapshots immutable. Allow deleting only the caller's older
+-- unreferenced encrypted objects; CAS and this RLS predicate independently
+-- protect the live head. Recent, in-flight uploads cannot be pruned.
+DROP POLICY IF EXISTS "mcgruber_owner_prune_old" ON storage.objects;
+CREATE POLICY "mcgruber_owner_prune_old" ON storage.objects
+FOR DELETE TO authenticated
+USING (
+  bucket_id='mcgruber-private'
+  AND owner_id=(select auth.uid())::text
+  AND split_part(name,'/',1)=(select auth.uid())::text
+  AND created_at < now() - interval '24 hours'
+  AND NOT EXISTS (
+    SELECT 1 FROM public.mcgruber_sync_heads AS h
+    WHERE h.user_id=(select auth.uid()) AND h.object_path=storage.objects.name
+  )
+);
 
 CREATE OR REPLACE FUNCTION public.mcgruber_commit_snapshot(
   p_expected_revision uuid,
