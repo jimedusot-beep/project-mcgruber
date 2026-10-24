@@ -106,6 +106,7 @@ test("divergent devices cannot overwrite newer remote revision (even after offli
 });
 test("malformed, oversized or unauthenticated snapshots cannot advance head",async()=>{
  const srv=server(),vault=new PrivateVault({fetcher:srv.fetcher,prefs:newPrefs(),sessionPrefs:newPrefs(),cryptoApi:webcrypto});
+ vault.configure(url,key);
  await assert.rejects(vault.getHead(),/Sign in/);
  await loggedIn(vault);
  await assert.rejects(vault.push(fixture,"short","local-1"),/passphrase/);
@@ -125,7 +126,7 @@ test("saved sessions are scoped to the tab and endpoint; passphrase never persis
  assert.doesNotMatch(JSON.stringify([...Object.keys(vault.session||{})]),/passphrase/);
  const head=await browserRefresh.getHead();
  assert.equal(head,null);
- await assert.rejects(browserRefresh.enableAuto("strong-password",async()=>({text:fixture,revision:"r"})),/First create/);
+ assert.throws(()=>browserRefresh.enableAuto("strong-password",async()=>({text:fixture,revision:"r"})),/First create/);
  await browserRefresh.signOut();
  assert.equal(new PrivateVault({fetcher:srv.fetcher,prefs,sessionPrefs:tab,cryptoApi:webcrypto}).signedIn,false);
 });
