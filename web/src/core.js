@@ -2,6 +2,7 @@ import { newId } from "./id.js";
 import { validateScene } from "./scene-validation.js";
 import { validateSalvage } from "./salvage-core.js";
 import { validateBrain } from "./device-brain-core.js";
+import { freshGadgetLabs, validateGadgetLabs } from "./gadget-lab-core.js";
 export const SCHEMA = 1;
 export const evidenceTypes = [
   "Simulation data",
@@ -436,6 +437,7 @@ export function freshWorkspace() {
     inventory: [],
     salvage: { devices: [], plans: [] },
     deviceBrain: { rules: [] },
+    gadgetLabs: freshGadgetLabs(),
     simulations: {},
     circuit: {},
     theme: "light",
@@ -560,6 +562,8 @@ export function validateWorkspace(w) {
   validateSalvage(w);
   // Legacy schema-1 backups may predate the device simulator; missing data gets a safe default.
   if (w.deviceBrain != null) validateBrain(w.deviceBrain);
+  // Older schema-1 backups do not yet have reviewed lab checklists.
+  if (w.gadgetLabs != null) validateGadgetLabs(w.gadgetLabs);
   for (const arr of [w.favorites, w.recent])
     if (arr.some((p) => typeof p !== "string" || !/^P0[1-9]$/.test(p)))
       throw Error("Invalid project references.");

@@ -2779,3 +2779,22 @@ legend {
 .gadget-card .gadget-sources { line-height: 1.8; }
 .gadget-card .gadget-actions { margin-top: auto; }
 .gadget-card .gadget-actions button, .gadget-card .gadget-actions .button { min-height: 42px; }
+
+/* Six reusable offline gadget labs, with explicit reviewed != qualified states */
+.gadget-lab-menu { margin: 20px 0; }
+.gadget-lab-link { display: flex; flex-direction: column; gap: 7px; text-decoration: none; min-width: 0; }
+.gadget-lab-link[aria-current='page'] { outline: 2px solid currentColor; outline-offset: -2px; }
+.gadget-lab-link strong { line-height: 1.3; }
+.gadget-lab-layout { align-items: start; margin-bottom: 20px; }
+.gadget-lab-layout > .panel { min-width: 0; }
+.gadget-lab-layout label { display: block; margin: 12px 0; }
+.gadget-lab-layout select, .gadget-lab-layout input[type=range] { width: 100%; max-width: 100%; margin-top: 7px; }
+.lab-review-item { display:flex!important; flex-direction:row; gap:11px; border-bottom:1px solid var(--line); padding:12px 0; align-items:flex-start; }
+.lab-review-item input { flex: 0 0 auto; margin-top: 4px; }
+.lab-review-item span { min-width: 0; overflow-wrap: anywhere; }
+.lab-review-item small { display: block; margin-top: 6px; opacity: .78; line-height:1.45; }
+.lab-signal-chart { margin: 10px 0; display:block; max-height: 160px; }
+.lab-sample-table { overflow-x:auto; max-height: 280px; overflow-y:auto; }
+.lab-sample-table table { width:100%; border-collapse:collapse; min-width:400px; }
+.lab-sample-table th, .lab-sample-table td { padding:7px; border-bottom:1px solid var(--line); text-align:left; font-size: .82rem; }
+@media (max-width:760px){ .gadget-lab-layout { grid-template-columns:minmax(0,1fr); } .gadget-lab-link { word-break:break-word; } }
