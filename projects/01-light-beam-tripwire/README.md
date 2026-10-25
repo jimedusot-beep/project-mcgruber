@@ -41,3 +41,7 @@ https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v
 
 See [project-wide requirements](../../docs/BUILD_STANDARD.md) and [tracking issues](../../docs/ISSUE_TRACKING.md).
 
+
+## Owner parts photo update — October 25
+
+See the [photo identification supplement](../../component-bank/PHOTO_IDENTIFICATIONS_2026-10-25.md). Readable markings confirm 2N4401, 2N4403 and L7805CV stock; the holder is marked for three AAA cells. All remain electrically untested. The amplifier/threshold circuit and matched IR pair are still unresolved.

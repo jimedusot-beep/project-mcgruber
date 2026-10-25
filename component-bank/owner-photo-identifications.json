@@ -1,0 +1,275 @@
+{
+  "collection": "Owner photo identifications",
+  "date": "2026-10-25",
+  "source": "Nine owner-uploaded photographs IMG_9283 through IMG_9291, reviewed in chat",
+  "disclaimer": "Identification supplement, not new deliveries or extra stock. Related Rev 4 groups may contain these same parts. Repeated views do not add quantities. No electrical function or optical receiver performance established.",
+  "items": [
+    {
+      "id": "PHOTO-001",
+      "name": "2N4401 NPN transistor",
+      "partNumber": "2N4401",
+      "category": "Other",
+      "quantity": "At least 1",
+      "evidence": "Marking readable",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9283.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Warning LED output-switch candidate for B; does not complete optical detection.",
+      "limits": "Verify exact manufacturer pinout and transistor function before wiring."
+    },
+    {
+      "id": "PHOTO-002",
+      "name": "2N4403 PNP transistor",
+      "partNumber": "2N4403",
+      "category": "Other",
+      "quantity": "At least 1",
+      "evidence": "Marking readable",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9284.jpeg",
+        "media/parts/2026-10-25/IMG_9286.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Additional transistor stock; no assigned circuit role.",
+      "limits": "Same part may appear in both photos; do not count twice or substitute for an NPN."
+    },
+    {
+      "id": "PHOTO-003",
+      "name": "L7805CV — 5 V voltage regulator",
+      "partNumber": "L7805CV",
+      "category": "Power",
+      "quantity": "At least 1",
+      "evidence": "Marking readable",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9285.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Candidate regulator for a 5 V IR receiver supply using a suitable higher-voltage input.",
+      "limits": "Not a working supply yet. Verify pinout, supporting capacitors, heat dissipation and loaded output. Cannot boost nominal 4.5 V to 5 V."
+    },
+    {
+      "id": "PHOTO-004",
+      "name": "10 µF, 25 V electrolytic capacitor",
+      "partNumber": "10 µF 25 V",
+      "category": "Other",
+      "quantity": "At least 1",
+      "evidence": "Marking readable",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9286.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Supporting power-filtering capacitor candidate.",
+      "limits": "Observe polarity; capacitance, leakage and condition untested. Not a substitute for every required regulator bypass capacitor."
+    },
+    {
+      "id": "PHOTO-005",
+      "name": "Capacitor — value unknown ?",
+      "partNumber": "Unknown value",
+      "category": "Other",
+      "quantity": "At least 1",
+      "evidence": "Appearance only; value hidden",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9286.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Possible supporting capacitor after identification.",
+      "limits": "Rotate to expose capacitance, voltage and polarity markings; do not assume it matches the other capacitor."
+    },
+    {
+      "id": "PHOTO-006",
+      "name": "USB dongles — exact functions unknown ?",
+      "partNumber": "Unknown",
+      "category": "Other",
+      "quantity": "3 pieces / 1 group",
+      "evidence": "Connector shape visible; function unknown",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9287.jpeg"
+      ],
+      "relatedReferenceId": "REF-13",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Unassigned USB accessories; no optical receiver role confirmed.",
+      "limits": "Need labels or device identification; do not infer Wi-Fi, Bluetooth or mouse compatibility from shape."
+    },
+    {
+      "id": "PHOTO-007",
+      "name": "Possible wire connectors — exact type unknown ?",
+      "partNumber": "Unknown",
+      "category": "Wiring",
+      "quantity": "2 paired assemblies visible / 1 group",
+      "evidence": "Appearance only; tentative identification",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9288.jpeg"
+      ],
+      "relatedReferenceId": null,
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Possible connection hardware after identifying openings and wire requirements.",
+      "limits": "Inspect openings, terminal mechanism and ratings; do not classify as sensors."
+    },
+    {
+      "id": "PHOTO-008",
+      "name": "Unidentified many-pin component — part number unknown ?",
+      "partNumber": "Unknown",
+      "category": "Other",
+      "quantity": "1 visible",
+      "evidence": "Underside only; identity unresolved",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9289.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "No receiver function assigned.",
+      "limits": "Flip over and photograph all printed markings; may be another socket. No amplifier or comparator identified."
+    },
+    {
+      "id": "PHOTO-009",
+      "name": "Empty IC socket",
+      "partNumber": "Exact size unknown",
+      "category": "Wiring",
+      "quantity": "1 visible",
+      "evidence": "Open socket visible",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9289.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Holds a compatible IC on an appropriate assembly board.",
+      "limits": "Not an amplifier or comparator; verify pin count and pitch."
+    },
+    {
+      "id": "PHOTO-010",
+      "name": "Holder for three AAA batteries",
+      "partNumber": "3 × 1.5 V AAA markings",
+      "category": "Power",
+      "quantity": "1 holder",
+      "evidence": "Cell markings readable",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9290.jpeg",
+        "media/parts/2026-10-25/IMG_9291.jpeg"
+      ],
+      "relatedReferenceId": "REF-20",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Potential removable-cell supply and mounting base.",
+      "limits": "Two views of the same holder. Loose/cut wires require repair, continuity, polarity and voltage checks. Series wiring and switch operation not proven; do not call it a regulated 5 V source."
+    }
+  ],
+  "photos": [
+    {
+      "filename": "IMG_9283.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9283.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "115c829ece466dc7c423253e53a4f445bd860be448d35a50049747a696574795"
+    },
+    {
+      "filename": "IMG_9284.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9284.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "cd9d3426dc60431e5dc4a952df7733c491a3b62321300d837854626ed67fec48"
+    },
+    {
+      "filename": "IMG_9285.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9285.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "a05f3c6c89db1f56915668a2f9a1d5f47747fcc1b93342ad30961c8501806a4c"
+    },
+    {
+      "filename": "IMG_9286.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9286.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "cf3ace725aba9801ab57830123b87c75722a2ad139ea8d04e9aa7f1e0a901197"
+    },
+    {
+      "filename": "IMG_9287.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9287.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "4e1f804c75531036357c2a1222eb813e73a585999414825b98b26d9e191b204a"
+    },
+    {
+      "filename": "IMG_9288.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9288.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "ca126e59ac7eb09a52cac8df9cb9e0b39f345f335452e1f8aabd935489af03e8"
+    },
+    {
+      "filename": "IMG_9289.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9289.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "6ff7132ee83120a6bfba8511e7c7019dd9d6a63fe29e9da280d8ad1c0221688d"
+    },
+    {
+      "filename": "IMG_9290.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9290.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "18a795b6e9461465954cfbc1e3cc3b8e0f3826f09e9e7f5b1dcec01fb6966099"
+    },
+    {
+      "filename": "IMG_9291.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9291.jpeg",
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "c24cf1663342491a10ae62cbf372f2b5e5952c034549201e95c6272e3e360d62"
+    }
+  ],
+  "remainingGaps": {
+    "B": "No suitable amplifier/threshold circuit identified; LED sensor measurements and circuit design still needed.",
+    "C": "No matched IR emitter/receiver pair identified. L7805CV is a candidate supply component, not a tested 5 V supply."
+  },
+  "references": [
+    {
+      "title": "ST L78 regulator datasheet",
+      "url": "https://www.st.com/resource/en/datasheet/l78.pdf"
+    }
+  ]
+}

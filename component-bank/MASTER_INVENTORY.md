@@ -48,3 +48,7 @@ Do not tally 116 individually verified spare parts or treat abrasives as a PCB
 electronic requirement. The owner's three original photos are **not** published
 to public GitHub; the source record is text-only. Local photo attachments can
 be added privately later.
+
+## October 25 photo identification supplement
+
+[Ten part/group records and nine clickable photographs](PHOTO_IDENTIFICATIONS_2026-10-25.md) are tracked in [JSON](owner-photo-identifications.json) and [CSV](owner-photo-identifications.csv). Open **Component Bank → View → Photo identifications · Oct 25** for searchable photos. These refine earlier stock, including REF-16, REF-13 and REF-20; they are not ten additional purchases. The historic Rev 4 source remains unchanged. No electrical tests or completed optical receiver are claimed.
