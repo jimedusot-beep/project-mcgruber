@@ -30,7 +30,7 @@ class SilentOpticalTripwireTests(unittest.TestCase):
         for marker in (
             "Adafruit 2168", "Adafruit 2167", "SEN0523", "TSSP4038",
             "10 kΩ", "1 kΩ", "LOW", "HIGH", "OUT", "4 m", "15 ft",
-            "NO sound", "NOT ACQUIRED/TESTED", "manufacturer",
+            "No sound", "NOT ACQUIRED/TESTED", "manufacturer",
         ):
             self.assertIn(marker, doc, marker)
         self.assertIn("do not wire a warning LED yet", doc)
