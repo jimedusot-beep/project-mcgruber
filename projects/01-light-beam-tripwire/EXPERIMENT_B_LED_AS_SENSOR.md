@@ -58,6 +58,8 @@ Use [ten-row unfilled receiver log](EXPERIMENT_B_MEASUREMENTS.csv) and the [engi
 **This does NOT connect the weak photodiode signal to the output stage.**
 
 1. Read and verify the manufacturer-specific **2N4401 base/collector/emitter pins** using the datasheet, package orientation and Fluke diode mode. The 2N4403 PNP is **not** a drop-in replacement.
+**Manufacturer pinout conflict from real datasheets:** [onsemi 2N4401](https://www.onsemi.com/pdf/datasheet/2n4401-d.pdf) numbers its TO-92 device **1=emitter, 2=base, 3=collector**, whereas [NXP/Philips 2N4401](https://media.digikey.com/pdf/Data%20Sheets/NXP%20PDFs/2N4401.pdf) lists **1=collector, 2=base, 3=emitter**. The exact manufacturer's device marking and package view must be identified: **never** treat the label *2N4401* or a stock photo alone as a universal left-to-right pinout. If the manufacturer is unknown, stop at diode-mode identification and do not power the transistor stage.
+
 2. With power OFF, for a verified 9 V supply and ordinary indicator LED, prototype:
    `+9 V → measured 1 kΩ → warning LED anode → LED cathode → 2N4401 C; 2N4401 E → 0 V; 2N4401 B → measured 10 kΩ → loose insulated test lead`.
 3. Touch the *resistor-side* test lead briefly to +9 V, and release it. The warning LED should illuminate on touch and go out when the lead is removed. With a suitable pull-down (e.g. identified 100 kΩ) a well-defined OFF state is easier to maintain. Never let an uninsulated loose base lead short collector or emitter.
