@@ -53,15 +53,15 @@ export function csv(text) {
 const metadata = [
   [
     "Light-Beam Tripwire",
-    "Turn an interrupted beam of light into an alarm.",
+    "Detect an interrupted visible beam and show a silent warning.",
     "Sensors",
     "Intermediate",
     "Reported phone demonstration",
-    "Independent light detector and comparator",
+    "Qualified receiver, amplifier/threshold and automatic warning LED",
   ],
   [
     "Motion-Activated Prank",
-    "Make movement the cue for a well-timed sound.",
+    "Use motion as the cue for a visual surprise or optional future sound.",
     "Software",
     "Intermediate",
     "Webcam route proposed",
@@ -101,11 +101,11 @@ const metadata = [
   ],
   [
     "Standalone Alarm / Control Box",
-    "Bring power, a trigger, and an output into one box.",
+    "Build a silent battery-powered trigger and indicator control box.",
     "Switches",
     "Intermediate",
     "Standalone design proposed",
-    "Rated 5V active buzzer and measured switch limits",
+    "Verified low-voltage LED circuit, switch contacts and measured current",
   ],
   [
     "Invisible Infrared Tripwire",
@@ -117,7 +117,7 @@ const metadata = [
   ],
   [
     "Talking / Moving Robot",
-    "Connect a trigger to a voice and a little movement.",
+    "Explore controlled movement, lights and optional later sound.",
     "Robotics",
     "Advanced",
     "Elmo donor reported",
