@@ -18,6 +18,7 @@ for (const p of catalog.projects)
 // These checks do not imply that physical hardware passed bench testing.
 for (const needed of [
   "beam-detector/index.html",
+  "beam-detector/start-here.html",
   "beam-detector/standalone-lab.html",
   "beam-detector/engineering-hub.html",
   "beam-detector/engineering-checks.html",
