@@ -1,11 +1,13 @@
 # Roadmap — $0-first practical sequence
 
+**Update 2026-10-25:** The working user-reported phone-camera beam prototype remains the Project 01 baseline. For the current **silent no-phone** objective, follow the independent electronics [engineering master plan](ENGINEERING_MASTER_PLAN_2026-10-24.md), [field guide](ELECTRONICS_ENGINEERING_FIELD_GUIDE.md), and the mobile [requirements and DC measurement checker](../web/public/beam-detector/engineering-checks.html). Nothing is physically qualified until actual measurements and real repeatable tests are recorded.
+
 **First preference:** use available salvaged equipment, donated parts and paper/cardboard prototypes. Buying parts is not required to start learning; safety-critical mismatches are not acceptable substitutes.
 
 ## Top three practical builds
-1. **Object-removal alarm:** Disconnect power, use the Fluke meter to map mouse microswitch NO/NC contacts, test repeatability, then use a correctly rated LED/resistor/power circuit. Sound is optional until a suitable active buzzer is available.
+1. **Object-removal alarm:** Disconnect power, use the Fluke meter to map mouse microswitch NO/NC contacts, test repeatability, then use a correctly rated LED/resistor/power circuit. Sound is deferred; use the current-limited LED-only version.
 2. **Mechanical pop-up surprise box:** Build lightweight folded-paper spring, hinge and latch; record reliable release over repeated trials. Motorized addition is a separate later milestone.
-3. **Standalone alarm/control box:** Start with a verified switch-to-active-buzzer and power source, then expand to optional comparator, sensor and modules.
+3. **Standalone alarm/control box:** Begin with the verified 9V switch-to-current-limited-LED circuit; sound is not part of the present requirements. Next prove the 2N4401 manual switching experiment.
 
 ## Subsequent builds
 4. Light-beam tripwire independent of GhostLine.
