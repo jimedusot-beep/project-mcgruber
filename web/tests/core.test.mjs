@@ -247,7 +247,7 @@ test("catalog covers real repository files, all nine procedures, and preserves u
   assert.equal(data.components.length, 16);
   assert.equal(data.inventory.length, 12);
   for (const p of data.projects) {
-    const expectedSteps = { P01: 10, P04: 10, P07: 8 };
+    const expectedSteps = { P01: 10 };
     assert.equal(p.steps.length, expectedSteps[p.id] || 5, p.name);
     assert.equal(p.cost, null);
     for (const f of p.files)
@@ -255,10 +255,10 @@ test("catalog covers real repository files, all nine procedures, and preserves u
   }
   const objectRemoval = data.projects.find((p) => p.id === "P04");
   const controlBox = data.projects.find((p) => p.id === "P07");
-  assert.ok(objectRemoval.steps[0].includes("mouse microswitch"));
-  assert.ok(objectRemoval.steps.at(-1).includes("Disconnect any LED circuit"));
-  assert.ok(controlBox.steps[0].includes("dry hard"));
-  assert.ok(controlBox.steps.at(-1).includes("repeat twenty cycles"));
+  assert.match(objectRemoval.steps[0], /microswitch.*continuity/i);
+  assert.match(objectRemoval.steps.at(-1), /twenty real object-removal cycles/i);
+  assert.match(controlBox.steps[0], /9V supply polarity/i);
+  assert.match(controlBox.steps.at(-1), /insulating enclosure.*repeat twenty cycles/i);
   assert.ok(
     data.components.every((c) => c.status === "unverified" && c.voltage === ""),
   );
