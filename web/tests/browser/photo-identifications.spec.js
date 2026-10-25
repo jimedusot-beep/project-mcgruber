@@ -12,8 +12,10 @@ test('owner can find regulator photo and open source evidence', async ({page}) =
   const response = await page.request.get(await link.getAttribute('href'));
   expect(response.ok()).toBeTruthy();
   expect(response.headers()['content-type']).toContain('image/jpeg');
-  await expect(card.locator('img')).toBeVisible();
-  expect(await card.locator('img').evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
+  const image = card.locator('img');
+  await image.scrollIntoViewIfNeeded();
+  await expect(image).toBeVisible();
+  await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
   await page.locator('#component-search').fill('');
   await page.locator('#component-filter').selectOption('Power');
   await expect(page.locator('.photo-identification')).toHaveCount(2);
