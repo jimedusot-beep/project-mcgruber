@@ -114,3 +114,25 @@ encrypted and plain full workspace backups. Existing workspaces default to
 empty reviews. Notebook exports are Simulation data / Not tested and contain
 no physical measurements. This release does not scan nearby devices, transmit
 radio, receive spectrum, run firmware or control motors or soldering tools.
+
+## Optional secure private cloud sync (requires your own backend)
+
+GitHub Pages remains local-first and cannot privately store personal inventory.
+The new **Backups & settings → Secure cross-device sync** panel is opt-in.
+The owner can configure their own Supabase project, apply the migration in
+supabase/migrations/202610240001_private_vault.sql, and enable numerical
+Email OTP. The frontend uses only the **public** publishable key, not a
+service_role key. Before upload, the app encrypts the full local backup
+(including referenced images/media) with AES-256-GCM and a separate
+never-stored passphrase. The remote head is changed using atomic expected
+revision comparison; concurrent device changes pause sync rather than
+silently overwriting. Cloud files are owner-scoped and private with RLS.
+Uploads can be scheduled automatically after local autosave only when this
+tab is explicitly unlocked; remote restores always require the user's
+confirmation. The app never auto-publishes to GitHub.
+
+**This repo does not deploy or connect a real cloud backend on its own.**
+See [supabase/README.md](../supabase/README.md) for complete setup,
+scope limitations, quotas, safe cleanup and the real two-device security
+test checklist. Local IndexedDB saving and encrypted manual backup remain
+available without any account.
