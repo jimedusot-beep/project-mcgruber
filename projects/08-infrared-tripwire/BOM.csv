@@ -4,4 +4,4 @@
 "correct supply","1","L7805CV regulator stock photographed (PHOTO-003); requires suitable input, supporting components and measured output. Three-AAA holder PHOTO-010 is not regulated 5V. See ../../component-bank/PHOTO_IDENTIFICATIONS_2026-10-25.md"
 "pull-up if open collector","1","choose after reading module datasheet"
 "logic/driver","1","match output voltage and load"
-"indicator/buzzer","1","rated output needed"
+"silent warning LED and series resistor","1 set","separate indicator; choose resistor after verifying supply and LED; no sound output"
