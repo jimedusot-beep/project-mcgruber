@@ -18,6 +18,10 @@
 
 **Critical distinction:** Owner-reported phone optical detection through nominal 15 ft is encouraging; a bare unpowered red LED, 2N4401/2N4403, and the unpopulated NightFire boards do *not* yet constitute a demonstrated standalone no-phone receiver. Do not connect an unverified 9V source to an unresisted LED or unknown PCB.
 
+## Start here — the next real hardware test
+
+For the silent, no-phone light tripwire, open the **[one-step-at-a-time bench guide](web/public/beam-detector/start-here.html)**. The existing public-phone route is [McGruber Start Here](https://jimedusot-beep.github.io/3D-vision/beam-detector/start-here.html) (site deployment may need to finish). It starts with a **9V resistor/current-limiting check**, then a measured LED-as-receiver DC experiment, a verified 2N4401 output switch, an explicitly **unverified** analog threshold front-end, and honest range acceptance tests. Test results are owner-entered, not remotely measured.
+
 ## McGruber Lab browser workshop
 
 A mobile-first web application now lives in [web/](https://github.com/jimedusot-beep/project-mcgruber/tree/main/web). Explore nine invention workspaces, logic experiments, real 3D files, calculators, guided builds, the component bank and a private notebook with photos, local autosave and full backups.
