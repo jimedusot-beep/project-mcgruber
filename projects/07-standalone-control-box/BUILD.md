@@ -2,6 +2,14 @@
 
 **Status:** build proposal with component candidates from owner photos, not an electrically tested device. No active buzzer is required for this revision.
 
+## Procedure
+
+1. Measure the actual 9V supply polarity, verify a suitable LED current-limiting resistor, and identify the LED terminals.
+2. With all power removed, map the selected switch's NO/NC contact behavior using Fluke continuity.
+3. Connect the 9V supply, mechanical switch, series resistor and silent status LED in a single correctly insulated loop.
+4. Test LED ON/OFF behavior in twenty real switch cycles and measure current via voltage drop across the known resistor.
+5. Fit an insulating enclosure and strain relief, then repeat twenty cycles and document faults and battery recovery; only afterward try optional NPN switching.
+
 ## First working build: directly controlled LED
 
 ### Owned candidate parts
