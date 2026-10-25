@@ -37,6 +37,9 @@ The 2167/2168 *complete rated module* already has its emitter current-limiting d
 
 ### Exact example wiring — **Adafruit 2168 or 2167 ONLY**, powered by regulated 5 V
 
+**[Open the labeled circuit wiring diagram](diagrams/experiment-c-silent-adafruit-5v.svg)** — separately depicts emitter and receiver, pull-up, 1 kΩ indicator resistor, LED polarity and HIGH/LOW truth table.
+
+
 ```text
 SIDE A — IR transmitter                 SIDE B — IR receiver and silent warning
   Adafruit emitter RED  → +5 V          Adafruit receiver RED   → +5 V
