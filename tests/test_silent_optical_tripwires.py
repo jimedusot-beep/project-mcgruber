@@ -63,7 +63,9 @@ class SilentOpticalTripwireTests(unittest.TestCase):
         self.assertNotIn("<script", content.lower())
         self.assertNotIn("javascript:", content.lower())
         self.assertNotRegex(content.lower(), r"\bonclick\s*=")
-        self.assertNotIn("9 V", content)
+        # Test visible labels, not SVG path coordinates such as "M757 279 V329".
+        visible_text = " ".join(root.itertext())
+        self.assertNotRegex(visible_text, r"(?<!\\d)9\\s*V\\b")
 
 
 if __name__ == "__main__":
