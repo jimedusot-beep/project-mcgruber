@@ -33,6 +33,13 @@ A mobile-first web application now lives in [web/](https://github.com/jimedusot-
 
 [Complete phone-only build/test package](projects/01-light-beam-tripwire/PHONE_BUILD_TEST.md): required and optional parts, current-limited LED wiring, multimeter measurements, six distances, timed stability tests and restart recovery. V4 adds measured camera counts, operator-confirmed crossing truth, local results and JSON export. Hardware performance and optical range remain unverified; the public app must display V4 before following the new test controls.
 
+## Two silent, standalone tripwire experiments — B and C
+
+- **[B — blue LED beam → unpowered red LED photodetector → analog front end → 2N4401 → silent warning LED](projects/01-light-beam-tripwire/EXPERIMENT_B_LED_AS_SENSOR.md).** Real LED-photodiode/Darlington and LM358 darkness-detector examples researched; ten Fluke DC ON/BLOCKED/RESTORED readings still required to choose a verified amplifier and threshold.
+- **[C — invisible infrared pair → 5 V, 10 kΩ output pull-up and 1 kΩ warning-LED limiter → silent light-on-when-blocked](projects/08-infrared-tripwire/EXPERIMENT_C_SILENT_IR.md).** Model-specific short-range Adafruit circuit and optional DFRobot 4 m route documented. Exact vendor output polarity must be verified before adapting a different module.
+
+**No sound at all**, no laser and no phone/laptop needed for the final standalone builds. B and C have separate [B measurement](projects/01-light-beam-tripwire/EXPERIMENT_B_MEASUREMENTS.csv) and [C measurement](projects/08-infrared-tripwire/EXPERIMENT_C_MEASUREMENTS.csv) templates; neither has completed physical acceptance trials. The working phone-camera route is **not** counted as a standalone electronics test.
+
 ## All nine inventions
 
 | # | Project | Current progress |
