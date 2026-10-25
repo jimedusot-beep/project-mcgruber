@@ -18,7 +18,7 @@ Full backups include the new records, plans, photos and labels. There is no auto
 
 The sidebar now includes **Engineering handbook**, and the home screen provides **Engineering readiness**. These open `beam-detector/engineering-hub.html` in the same McGruber site, showing all nine inventions, owner-reported working components, remaining blockers and physical acceptance gates. The 9-stage **Standalone Receiver Lab** is linked from it, with independent local test records and JSON export. These physical test logs use separate browser storage from the main workshop notebook, so export both when backing up. Neither HTML page reads actual Fluke measurements electronically; values are user-entered.
 
-The full [engineering master plan](ENGINEERING_MASTER_PLAN_2026-10-24.md) and [electronics field guide](ELECTRONICS_ENGINEERING_FIELD_GUIDE.md) provide the calculations, reference pinouts, and evidence requirements. A simulated circuit or owner-marked pass must never be presented as independently measured hardware.
+The full [engineering master plan](ENGINEERING_MASTER_PLAN_2026-10-24.md) and [electronics field guide](ELECTRONICS_ENGINEERING_FIELD_GUIDE.md) provide the calculations, reference pinouts, and evidence requirements. The new [Parts & Meter Checks](../web/public/beam-detector/engineering-checks.html) page adds cross-project component status, a conservative 9V LED resistor calculator and a required ten-cycle DC ON/BLOCKED/RESTORED test worksheet. Stored measurements and component status are **manual user entries**; they do not independently certify physical circuitry. Export this page's own JSON as a backup. A simulated circuit or owner-marked pass must never be presented as independently measured hardware.
 
 ## Inspecting models
 
