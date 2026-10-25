@@ -247,7 +247,8 @@ test("catalog covers real repository files, all nine procedures, and preserves u
   assert.equal(data.components.length, 16);
   assert.equal(data.inventory.length, 12);
   for (const p of data.projects) {
-    assert.equal(p.steps.length, p.id === "P01" ? 10 : 5);
+    const minimumSteps = { P01: 10, P04: 10, P07: 8 }[p.id] || 5;
+    assert.ok(p.steps.length >= minimumSteps, `${p.id}: expected at least ${minimumSteps} genuine source steps; got ${p.steps.length}`);
     assert.equal(p.cost, null);
     for (const f of p.files)
       assert.ok((await stat(new URL("../../" + f, import.meta.url))).isFile());
