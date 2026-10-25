@@ -33,7 +33,7 @@ test("nine inventions, responsive routes, favorites, source navigation and theme
   await page.goto("/#/project/P04/files");
   await page.getByRole("link", { name: "BUILD.md", exact: true }).click();
   await expect(page.locator(".markdown")).toContainText(
-    "reproducible build guide",
+    "Object-removal silent alarm — simplest automatic circuit",
   );
   await page
     .getByRole("button", { name: "Toggle light and dark theme" })
@@ -271,7 +271,7 @@ test("installed offline cache restores source files and saves notebook records w
     await expect(page.locator(".project-card")).toHaveCount(9);
     await page.goto("/#/docs/projects/04-object-removal-alarm/BUILD.md");
     await expect(page.locator(".markdown")).toContainText(
-      "reproducible build guide",
+      "Object-removal silent alarm — simplest automatic circuit",
     );
     await page.goto("/#/notebook");
     await page.getByRole("button", { name: "+ New experiment" }).click();
