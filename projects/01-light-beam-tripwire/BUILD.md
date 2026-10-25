@@ -9,6 +9,7 @@
 - [Detailed circuit blocks with unverified parts explicitly marked](CIRCUIT.md)
 - [Interactive standalone receiver lab: stage-by-stage test](../../web/public/beam-detector/standalone-lab.html)
 - [Engineering hub: owned materials / missing elements](../../web/public/beam-detector/engineering-hub.html)
+- [Parts readiness, LED current and ten-cycle DC receiver worksheet](../../web/public/beam-detector/engineering-checks.html)
 - [As-built / required bill of materials](BOM.csv)
 
 ## Specific stages, in order
