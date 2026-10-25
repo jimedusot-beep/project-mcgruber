@@ -68,3 +68,14 @@ test('ARM waits for fresh camera readings before becoming available',async({page
   await page.locator('#start').click();await expect(page.locator('#state')).toHaveText('READY TO ARM');expect(await page.locator('#arm').isDisabled()).toBe(true);
   await page.evaluate(()=>window.testFrozen=false);await expect(page.locator('#arm')).toBeEnabled();
 });
+
+
+test('thirty-crossing rig profile starts a fifteen-minute check and rejects a false trip',async({page})=>{
+ await syntheticCamera(page);const start=new Date('2026-10-25T12:00:00Z');await page.clock.install({time:start});await page.clock.pauseAt(new Date(start.getTime()+1000));
+ await page.goto('/beam-detector/');await page.locator('#start').click();await page.clock.runFor(600);await page.locator('#arm').click();await page.clock.runFor(1600);
+ await page.locator('#test-crossings').selectOption('30');await page.locator('#test-duration').selectOption('900000');await page.locator('#begin-test').click();
+ for(let i=0;i<30;i++){await page.evaluate(()=>window.testLight=false);await page.clock.runFor(300);await page.evaluate(()=>window.testLight=true);await page.clock.runFor(300);}
+ await page.locator('#crossings-confirm').check();await page.locator('#finish-crossings').click();await page.clock.runFor(300);
+ await expect(page.locator('#test-status')).toContainText('IDLE');await expect(page.locator('#test-status')).toContainText('30/30');await expect(page.locator('#test-status')).toContainText('900 seconds');
+ await page.evaluate(()=>window.testLight=false);await page.clock.runFor(500);await expect(page.locator('#test-status')).toContainText('FAILED');
+});

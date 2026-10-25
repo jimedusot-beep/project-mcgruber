@@ -2,6 +2,8 @@
 
 **Scope:** iPhone camera receiver, silent visual alert, intact flashlight first, then one salvaged red LED with measured current limiting. Standalone receiver and reflector experiments remain separate.
 
+See [the complete project build map](PROJECT_BUILD_MAP.md) for every subsystem, missing measurement and completion gate.
+
 ## Start here
 
 - [Hosted detector](https://jimedusot-beep.github.io/3D-vision/beam-detector/): check the visible version. A feature branch/PR is not a deployment.
@@ -13,7 +15,7 @@
 
 ## Existing progress and stronger next gate
 
-The newer [owner field report](FIELD_TEST_2026-10-23.md) records nominal 1, 3, 6, 10 and 15 ft PASS_REPORTED outcomes with red light. Preserve those reports; emitter identity, app revision, raw counts and false-trip logs are still absent. V4 does not automatically import them as measured passes. Its guided test implements this request’s ten-crossing and two/five-minute gates. The field report’s stronger fixed-rig gate is 30/30 crossings plus 15 minutes clear; use a manual tally and external timer with PHONE_TEST_LOG.csv for that separate qualification.
+The newer [owner field report](FIELD_TEST_2026-10-23.md) records nominal 1, 3, 6, 10 and 15 ft PASS_REPORTED outcomes with red light. Preserve those reports; emitter identity, app revision, raw counts and false-trip logs are still absent. V4 does not automatically import them as measured passes. Its guided runner supports ten or thirty crossings and two, five or fifteen minutes of clear-beam monitoring. For the stronger fixed-rig gate, select 30 crossings and 15 minutes. Confirm one count per actual crossing with no misses or extras; counts alone cannot establish that. Old basic passes do not qualify the stronger selected requirements.
 
 ## Required and optional
 
