@@ -27,7 +27,7 @@ Browser tests run in isolated contexts with explicitly labeled QA fixtures; they
 
 Playwright is pinned to 1.64.1, which includes the upstream [WebKit offline service-worker navigation fix](https://github.com/microsoft/playwright/pull/42894). Keep the offline reload workflow enabled when updating browser tooling.
 
-CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` image, pinned by digest, with browsers and OS dependencies preinstalled, following the [Playwright container guidance](https://playwright.dev/docs/ci#via-containers). Update the image, digest and package versions together. This avoids repeated Ubuntu package downloads during each check. The suite stops after six minutes so its reports can finish within the eight-minute browser job limit.
+CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` image, pinned by digest, with browsers and OS dependencies preinstalled, following the [Playwright container guidance](https://playwright.dev/docs/ci#via-containers). Update the image, digest and package versions together. This avoids repeated Ubuntu package downloads during each check. The two browser projects run serially with a ten-minute suite limit inside a twelve-minute browser step and a fifteen-minute validation job. This leaves time for teardown and report uploads; individual test timeouts and assertions remain enforced. The earlier six-minute suite limit interrupted the 70-test run after 67 passes, leaving three tests unrun.
 
 ## Architecture
 

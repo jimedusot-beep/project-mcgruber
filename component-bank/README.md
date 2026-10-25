@@ -38,3 +38,7 @@ No. 1209, marked 116 pieces. This is one owned workshop consumables kit,
 not an electronics module or a verified physical test. The website offers
 a separate New arrivals view with optional local import into My inventory.
 The user-supplied photos have not been published to this public repository.
+
+## October 25 photo identification supplement
+
+[Sixteen part/group records and 35 clickable photographs](PHOTO_IDENTIFICATIONS_2026-10-25.md) are tracked in [JSON](owner-photo-identifications.json) and [CSV](owner-photo-identifications.csv). Open **Component Bank → View → Photo identifications · Oct 25** for searchable photos. These refine earlier stock, including REF-16, REF-13 and REF-20; they are not sixteen additional purchases. The historic Rev 4 source remains unchanged. No electrical tests or completed optical receiver are claimed.

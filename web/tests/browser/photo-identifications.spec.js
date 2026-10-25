@@ -1,0 +1,37 @@
+import {test,expect} from '@playwright/test';
+
+test('owner can find regulator photo and open source evidence', async ({page}) => {
+  await page.goto('/#/components');
+  await page.locator('#component-view').selectOption('photos');
+  await expect(page.locator('.photo-identification')).toHaveCount(16);
+  await expect(page.locator('.source-photo')).toHaveCount(35);
+  await page.locator('#component-filter').selectOption('Unverified');
+  await expect(page.locator('.photo-identification')).toHaveCount(16);
+  await expect(page.locator('.source-photo')).toHaveCount(35);
+  await page.locator('#component-search').fill('L7805CV');
+  const annotatedPhoto = page.locator('.source-photo a').first();
+  const annotatedResponse = await page.request.get(await annotatedPhoto.getAttribute('href'));
+  expect(annotatedResponse.ok()).toBeTruthy();
+  expect(annotatedResponse.headers()['content-type']).toContain('image/svg+xml');
+  const annotatedImage = page.locator('.source-photo img');
+  await annotatedImage.scrollIntoViewIfNeeded();
+  await expect.poll(() => annotatedImage.evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
+  const card = page.locator('.photo-identification');
+  await expect(card).toHaveCount(1);
+  await expect(card).toContainText('Not electrically tested');
+  const link = card.locator('a').first();
+  const response = await page.request.get(await link.getAttribute('href'));
+  expect(response.ok()).toBeTruthy();
+  expect(response.headers()['content-type']).toContain('image/jpeg');
+  const image = card.locator('img');
+  await image.scrollIntoViewIfNeeded();
+  await expect(image).toBeVisible();
+  await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
+  await page.locator('#component-search').fill('PHOTO-003');
+  await expect(page.locator('.photo-identification')).toHaveCount(1);
+  await expect(page.locator('.source-photo')).toHaveCount(1);
+  await expect(page.locator('.source-photo img')).toHaveAttribute('src', /IMG_9285_annotated\.svg$/);
+  await page.locator('#component-search').fill('');
+  await page.locator('#component-filter').selectOption('Power');
+  await expect(page.locator('.photo-identification')).toHaveCount(2);
+});

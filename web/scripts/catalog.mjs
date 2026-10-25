@@ -175,6 +175,7 @@ const components = requirements.map((r, i) => ({
 }));
 const inventory = csv(await read("component-bank/inventory-v2.csv"));
 const rev4Inventory = JSON.parse(await read("component-bank/master-salvage-inventory.json"));
+const photoIdentifications = JSON.parse(await read("component-bank/owner-photo-identifications.json"));
 const newArrivals = JSON.parse(await read("component-bank/owner-new-arrivals.json"));
 if (!Array.isArray(newArrivals.items) || new Set(newArrivals.items.map((x)=>x.id)).size !== newArrivals.items.length || !newArrivals.items.some((x)=>x.id==="ARR-001" && x.kitNo==="1209"))
   throw Error("Owner new arrivals source regression");
@@ -224,6 +225,7 @@ const catalog = {
   inventory,
   rev4Inventory,
   newArrivals,
+  photoIdentifications,
   documents,
 };
 await mkdir(path.join(publicDir, "licenses"), { recursive: true });
