@@ -14,6 +14,21 @@ for (const p of catalog.projects)
     if (!(await stat(path.join(dist, "repository", f))).isFile())
       throw Error("Missing source: " + f);
   }
+// Verify the static, mobile engineering routes are included in the deployable build.
+// These checks do not imply that physical hardware passed bench testing.
+for (const needed of [
+  "beam-detector/index.html",
+  "beam-detector/standalone-lab.html",
+  "beam-detector/engineering-hub.html",
+  "beam-detector/engineering-checks.html",
+  "beam-detector/engineering-core.mjs",
+]) {
+  if (!(await stat(path.join(dist, needed)).catch(() => null))?.isFile())
+    throw Error("Missing mobile engineering asset: " + needed);
+}
+const checksSource = await readFile(path.join(dist,"beam-detector/engineering-checks.html"),"utf8");
+if (!checksSource.includes("./engineering-core.mjs") || !checksSource.includes("analyzeReceiverTriples"))
+  throw Error("Engineering worksheet missing shared measured-electronics logic.");
 const files = [];
 async function walk(dir = "") {
   for (const f of await readdir(path.join(dist, dir), {
