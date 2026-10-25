@@ -42,6 +42,23 @@ test('gallery filters markings, shows uncertainty, and rejects injected photo UR
   assert.match(photoIdentificationsHTML(source, 'no-such-part'), /No photo identifications/);
 });
 
+test('Unverified filter retains the electrically untested photo inventory', () => {
+  const html = photoIdentificationsHTML(source, '', 'Unverified');
+  assert.equal([...html.matchAll(/class="panel component photo-identification"/g)].length, 16);
+  assert.equal([...html.matchAll(/class="panel source-photo"/g)].length, 35);
+  assert.doesNotMatch(html, /No photo identifications match/);
+});
+
+test('searching an inventory record ID includes its annotated source photo', () => {
+  const html = photoIdentificationsHTML(source, 'PHOTO-003');
+  assert.equal([...html.matchAll(/class="panel component photo-identification"/g)].length, 1);
+  assert.equal([...html.matchAll(/class="panel source-photo"/g)].length, 1);
+  assert.match(html, /IMG_9285_annotated\.svg/);
+  assert.doesNotMatch(html, /IMG_9283_annotated\.svg/);
+  const excluded = photoIdentificationsHTML(source, 'PHOTO-003', 'Wiring');
+  assert.doesNotMatch(excluded, /IMG_9285_annotated\.svg/);
+});
+
 
 test('every annotation embeds the exact source photograph and keeps valid marker references', async () => {
   const outputs = new Set();

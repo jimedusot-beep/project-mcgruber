@@ -4,18 +4,19 @@ import { escape } from "./ui.js";
 export function photoIdentificationsHTML(collection, query = "", filter = "all") {
   if (!collection?.items) return '<div class="notice">Photo identifications are unavailable in this build.</div>';
   const term = String(query).trim().toLowerCase();
+  const rows = collection.items.filter(item =>
+    (!term || JSON.stringify(item).toLowerCase().includes(term)) &&
+    (filter === "all" || filter === "Owned" || filter === "Unverified" || item.category === filter));
+  const matchedItemPhotos = new Set(rows.flatMap(item => item.photos));
   const photos = (collection.photos || []).filter(photo =>
-    (!term || JSON.stringify(photo).toLowerCase().includes(term)) &&
-    (filter === "all" || filter === "Owned" || collection.items.some(item => item.category === filter && item.photos.includes(photo.path))));
+    (!term || JSON.stringify(photo).toLowerCase().includes(term) || matchedItemPhotos.has(photo.path)) &&
+    (filter === "all" || filter === "Owned" || filter === "Unverified" || collection.items.some(item => item.category === filter && item.photos.includes(photo.path))));
   const gallery = '<details class="panel" open><summary>Source photos and annotation labels (' + photos.length + ')</summary><div class="component-grid">' + photos.map(photo => {
     if (!/^media\/parts\/2026-10-25\/IMG_\d{4}\.jpeg$/.test(photo.path)) return '';
     const annotated = /^media\/parts\/2026-10-25\/IMG_\d{4}_annotated\.svg$/.test(photo.annotatedPath || '') ? photo.annotatedPath : photo.path;
     return `<figure class="panel source-photo"><a href="repository/${escape(annotated)}" target="_blank" rel="noopener"><img src="repository/${escape(annotated)}" alt="${escape(photo.title)} — annotated" loading="lazy" style="width:100%;height:220px;object-fit:contain"></a><figcaption><strong>${escape(photo.filename)} · ${escape(photo.title)}</strong><p>${escape(photo.donor)}</p><ul>${(photo.annotations || []).map(label => `<li>${escape(label)}</li>`).join('')}</ul><small>Not electrically tested. Open annotated image to enlarge.</small><p><a href="repository/${escape(photo.path)}" target="_blank" rel="noopener">Source photograph</a></p></figcaption></figure>`;
   }).join('') + '</div></details>';
   const sheets = (collection.annotationSheets || []).filter(sheet => /^media\/parts\/2026-10-25\/annotations-\d\.png$/.test(sheet.path)).map(sheet => `<a href="repository/${escape(sheet.path)}" target="_blank" rel="noopener">${escape(sheet.title)}</a>`).join(' · ');
-  const rows = collection.items.filter(item =>
-    (!term || JSON.stringify(item).toLowerCase().includes(term)) &&
-    (filter === "all" || filter === "Owned" || item.category === filter));
   return `<section class="panel"><h2>Photo identifications · ${escape(collection.date)}</h2>
     <p>${escape(collection.disclaimer)}</p><p>Open any photo for a larger view. Question marks identify uncertain parts.</p>
     <a href="repository/component-bank/PHOTO_IDENTIFICATIONS_2026-10-25.md" target="_blank" rel="noopener">Full annotated parts list</a> ·
