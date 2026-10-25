@@ -131,8 +131,11 @@ const projects = await Promise.all(
   dirs.map(async (slug, i) => {
     const folder = "projects/" + slug,
       build = await read(folder + "/BUILD.md");
+    // P04/P07 use several numbered "Step N" / "First working build" sections
+    // instead of one "Procedure" heading. Fall back to numbered source lines so
+    // those real steps are never silently lost from the generated catalog.
     const procedure =
-      build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] || "";
+      build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] || build;
     return {
       id: "P" + String(i + 1).padStart(2, "0"),
       slug,
