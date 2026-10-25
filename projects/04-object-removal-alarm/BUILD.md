@@ -4,6 +4,14 @@
 
 **State:** Proposed and electrically unverified. Salvaged mouse switches, Fluke, 9V snap, resistors, visible LEDs, wires and tape are owned/reported; the switch contact map and actual supply current have not yet been measured.
 
+## Procedure
+
+1. Remove all power and map the donor microswitch COM/NO/NC contacts with the Fluke in continuity mode.
+2. Measure the actual 9V supply polarity and a suitable approximately 1 kΩ LED series resistor; identify LED anode/cathode and component ratings.
+3. With power disconnected, assemble the switch, resistor, status LED and battery snap in one insulated series circuit.
+4. Apply power after a short check, then record LED state as the object is pressed and released; calculate current from measured resistor voltage.
+5. Mount the silent trigger and perform twenty real object-removal cycles, including false-trip and restart notes.
+
 ## Step 1 — Map the switch (no battery attached)
 1. Take a mouse microswitch removed from the computer and disconnect all USB/battery sources.
 2. Connect the Fluke in continuity mode to each of the three switch pin pairs, recording beep/no-beep in **released** and **pressed** states.
