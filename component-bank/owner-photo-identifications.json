@@ -1,7 +1,7 @@
 {
   "collection": "Owner photo identifications",
   "date": "2026-10-25",
-  "source": "Nine owner-uploaded photographs IMG_9283 through IMG_9291, reviewed in chat",
+  "source": "All 38 available uploads in this conversation: 35 distinct source views IMG_9283–IMG_9317; three byte-identical remote-photo copies are aliases, not additional views.",
   "disclaimer": "Identification supplement, not new deliveries or extra stock. Related Rev 4 groups may contain these same parts. Repeated views do not add quantities. No electrical function or optical receiver performance established.",
   "items": [
     {
@@ -12,7 +12,8 @@
       "quantity": "At least 1",
       "evidence": "Marking readable",
       "photos": [
-        "media/parts/2026-10-25/IMG_9283.jpeg"
+        "media/parts/2026-10-25/IMG_9283.jpeg",
+        "media/parts/2026-10-25/IMG_9295.jpeg"
       ],
       "relatedReferenceId": "REF-16",
       "ownership": "Owner photographed",
@@ -140,13 +141,15 @@
     },
     {
       "id": "PHOTO-008",
-      "name": "Unidentified many-pin component — part number unknown ?",
-      "partNumber": "Unknown",
+      "name": "PIC16F57-E/SP microcontroller",
+      "partNumber": "PIC16F57-E/SP",
       "category": "Other",
       "quantity": "1 visible",
-      "evidence": "Underside only; identity unresolved",
+      "evidence": "Marking readable in IMG_9297; earlier underside view in IMG_9289",
       "photos": [
-        "media/parts/2026-10-25/IMG_9289.jpeg"
+        "media/parts/2026-10-25/IMG_9289.jpeg",
+        "media/parts/2026-10-25/IMG_9296.jpeg",
+        "media/parts/2026-10-25/IMG_9297.jpeg"
       ],
       "relatedReferenceId": "REF-16",
       "ownership": "Owner photographed",
@@ -154,8 +157,8 @@
       "test": {
         "result": "Not tested"
       },
-      "use": "No receiver function assigned.",
-      "limits": "Flip over and photograph all printed markings; may be another socket. No amplifier or comparator identified."
+      "use": "Programmable controller stock for later experiments; does not replace the sensitive optical frontend.",
+      "limits": "Programming, suitable power and additional circuitry are required; no firmware or working receiver demonstrated."
     },
     {
       "id": "PHOTO-009",
@@ -165,7 +168,8 @@
       "quantity": "1 visible",
       "evidence": "Open socket visible",
       "photos": [
-        "media/parts/2026-10-25/IMG_9289.jpeg"
+        "media/parts/2026-10-25/IMG_9289.jpeg",
+        "media/parts/2026-10-25/IMG_9297.jpeg"
       ],
       "relatedReferenceId": "REF-16",
       "ownership": "Owner photographed",
@@ -195,71 +199,1314 @@
       },
       "use": "Potential removable-cell supply and mounting base.",
       "limits": "Two views of the same holder. Loose/cut wires require repair, continuity, polarity and voltage checks. Series wiring and switch operation not proven; do not call it a regulated 5 V source."
+    },
+    {
+      "id": "PHOTO-011",
+      "name": "Alligator and clip-to-pin test leads",
+      "partNumber": "Exact ratings unknown",
+      "category": "Wiring",
+      "quantity": "At least two black and two red leads pictured",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9292.jpeg",
+        "media/parts/2026-10-25/IMG_9293.jpeg"
+      ],
+      "relatedReferenceId": "REF-22",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Temporary low-voltage connections.",
+      "limits": "Check continuity and insulation; do not infer ratings."
+    },
+    {
+      "id": "PHOTO-012",
+      "name": "Metal-can crystal / resonator ?",
+      "partNumber": "160004 marking",
+      "category": "Other",
+      "quantity": "1 visible",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9294.jpeg"
+      ],
+      "relatedReferenceId": "REF-16",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Unassigned timing component candidate.",
+      "limits": "Exact type, frequency and electrical function unverified."
+    },
+    {
+      "id": "PHOTO-013",
+      "name": "Resistor color-code reference card",
+      "partNumber": "NightFire Electronics printed chart",
+      "category": "Other",
+      "quantity": "1 reference card",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9298.jpeg"
+      ],
+      "relatedReferenceId": null,
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Reference aid only.",
+      "limits": "Does not verify any resistor value or quantity."
+    },
+    {
+      "id": "PHOTO-014",
+      "name": "Amazon R-NZ remote — detailed board evidence",
+      "partNumber": "R-NZ; CYW20735 main chip marking",
+      "category": "Other",
+      "quantity": "1 donor board; multiple views",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9299.jpeg",
+        "media/parts/2026-10-25/IMG_9300.jpeg",
+        "media/parts/2026-10-25/IMG_9301.jpeg",
+        "media/parts/2026-10-25/IMG_9302.jpeg",
+        "media/parts/2026-10-25/IMG_9303.jpeg",
+        "media/parts/2026-10-25/IMG_9304.jpeg"
+      ],
+      "relatedReferenceId": "REF-10",
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Preserved donor board; LED emitter candidates only.",
+      "limits": "No standalone IR receiver, continuous beam driver or amplifier confirmed. Eight-pin chip remains unidentified."
+    },
+    {
+      "id": "PHOTO-015",
+      "name": "MF301 three-position PCB terminal block",
+      "partNumber": "MF301; AWG 14–22; 250VAC 16A printed",
+      "category": "Wiring",
+      "quantity": "1 connector; three views",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9305.jpeg",
+        "media/parts/2026-10-25/IMG_9306.jpeg",
+        "media/parts/2026-10-25/IMG_9307.jpeg"
+      ],
+      "relatedReferenceId": null,
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Wire connections on a suitable soldered board.",
+      "limits": "Earlier adjustable-resistor guess corrected. Terminal mapping and electrical condition untested; printed ratings are not measured."
+    },
+    {
+      "id": "PHOTO-016",
+      "name": "HP X3000 G2 mouse — teardown evidence",
+      "partNumber": "HP X3000 G2; G66; label 1.5V DC 50mA",
+      "category": "Other",
+      "quantity": "1 mouse donor; ten views",
+      "evidence": "Owner photographs; appearance and readable markings only",
+      "photos": [
+        "media/parts/2026-10-25/IMG_9308.jpeg",
+        "media/parts/2026-10-25/IMG_9309.jpeg",
+        "media/parts/2026-10-25/IMG_9310.jpeg",
+        "media/parts/2026-10-25/IMG_9311.jpeg",
+        "media/parts/2026-10-25/IMG_9312.jpeg",
+        "media/parts/2026-10-25/IMG_9313.jpeg",
+        "media/parts/2026-10-25/IMG_9314.jpeg",
+        "media/parts/2026-10-25/IMG_9315.jpeg",
+        "media/parts/2026-10-25/IMG_9316.jpeg",
+        "media/parts/2026-10-25/IMG_9317.jpeg"
+      ],
+      "relatedReferenceId": null,
+      "ownership": "Owner photographed",
+      "verification": "Not electrically tested",
+      "test": {
+        "result": "Not tested"
+      },
+      "use": "Click microswitches, scroll encoder, holder, wires and enclosure are salvage candidates.",
+      "limits": "Internal parts remain assembled and untested. Exterior identified by readable label; board grouped by owner statement. U2 part number hidden; navigation function inferred. LED wavelength and chip identities unresolved; not a verified doorway receiver."
     }
   ],
   "photos": [
     {
       "filename": "IMG_9283.jpeg",
       "path": "media/parts/2026-10-25/IMG_9283.jpeg",
+      "title": "2N4401 transistor",
+      "annotations": [
+        "2N4401 marking readable"
+      ],
+      "sourceUploads": [
+        "IMG_9283.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "115c829ece466dc7c423253e53a4f445bd860be448d35a50049747a696574795"
+      "sha256": "115c829ece466dc7c423253e53a4f445bd860be448d35a50049747a696574795",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.46,
+          "y": 0.43
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9283_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "1e82891b9c3f2533027e0f166f9fcb4096b6ed0ceb89cf7b2aa75ec0f3b49aeb"
     },
     {
       "filename": "IMG_9284.jpeg",
       "path": "media/parts/2026-10-25/IMG_9284.jpeg",
+      "title": "2N4403 transistor",
+      "annotations": [
+        "2N4403 marking readable"
+      ],
+      "sourceUploads": [
+        "IMG_9284.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "cd9d3426dc60431e5dc4a952df7733c491a3b62321300d837854626ed67fec48"
+      "sha256": "cd9d3426dc60431e5dc4a952df7733c491a3b62321300d837854626ed67fec48",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.45,
+          "y": 0.45
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9284_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "bb14f158846325b0cb5fabd3b8bc9f0c62567fae8bd8aee8eedb88c1ab1e98fb"
     },
     {
       "filename": "IMG_9285.jpeg",
       "path": "media/parts/2026-10-25/IMG_9285.jpeg",
+      "title": "L7805CV — 5 V regulator",
+      "annotations": [
+        "Regulator component; operation untested"
+      ],
+      "sourceUploads": [
+        "IMG_9285.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "a05f3c6c89db1f56915668a2f9a1d5f47747fcc1b93342ad30961c8501806a4c"
+      "sha256": "a05f3c6c89db1f56915668a2f9a1d5f47747fcc1b93342ad30961c8501806a4c",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.39,
+          "y": 0.34
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9285_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "d967a23c1e830e3f8b2526a2cf20b59baf0e3dd68d5c2b1bad9f7a1dbb7a50d1"
     },
     {
       "filename": "IMG_9286.jpeg",
       "path": "media/parts/2026-10-25/IMG_9286.jpeg",
+      "title": "Capacitors and transistor",
+      "annotations": [
+        "Upper capacitor: value ?",
+        "Middle capacitor: 10 µF 25 V",
+        "Lower part: 2N4403 transistor"
+      ],
+      "sourceUploads": [
+        "IMG_9286.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "cf3ace725aba9801ab57830123b87c75722a2ad139ea8d04e9aa7f1e0a901197"
+      "sha256": "cf3ace725aba9801ab57830123b87c75722a2ad139ea8d04e9aa7f1e0a901197",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.36,
+          "y": 0.06
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.38,
+          "y": 0.39
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.72,
+          "y": 0.84
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9286_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "277face93f2d6a060f502312c5c6a6270a660fe1ab132d7411709e243f2895be"
     },
     {
       "filename": "IMG_9287.jpeg",
       "path": "media/parts/2026-10-25/IMG_9287.jpeg",
+      "title": "USB dongles — function ?",
+      "annotations": [
+        "Three USB dongles; identities unknown"
+      ],
+      "sourceUploads": [
+        "IMG_9287.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "4e1f804c75531036357c2a1222eb813e73a585999414825b98b26d9e191b204a"
+      "sha256": "4e1f804c75531036357c2a1222eb813e73a585999414825b98b26d9e191b204a",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.51,
+          "y": 0.68
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9287_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "5f3ae95da25e64076cd9ad423cb302a1bb5887f9f38fd99780d67219d8d39253"
     },
     {
       "filename": "IMG_9288.jpeg",
       "path": "media/parts/2026-10-25/IMG_9288.jpeg",
+      "title": "Wire connectors — type ?",
+      "annotations": [
+        "Two paired assemblies; exact type unknown"
+      ],
+      "sourceUploads": [
+        "IMG_9288.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "ca126e59ac7eb09a52cac8df9cb9e0b39f345f335452e1f8aabd935489af03e8"
+      "sha256": "ca126e59ac7eb09a52cac8df9cb9e0b39f345f335452e1f8aabd935489af03e8",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.42,
+          "y": 0.53
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9288_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "891605a0ba217572723a926d218860fa7aa94038080215202853580a5d866a31"
     },
     {
       "filename": "IMG_9289.jpeg",
       "path": "media/parts/2026-10-25/IMG_9289.jpeg",
+      "title": "Chip underside and empty socket",
+      "annotations": [
+        "Left: chip underside; linked PIC identification in 9297",
+        "Right: empty IC socket"
+      ],
+      "sourceUploads": [
+        "IMG_9289.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "6ff7132ee83120a6bfba8511e7c7019dd9d6a63fe29e9da280d8ad1c0221688d"
+      "sha256": "6ff7132ee83120a6bfba8511e7c7019dd9d6a63fe29e9da280d8ad1c0221688d",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.37,
+          "y": 0.31
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.69,
+          "y": 0.35
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9289_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "d69bbe1903763d6165f99df2639f11177a87a1f26bc99c76b23584d79f62170b"
     },
     {
       "filename": "IMG_9290.jpeg",
       "path": "media/parts/2026-10-25/IMG_9290.jpeg",
+      "title": "Three-AAA holder — wiring side",
+      "annotations": [
+        "Loose/cut wires",
+        "Same holder as photo 9291"
+      ],
+      "sourceUploads": [
+        "IMG_9290.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "18a795b6e9461465954cfbc1e3cc3b8e0f3826f09e9e7f5b1dcec01fb6966099"
+      "sha256": "18a795b6e9461465954cfbc1e3cc3b8e0f3826f09e9e7f5b1dcec01fb6966099",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.51,
+          "y": 0.52
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9290_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "c35ed558ab049e37b0b19b118195b53dbeed22a82e0231f73e15e68ba2ba7cff"
     },
     {
       "filename": "IMG_9291.jpeg",
       "path": "media/parts/2026-10-25/IMG_9291.jpeg",
+      "title": "Three-AAA battery holder",
+      "annotations": [
+        "AAA 1.5 V markings readable",
+        "Output and wiring untested"
+      ],
+      "sourceUploads": [
+        "IMG_9291.jpeg"
+      ],
       "source": "Owner-uploaded photograph",
       "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
-      "sha256": "c24cf1663342491a10ae62cbf372f2b5e5952c034549201e95c6272e3e360d62"
+      "sha256": "c24cf1663342491a10ae62cbf372f2b5e5952c034549201e95c6272e3e360d62",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.47,
+          "y": 0.77
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9291_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "fe04fb248113898a57d525a82631f749fce414eefe8301ab7107aa1d7d356015"
+    },
+    {
+      "filename": "IMG_9292.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9292.jpeg",
+      "title": "Black alligator test leads",
+      "annotations": [
+        "Clip leads; continuity untested"
+      ],
+      "sourceUploads": [
+        "IMG_9292(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "8e5fe9bd034d5817386a9604e73c2520db52ffdabb6fb3618677d2697915fe66",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.66,
+          "y": 0.35
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9292_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "38f431dff593f8a61a73ea7445ccbffa88504ea4716f9b7bc51654841c884d31"
+    },
+    {
+      "filename": "IMG_9293.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9293.jpeg",
+      "title": "Red clip-to-pin test leads",
+      "annotations": [
+        "Alligator clips",
+        "Breadboard pin ends"
+      ],
+      "sourceUploads": [
+        "IMG_9293(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "bb5a03d9f7632c2686e1c0b2787997dd39daef71fe59f7d6a38094f5334e1b32",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.72,
+          "y": 0.34
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.36,
+          "y": 0.27
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9293_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "e100c0e23cfc0f655ebbdf7e2bb9a93992df32a15694cb05dc64af7028f434dd"
+    },
+    {
+      "filename": "IMG_9294.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9294.jpeg",
+      "title": "Crystal / resonator ?",
+      "annotations": [
+        "Metal-can component marked 160004",
+        "Exact frequency/specification ?"
+      ],
+      "sourceUploads": [
+        "IMG_9294(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "e0850516e155a5f635adcfce84982f1c14d543ec8f01eb82b8c2dcad84431ba5",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.39,
+          "y": 0.28
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9294_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "e56ad62c9454a224e46b674e1d42515613a7b429a47a3ab9f2f02e1dba338293"
+    },
+    {
+      "filename": "IMG_9295.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9295.jpeg",
+      "title": "2N4401 transistor — another view",
+      "annotations": [
+        "2N4401 marking readable",
+        "Not an additional quantity"
+      ],
+      "sourceUploads": [
+        "IMG_9295(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "bda8ce035d058c56dcd14531325a19f7dbf2af3b633a16a6e7909a14ff3ed818",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.46,
+          "y": 0.43
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9295_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "af0dd3e87ad6738100ab7b42838c1b6dcc13c312f4f2b35bc649135f7b172791"
+    },
+    {
+      "filename": "IMG_9296.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9296.jpeg",
+      "title": "Chip underside and IC socket",
+      "annotations": [
+        "Underside of PIC candidate shown in 9297",
+        "Empty socket; not a second chip"
+      ],
+      "sourceUploads": [
+        "IMG_9296(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "4e2809eeac33fa339518926a6ac2606047b3f442bd493725b3d49433c077bec1",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.45,
+          "y": 0.46
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.85,
+          "y": 0.38
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9296_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "adc962cf6d0777cca00e23f093c291825bacdbd2b1b912aa1418e3a70dd8db71"
+    },
+    {
+      "filename": "IMG_9297.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9297.jpeg",
+      "title": "PIC16F57-E/SP and IC socket",
+      "annotations": [
+        "PIC16F57-E/SP programmable microcontroller",
+        "Empty IC socket",
+        "Not an LM358 or LM393"
+      ],
+      "sourceUploads": [
+        "IMG_9297(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "eb1586effe1da2c7516955b6eca1891663668cfc09e358235b0e0027a4400a5d",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.44,
+          "y": 0.48
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.61,
+          "y": 0.49
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9297_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "d67add75b0651556bf94de577619883470e548758e74db23dcc4f18f78b7b5ca"
+    },
+    {
+      "filename": "IMG_9298.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9298.jpeg",
+      "title": "Resistor color-code reference card",
+      "annotations": [
+        "Printed chart, not resistor stock",
+        "Blue part at edge: terminal block"
+      ],
+      "sourceUploads": [
+        "IMG_9298(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "d159f1f69a2255fbc344aae68572dbba3705cd4e87748192fa52176d8926d770",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.46,
+          "y": 0.52
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.64,
+          "y": 0.02
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9298_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "18beb1330abb47693dd91d0114878004feb5b89b975a821cf943194318d57568"
+    },
+    {
+      "filename": "IMG_9299.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9299.jpeg",
+      "title": "Amazon R-NZ remote — donor board",
+      "annotations": [
+        "R-NZ printed board marking",
+        "Battery contacts",
+        "Same remote as photos 9300–9304"
+      ],
+      "sourceUploads": [
+        "IMG_9299(2).jpeg",
+        "IMG_9299.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "458d5aa9a6b6b99d252f004beb5c743a4cebd92e3d1faa754eed6f664fc0f01d",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.45,
+          "y": 0.65
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.41,
+          "y": 0.29
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9299_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "175303dd3412f19eb3fb0f4ea900b1b7248df8f178de3bdeb381c8eb4f8d3c89"
+    },
+    {
+      "filename": "IMG_9300.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9300.jpeg",
+      "title": "Remote board — component close-up",
+      "annotations": [
+        "Eight-pin chip: exact identity ?",
+        "PCB pads and small components"
+      ],
+      "sourceUploads": [
+        "IMG_9300(2).jpeg",
+        "IMG_9300.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "77075e191eec341af597e3c448bd527bdf148d5d867d65ceb55d6abed54c4018",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.68,
+          "y": 0.58
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9300_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "2e004fd7f6d2474e8dec6ae791147d4279103c960f927e4a2ec2d4d5d6c4ac46"
+    },
+    {
+      "filename": "IMG_9301.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9301.jpeg",
+      "title": "Remote board — controller and LEDs",
+      "annotations": [
+        "Main chip: CYW20735 marking",
+        "LED50 / LED51: wavelength ?",
+        "MIC10 microphone package"
+      ],
+      "sourceUploads": [
+        "IMG_9301(2).jpeg",
+        "IMG_9301.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "c56b6595f35c7ce8e9dc6e08b41d4387529b0b3af94041180d8490a5cdf7b2ab",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.38,
+          "y": 0.66
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.34,
+          "y": 0.22
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.41,
+          "y": 0.16
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9301_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "957d515e1c3d95a2c2ef8bcc1d08aa0bb9428a508d1c423b37560f2229174e35"
+    },
+    {
+      "filename": "IMG_9302.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9302.jpeg",
+      "title": "Remote board — controller and power area",
+      "annotations": [
+        "U100 main controller",
+        "Power circuitry: exact chip functions ?",
+        "Not a verified optical receiver"
+      ],
+      "sourceUploads": [
+        "IMG_9302(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "4c7c9d1d91a1074132f8663e48cee7201caa63b96b7da681c5a08e71a7019523",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.33,
+          "y": 0.23
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.72,
+          "y": 0.48
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9302_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "9ba526c1fb631459b99a3c646c1642a875bc15d999370a0b2297fb549c085cb3"
+    },
+    {
+      "filename": "IMG_9303.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9303.jpeg",
+      "title": "Remote board — LED close-up",
+      "annotations": [
+        "White LED package: wavelength ?",
+        "Nearby metal-can component: microphone candidate ?"
+      ],
+      "sourceUploads": [
+        "IMG_9303(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "7f3997843c28c887787af2744b545591591abf3e930b75540b1bfcea605eab6d",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.54,
+          "y": 0.29
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.38,
+          "y": 0.35
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9303_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "0e3b4c3a572bbb6ffb4267e7a0dae371c623e271c20ca7677501a36ea240dbc8"
+    },
+    {
+      "filename": "IMG_9304.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9304.jpeg",
+      "title": "Remote board — pointing end",
+      "annotations": [
+        "LED packages: wavelength ?",
+        "Battery contact in background"
+      ],
+      "sourceUploads": [
+        "IMG_9304(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "2723df373a916b997ff6905158b34a512f0229a921fef9920f89a20062a39278",
+      "donor": "Amazon R-NZ remote",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.56,
+          "y": 0.66
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.39,
+          "y": 0.35
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9304_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "ac2b28adf4a9bea69e8272e3e7c1fa38bc81e895f5de8b6dc6e9e48c658ac2d9"
+    },
+    {
+      "filename": "IMG_9305.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9305.jpeg",
+      "title": "MF301 three-position terminal block",
+      "annotations": [
+        "Three PCB pins",
+        "Wire connection openings"
+      ],
+      "sourceUploads": [
+        "IMG_9305(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "0ba57bef97fd893265e461b58ca64de4184307a28818cf9c3daa0bf798b89503",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.52,
+          "y": 0.84
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.53,
+          "y": 0.43
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9305_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "76d902e6907437e4590d7eecc8e73b51fd55f6b3e634b0ca993729e774a221b6"
+    },
+    {
+      "filename": "IMG_9306.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9306.jpeg",
+      "title": "Terminal block — wire-size marking",
+      "annotations": [
+        "AWG 14–22 marking",
+        "Same connector, another view"
+      ],
+      "sourceUploads": [
+        "IMG_9306(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "2cd24fbe5d434b218d61d776a7d20807ce00ac5de6b034bc3780a9222aa411d7",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.51,
+          "y": 0.4
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9306_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "65dd2c0d3b1afdb907ee1829bec0ea6336cf0562e84090c06c53d12a44e79b18"
+    },
+    {
+      "filename": "IMG_9307.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9307.jpeg",
+      "title": "Terminal block — model marking",
+      "annotations": [
+        "MF301 marking",
+        "250VAC / 16A printed ratings; not measured"
+      ],
+      "sourceUploads": [
+        "IMG_9307(1).jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "8eb6119de89c42c0832a27277a999af4dfd40d5fb624702bf2ac183cdcf05581",
+      "donor": "Loose parts / accessories",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.48,
+          "y": 0.45
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.47,
+          "y": 0.51
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9307_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "23c218421bb7b1aa9410d4b15a1df122fca72c6d6687dbf72832c283bfd07172"
+    },
+    {
+      "filename": "IMG_9308.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9308.jpeg",
+      "title": "HP X3000 G2 mouse — underside",
+      "annotations": [
+        "Model G66; HP X3000 G2",
+        "Label: 1.5 V DC, 50 mA",
+        "Optical opening"
+      ],
+      "sourceUploads": [
+        "IMG_9308.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "a4ae6d86df9a6ec3f9a32830243ad8853e8f9d05e2210857c85f7c06733e1db8",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.41,
+          "y": 0.34
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.33,
+          "y": 0.43
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.44,
+          "y": 0.13
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9308_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "cb84bf5a9b746fa89f5e881555ae3721c1e1862e304ffd0f52de4b8673a2eb79"
+    },
+    {
+      "filename": "IMG_9309.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9309.jpeg",
+      "title": "Mouse board — LED and power area",
+      "annotations": [
+        "U2 optical navigation sensor candidate ?",
+        "LED01: wavelength ?",
+        "L1 inductor",
+        "Black fabric cover: contents ?"
+      ],
+      "sourceUploads": [
+        "IMG_9309.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "4e8d4a8acef42f2ee7617a85b7c726fd3519496efa1130fb4c86889859b2682b",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.29,
+          "y": 0.19
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.55,
+          "y": 0.36
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.57,
+          "y": 0.18
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.32,
+          "y": 0.41
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9309_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "81f32dd2799bd8a565cbf4832487285af2977a5eefa013e74d8d685f8141e891"
+    },
+    {
+      "filename": "IMG_9310.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9310.jpeg",
+      "title": "Mouse board — switches and encoder",
+      "annotations": [
+        "Left and right click microswitches",
+        "Scroll encoder",
+        "Tactile pushbutton",
+        "Battery holder / red-black leads",
+        "U2 sensor candidate ?"
+      ],
+      "sourceUploads": [
+        "IMG_9310.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "465491f776b58147e877e16148faf59cebb5c649560175185f76f3c1fe4df57f",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.16,
+          "y": 0.26
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.31,
+          "y": 0.3
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.68,
+          "y": 0.3
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.82,
+          "y": 0.62
+        },
+        {
+          "labelIndex": 5,
+          "x": 0.22,
+          "y": 0.55
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9310_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "7b1c547e81cbd4350c10ec20034bb7f3a3c5527e1bd15506edde07bc77c1ca0a"
+    },
+    {
+      "filename": "IMG_9311.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9311.jpeg",
+      "title": "Mouse board — LED01 close-up",
+      "annotations": [
+        "LED01: wavelength ?",
+        "Y1 metal-can crystal",
+        "Electrolytic capacitor",
+        "Epoxy-covered electronics: identity ?"
+      ],
+      "sourceUploads": [
+        "IMG_9311.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "21285240159c3cd78671e78e284f16d739abe8ddfab61d3f10ae87955f8c9b1a",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.5,
+          "y": 0.37
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.54,
+          "y": 0.52
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.53,
+          "y": 0.24
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.39,
+          "y": 0.55
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9311_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "e15fe2163ac9ef4ff9a63f0693de2a3c8ac50e6d01295cbc7dbb9dc734303f9c"
+    },
+    {
+      "filename": "IMG_9312.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9312.jpeg",
+      "title": "Mouse board — sensor side view",
+      "annotations": [
+        "U2 navigation sensor candidate ?",
+        "Scroll encoder side",
+        "Capacitor: 100 µF 10 V marking",
+        "LED01: wavelength ?"
+      ],
+      "sourceUploads": [
+        "IMG_9312.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "44f57ab7506a4accbe174a14039e0be9005c4265c9f0e7107cc298b2106e06f0",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.49,
+          "y": 0.53
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.24,
+          "y": 0.23
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.71,
+          "y": 0.34
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.86,
+          "y": 0.4
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9312_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "509ab69794eb063c1e0fd81367b1ad1190f7bddc065745ac3ff411d6e7d030f4"
+    },
+    {
+      "filename": "IMG_9313.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9313.jpeg",
+      "title": "Mouse board — scroll encoder",
+      "annotations": [
+        "Mechanical rotary scroll encoder",
+        "Click microswitches",
+        "Wheel removed; encoder visible"
+      ],
+      "sourceUploads": [
+        "IMG_9313.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "736f4700eecd85318e8c9c387a9f202158e7c1756b3d3993691d51318a00cbe4",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.62,
+          "y": 0.37
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.8,
+          "y": 0.45
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9313_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "55641e9576895e69227a79615660343fe2f890adb95238a27a7d52ff73f82f01"
+    },
+    {
+      "filename": "IMG_9314.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9314.jpeg",
+      "title": "Mouse board — opposite overview",
+      "annotations": [
+        "Two click microswitches",
+        "Scroll encoder",
+        "Tactile pushbutton",
+        "U2 sensor candidate ?"
+      ],
+      "sourceUploads": [
+        "IMG_9314.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "a37838c724e454fee6fb7ec86a6eb64cead95105b0dcdd5300902ddb7eaea749",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.23,
+          "y": 0.67
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.7,
+          "y": 0.65
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.33,
+          "y": 0.67
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.71,
+          "y": 0.55
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9314_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "37e231a3f510d7beeff409a64daf81ab33007513b448b1cbfb29d7d1bd23902c"
+    },
+    {
+      "filename": "IMG_9315.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9315.jpeg",
+      "title": "Mouse board — encoder and sensor",
+      "annotations": [
+        "Scroll encoder",
+        "U2 navigation sensor candidate ?",
+        "LED01: wavelength ?",
+        "Black fabric cover: contents ?"
+      ],
+      "sourceUploads": [
+        "IMG_9315.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "16bb60d1ec4488181d110fa5245631e00d4570a36497b0ad625b5ad57876cb81",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.56,
+          "y": 0.71
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.64,
+          "y": 0.52
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.34,
+          "y": 0.23
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.64,
+          "y": 0.3
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9315_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "1a70fafbc9efc7791fee28e4f629e8e6f664e48e11d658b91fc852b7105bd5e8"
+    },
+    {
+      "filename": "IMG_9316.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9316.jpeg",
+      "title": "Mouse board — low side view",
+      "annotations": [
+        "U2 sensor candidate package ?",
+        "Black fabric cover",
+        "LED and electrolytic capacitor"
+      ],
+      "sourceUploads": [
+        "IMG_9316.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "ef33a537fe6799ededf08f5fa6ddecfe9d18c8ee60c51cf0c4a0f2657e6fb601",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.34,
+          "y": 0.55
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.5,
+          "y": 0.43
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.28,
+          "y": 0.4
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9316_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "8de2e5174e5e42e2119a4550e7ed51fbb813d8677fef87b8c986ff3da766062b"
+    },
+    {
+      "filename": "IMG_9317.jpeg",
+      "path": "media/parts/2026-10-25/IMG_9317.jpeg",
+      "title": "Mouse board — rear electronics",
+      "annotations": [
+        "Y1 crystal: 12.000 marking",
+        "LED01: wavelength ?",
+        "Epoxy-covered electronics: identity ?",
+        "U2 sensor candidate ?"
+      ],
+      "sourceUploads": [
+        "IMG_9317.jpeg"
+      ],
+      "source": "Owner-uploaded photograph",
+      "metadata": "EXIF/GPS omitted; orientation normalized; JPEG re-encoded",
+      "sha256": "092c14716d58089ba38fb6cf9fd1a2b03dbaf1924e92acd7eb6eaab497d5d68b",
+      "donor": "HP X3000 G2 mouse batch",
+      "verification": "Not electrically tested",
+      "markers": [
+        {
+          "labelIndex": 1,
+          "x": 0.28,
+          "y": 0.51
+        },
+        {
+          "labelIndex": 2,
+          "x": 0.33,
+          "y": 0.6
+        },
+        {
+          "labelIndex": 3,
+          "x": 0.39,
+          "y": 0.45
+        },
+        {
+          "labelIndex": 4,
+          "x": 0.59,
+          "y": 0.88
+        }
+      ],
+      "annotatedPath": "media/parts/2026-10-25/IMG_9317_annotated.svg",
+      "annotationMethod": "Deterministic SVG: original JPEG bytes embedded unchanged; title, numbered markers and labels added outside/over source image. No generated replacement parts.",
+      "annotatedSha256": "92d9974596a11910e498ab8219b148e0c1f03a14c86e29520607595a6f8d8ecc"
     }
   ],
   "remainingGaps": {
@@ -270,6 +1517,16 @@
     {
       "title": "ST L78 regulator datasheet",
       "url": "https://www.st.com/resource/en/datasheet/l78.pdf"
+    },
+    {
+      "title": "Microchip PIC16F54/57/59 datasheet",
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/41201B.pdf"
+    },
+    {
+      "title": "Infineon CYW20735 manufacturer repository",
+      "url": "https://github.com/Infineon/20735B1"
     }
-  ]
+  ],
+  "annotationPolicy": "For subsequent owner photos in this thread: retain source evidence; add photo number, title and component labels; use ? for unresolved identity; link repeated views and correct earlier hypotheses; preserve untested electrical status. Apply during each photo-review turn, not unattended background processing.",
+  "annotationSheets": []
 }
