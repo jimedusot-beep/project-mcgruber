@@ -14,6 +14,10 @@ Open **Salvage workbench** to create a donor-device record, follow a preparation
 
 Full backups include the new records, plans, photos and labels. There is no automatic photo identification or charging-circuit design.
 
+## Do this next: one physical task at a time
+
+Use the **[McGruber Start Here](../web/public/beam-detector/start-here.html)** link from the workshop sidebar or camera detector menu. It has five stages with actual owned parts and conditional wiring; never skip the first 9V LED-resistor safety check. You may browse later stages without claiming they passed. Save your physically measured observations and export a JSON backup; this guide uses its own on-device storage distinct from the main workshop notebook and other measurement worksheets. A green owner-reported pass is not independent hardware verification. **Stage four (optical amplification/threshold) is still blocked by unverified receiver components.**
+
 ## Engineering Control Center
 
 The sidebar now includes **Engineering handbook**, and the home screen provides **Engineering readiness**. These open `beam-detector/engineering-hub.html` in the same McGruber site, showing all nine inventions, owner-reported working components, remaining blockers and physical acceptance gates. The 9-stage **Standalone Receiver Lab** is linked from it, with independent local test records and JSON export. These physical test logs use separate browser storage from the main workshop notebook, so export both when backing up. Neither HTML page reads actual Fluke measurements electronically; values are user-entered.
