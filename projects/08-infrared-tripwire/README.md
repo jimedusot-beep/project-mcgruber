@@ -4,6 +4,14 @@
 
 **Status:** Matched emitter and receiver not confirmed.
 
+## Experiment C — matched infrared break-beam, warning LED only
+
+**[OPEN THE COMPLETE SILENT INFRARED BUILD](EXPERIMENT_C_SILENT_IR.md)** · [5 V IR module + resistors + warning LED circuit drawing](diagrams/experiment-c-silent-adafruit-5v.svg) · [Unfilled IR hardware trials](EXPERIMENT_C_MEASUREMENTS.csv)
+
+Three distinct routes are documented: **C1** Adafruit 2167/2168 short-range paired sensors (10–20 inches) whose open-collector output can directly sink a current-limited red LED **when the beam is broken** without any MCU or NPN transistor; **C2** DFRobot SEN0523 5 V, manufacturer-stated 4 m model (output polarity must be metered before driving an LED); **C3** exploratory remote-control IR salvage, which has neither verified continuous transmitter nor matched receiver.
+
+All approaches remain **unbuilt/owner-unverified**. There is **no buzzer, speaker, audio, phone, laptop or internet requirement** in the target device. An ordinary TV remote's IR burst is not a constant tripwire source; no laser is required.
+
 ## Required hardware or software (proposed)
 Matching break-beam IR emitter/receiver; rated power, pull-up where required, alarm logic/driver, output, supports.
 
