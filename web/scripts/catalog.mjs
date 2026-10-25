@@ -131,8 +131,11 @@ const projects = await Promise.all(
   dirs.map(async (slug, i) => {
     const folder = "projects/" + slug,
       build = await read(folder + "/BUILD.md");
+    // Keep legacy "Procedure" sections, but support newer safety-first guides
+    // that split their ordered steps into several titled sections.
     const procedure =
-      build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] || "";
+      build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] ??
+      build;
     return {
       id: "P" + String(i + 1).padStart(2, "0"),
       slug,
