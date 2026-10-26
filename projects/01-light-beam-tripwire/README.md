@@ -24,6 +24,8 @@ Measure LED current, detector response under ambient lighting, false triggers, a
 - Completed standalone prototype: **not verified**
 
 ## Source
+Study aspects: [published LED-sensor experiments, amplification and warning-light circuits](../../docs/RESEARCH.md#tripwire-study-aspects--experiments-b-and-c). These are learning references, not verified McGruber wiring.
+
 https://learn.sparkfun.com/tutorials/sparkfun-inventors-kit-experiment-guide---v40/circuit-1c-photoresistor
 
 [Return to project index](../../README.md)
