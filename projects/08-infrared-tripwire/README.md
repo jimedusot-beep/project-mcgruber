@@ -17,6 +17,8 @@ Verify polarity and receiver output before alignment, then measure reliable rang
 - Completed standalone prototype: **not verified**
 
 ## Source
+Study aspects: [published infrared transmitter/receiver builds and pulse-detection experiments](../../docs/RESEARCH.md#c1--complete-separate-infrared-units). Parts and output adaptations still require verification.
+
 https://learn.adafruit.com/ir-breakbeam-sensors/arduino
 
 [Return to project index](../../README.md)
