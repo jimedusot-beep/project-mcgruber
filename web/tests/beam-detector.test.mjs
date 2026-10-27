@@ -13,3 +13,13 @@ test('reference does not drift toward a held blockage or transient flash',()=>{c
 test('qualification requires reported ten crossings then 120 seconds uninterrupted',()=>{const q=new core.QualificationRun({distance:'6 ft',source:'flashlight',lighting:'indoor',idleMs:120000},0,10);q.observe(100,20,'present');assert.equal(q.finishCrossings(100,20,'present',false),false);assert.equal(q.finishCrossings(100,20,'present',true),true);q.observe(120099,20,'present');assert.equal(q.phase,'idle');q.observe(120100,20,'present');assert.equal(q.phase,'passed');assert.equal(q.result().observedBreaks,10);});
 test('missed/double counts, blocked restore, false triggers and interruptions fail qualification',()=>{for(const c of [9,11]){const q=new core.QualificationRun({},0,0);assert.equal(q.finishCrossings(100,c,'present',true),false);assert.equal(q.phase,'failed');}const q=new core.QualificationRun({},0,0);q.finishCrossings(100,10,'present',true);q.observe(1000,11,'blocked');assert.equal(q.phase,'failed');const r=new core.QualificationRun({},0,0);r.interrupt('camera stopped');assert.equal(r.phase,'interrupted');});
 test('five-minute qualification does not pass before the full requested duration',()=>{const q=new core.QualificationRun({idleMs:300000},0,0);q.finishCrossings(0,10,'present',true);q.observe(299999,10,'present');assert.equal(q.phase,'idle');q.observe(300000,10,'present');assert.equal(q.phase,'passed');});
+test('fixed-rig qualification requires thirty crossings and fifteen clear minutes',()=>{
+ const q=new core.QualificationRun({requiredCrossings:30,idleMs:900000},0,0);
+ assert.equal(q.meta.requiredCrossings,30);assert.equal(q.meta.idleMs,900000);
+ assert.equal(q.finishCrossings(100,30,'present',true),true);
+ q.observe(900099,30,'present');assert.equal(q.phase,'idle');
+ q.observe(900100,30,'present');assert.equal(q.phase,'passed');
+ assert.equal(q.result().requiredCrossings,30);
+ const short=new core.QualificationRun({requiredCrossings:30,idleMs:900000},0,0);
+ assert.equal(short.finishCrossings(100,10,'present',true),false);assert.equal(short.phase,'failed');
+});
