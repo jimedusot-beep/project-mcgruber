@@ -1,0 +1,11 @@
+trial,date,pair_model,distance,lighting,receiver_supply_V,emitter_supply_V,beam_present_OUT_V,beam_blocked_OUT_V,beam_restored_OUT_V,output_polarity_verified,warning_LED_clear,warning_LED_blocked,warning_LED_restored,actual_crossings,correct_indications,false_trips,idle_minutes,meter_range,notes,result
+1,,,,,,,,,,,,,,,,,,,,NOT_RUN
+2,,,,,,,,,,,,,,,,,,,,NOT_RUN
+3,,,,,,,,,,,,,,,,,,,,NOT_RUN
+4,,,,,,,,,,,,,,,,,,,,NOT_RUN
+5,,,,,,,,,,,,,,,,,,,,NOT_RUN
+6,,,,,,,,,,,,,,,,,,,,NOT_RUN
+7,,,,,,,,,,,,,,,,,,,,NOT_RUN
+8,,,,,,,,,,,,,,,,,,,,NOT_RUN
+9,,,,,,,,,,,,,,,,,,,,NOT_RUN
+10,,,,,,,,,,,,,,,,,,,,NOT_RUN
