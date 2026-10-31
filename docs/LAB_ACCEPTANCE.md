@@ -22,7 +22,7 @@ This is a software release assessment, not a declaration that the entire enginee
 | Conflicting tabs and media recovery | PASS | Chromium/WebKit CI and a manual two-tab check paused the stale tab, preserved its draft in recovery history and loaded the newer experiment. Unit tests cover stale-write rejection, legacy revision metadata, matching media, restore ID collisions and cleanup reference protection. |
 | GitHub Pages | PASS (GitHub Actions deployment) | [October 31 run](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/41197585759) successfully deployed main commit `f1bff5a`. The previous permission blocker is resolved; a real-iPhone smoke test remains outstanding. |
 | Automated tests | PASS | Current CI passes all 14 legacy Python tests, 24 web unit/integration tests and 17 browser workflows, including two-tab recovery, invalid-backup preservation, both theme choices and offline source/notebook persistence. Production build and zero-vulnerability audit pass. One Linux WebKit 3D test is intentionally excluded; Chromium tests real rendering. |
-| No exposed sensitive credentials | PASS | No authentication/token collection or privileged request code in the frontend. Private records/media remain in IndexedDB. No secrets added to repository output. |
+| No exposed sensitive credentials | PASS (current source/CI checks) | Local IndexedDB is the default. Optional Supabase email authentication stores a tab-scoped session; only public publishable/anon project keys are allowed. Cloud snapshot content is encrypted client-side before upload. No privileged service-role secrets belong in the frontend. This is not a penetration-test certificate. |
 | Existing files and history preserved | PASS | Additive `web/` application and new documentation. Only a stale sentence in the existing motion guide is corrected; original engineering assets and logs remain. |
 
 ## Verification boundaries
@@ -39,9 +39,9 @@ A manual desktop preview created a clearly labeled QA donor and switch test reco
 
 No physical hardware tests, RF connection, printed fit, original build photographs, successful real-world trials or manufacturer-specific unknown pinouts have been invented. CI fixtures explicitly identify themselves as software test inputs. User-selected evidence labels are assertions until the actual procedure and evidence are reviewed.
 
-**NOT IMPLEMENTED:** account/cloud sync, general SPICE execution inside the app, free circuit rewiring, true Boolean union, STEP/3MF/parametric CAD editing, assembly joints/constraints, exact mesh collision/self-intersection checks, automatic component identification and calibrated physical measurements.
+**NOT IMPLEMENTED:** automatic multi-device conflict merging, a hosted/configured cloud backend by default, general SPICE execution inside the app, free circuit rewiring, true Boolean union, STEP/3MF/parametric CAD editing, assembly joints/constraints, exact mesh collision/self-intersection checks, automatic component identification and calibrated physical measurements. Optional owner-configured encrypted Supabase sync is implemented, but not tested against a live user backend.
 
-**BLOCKED:** physical verification needs real parts and measurements; real iPhone testing needs the actual device. Secure sync needs an authorized backend and correctly configured authentication; it is intentionally absent from public JavaScript.
+**BLOCKED:** physical verification needs real parts and measurements; real iPhone testing needs the actual device. Live encrypted cloud sync needs the owner's separate Supabase project, migration and configured authentication; the client is opt-in and ships as public JavaScript without privileged server credentials.
 
 See [user guide](LAB_USER_GUIDE.md), [roadmap](ROADMAP.md), [integration assessment](ENGINEERING_INTEGRATIONS.md) and [sync design](CLOUD_SYNC_DESIGN.md) for use and next work. The final delivery records the actual CI/deployment run links, without representing pending checks as passes.
 
@@ -62,4 +62,4 @@ The [main-branch release run](https://github.com/jimedusot-beep/project-mcgruber
 
 The authenticated repository connector can commit and merge source, but does not expose Pages configuration. The separate browser session is not signed in to the owner's GitHub account. No token or secret has been requested as a workaround.
 
-Owner action: open [repository Pages settings](https://github.com/jimedusot-beep/project-mcgruber/settings/pages) while signed in, choose **Build and deployment → Source → GitHub Actions**, then rerun the latest **McGruber Lab checks and Pages** workflow from Actions. Confirm the returned deployment URL before calling the app live.
+**Historical remediation, now resolved:** the owner previously had to enable Pages from [settings](https://github.com/jimedusot-beep/project-mcgruber/settings/pages). The October 31, 2026 workflow successfully deployed to GitHub Pages. Current remaining work is a real iPhone/Safari smoke test, not enabling Pages again.

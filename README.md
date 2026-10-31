@@ -90,7 +90,7 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 - [16 × 9 compatibility matrix](component-bank/compatibility.csv) and [explanation](component-bank/COMPATIBILITY.md)
 - [12-item Inventory V2](component-bank/inventory-v2.csv) and [intake log](component-bank/intake-log.csv)
 - [Real-world measurement protocol](docs/MEASUREMENT_PROTOCOL.md) and [circuit status](docs/CIRCUIT_STATUS.md)
-- [Authentic photo/video checklist](media/CAPTURE_GUIDE.md) and [media manifest](media/manifest.csv) — **not yet provided**
+- [Authentic photo/video checklist](media/CAPTURE_GUIDE.md) and [media manifest](media/manifest.csv). A separate [October 25 inventory supplement](component-bank/PHOTO_IDENTIFICATIONS_2026-10-25.md) now includes 35 owner photographs and 35 annotated views; completed-build media and test-video evidence remain outstanding.
 - [Original parametric angle support + ASCII STL](cad-and-stl/README.md) — digitally generated, **unprinted and fit-unverified**
 - [Hardware license CERN-OHL-P-2.0](LICENSE-HARDWARE) and [scope guidance](docs/LICENSE_GUIDE.md)
 - [Ten-item upgrade checklist](docs/UPGRADE_CHECKLIST.md)
