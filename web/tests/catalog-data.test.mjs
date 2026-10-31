@@ -34,7 +34,7 @@ test("compatibility is joined by exact component identity regardless of CSV row 
 
 test("CSV parser rejects malformed row lengths and duplicate headers", () => {
   assert.deepEqual(csv('a,b\n"x,y",z\n'), [{a:"x,y",b:"z"}]);
-  assert.throws(() => csv('a,b\n1\n'), /2 cells/);
+  assert.throws(() => csv('a,b\n1\n'), /expected 2/);
   assert.throws(() => csv('a,a\n1,2\n'), /duplicate CSV/);
   assert.throws(() => csv('a,b\n"unfinished,x\n'), /Unterminated/);
 });
