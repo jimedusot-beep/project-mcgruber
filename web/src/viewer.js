@@ -303,19 +303,31 @@ export async function mountViewer(host, saved, onSave, notify) {
   async function importFiles(files) {
     if (files.reduce((n, f) => n + f.size, 0) > 40 * 1024 * 1024)
       throw Error("Selected files exceed 40 MB. Import a smaller assembly.");
-    let count = 0;
-    for (const file of files) {
-      if (!/\.(stl|obj|glb|gltf)$/i.test(file.name)) continue;
-      const imported = await parseModel(file, $("#model-units").value, files);
+    // Stage every model before changing the scene. A malformed second file
+    // must not leave the first one silently imported.
+    const staged = [];
+    let appended = false;
+    try {
+      let count = 0;
+      for (const file of files) {
+        if (!/\.(stl|obj|glb|gltf)$/i.test(file.name)) continue;
+        staged.push(...(await parseModel(file, $("#model-units").value, files)));
+        count++;
+        if (disposed) return;
+      }
+      if (!count)
+        throw Error("Select an STL, OBJ, GLB or glTF model, plus any companion files.");
       if (disposed) return;
-      append(imported);
-      count++;
+      append(staged); // Existing scene limits are checked for the entire batch.
+      appended = true;
+      notify("Imported and saved to this browser.");
+    } finally {
+      if (!appended)
+        for (const p of staged) {
+          p.geometry.dispose();
+          p.material.dispose();
+        }
     }
-    if (!count)
-      throw Error(
-        "Select an STL, OBJ, GLB or glTF model, plus any companion files.",
-      );
-    notify("Imported and saved to this browser.");
   }
   async function demo() {
     const r = await fetch(

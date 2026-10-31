@@ -9,6 +9,7 @@ import {
 } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { csv, joinCompatibility, projectFolders } from "./catalog-data.mjs";
 export const root = fileURLToPath(new URL("../../", import.meta.url));
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
 if (
@@ -17,38 +18,6 @@ if (
 ) {
   console.log("Using generated repository snapshot for isolated preview.");
   process.exit(0);
-}
-export function csv(text) {
-  const rows = [];
-  let row = [],
-    cell = "",
-    quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"') {
-      if (quoted && text[i + 1] === '"') {
-        cell += '"';
-        i++;
-      } else quoted = !quoted;
-    } else if (c === "," && !quoted) {
-      row.push(cell);
-      cell = "";
-    } else if (c === "\n" && !quoted) {
-      row.push(cell.replace(/\r$/, ""));
-      if (row.some(Boolean)) rows.push(row);
-      row = [];
-      cell = "";
-    } else cell += c;
-  }
-  if (quoted) throw Error("Unterminated CSV field");
-  if (cell || row.length) {
-    row.push(cell.replace(/\r$/, ""));
-    rows.push(row);
-  }
-  const headers = rows.shift() || [];
-  return rows.map((r) =>
-    Object.fromEntries(headers.map((h, i) => [h, r[i] || ""])),
-  );
 }
 const metadata = [
   [
@@ -126,9 +95,10 @@ const metadata = [
 ];
 const read = (p) => readFile(path.join(root, p), "utf8");
 await mkdir(publicDir, { recursive: true });
-const dirs = (await readdir(path.join(root, "projects"))).sort();
+const dirs = projectFolders(await readdir(path.join(root, "projects")));
 const projects = await Promise.all(
-  dirs.map(async (slug, i) => {
+  dirs.map(async ({ slug, id, ordinal }) => {
+    const i = ordinal - 1;
     const folder = "projects/" + slug,
       build = await read(folder + "/BUILD.md");
     // Keep legacy "Procedure" sections, but support newer safety-first guides
@@ -137,7 +107,7 @@ const projects = await Promise.all(
       build.match(/(?:^|\n)## (?:Procedure|Specific stages, in order)\s*\n([\s\S]*?)(?=\n## |$)/)?.[1] ??
       build;
     return {
-      id: "P" + String(i + 1).padStart(2, "0"),
+      id,
       slug,
       folder,
       name: metadata[i][0],
@@ -165,14 +135,7 @@ const projects = await Promise.all(
 );
 const requirements = csv(await read("component-bank/components.csv"));
 const matrix = csv(await read("component-bank/compatibility.csv"));
-const components = requirements.map((r, i) => ({
-  ...r,
-  id: "C" + String(i + 1).padStart(2, "0"),
-  compatibility: Object.fromEntries(
-    projects.map((p) => [p.id, matrix[i][p.id]]),
-  ),
-  note: matrix[i].notes,
-}));
+const components = joinCompatibility(requirements, matrix, projects.map(p => p.id));
 const inventory = csv(await read("component-bank/inventory-v2.csv"));
 const rev4Inventory = JSON.parse(await read("component-bank/master-salvage-inventory.json"));
 const photoIdentifications = JSON.parse(await read("component-bank/owner-photo-identifications.json"));
