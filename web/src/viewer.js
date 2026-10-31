@@ -76,6 +76,12 @@ export async function mountViewer(host, saved, onSave, notify) {
     revisionTimer;
   const clippingPlane = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 100);
   let clip = false;
+  // Render while the model changes or camera damping is moving; do not
+  // continuously redraw an idle scene on a phone's GPU.
+  let needsRender = true;
+  const requestRender = () => { needsRender = true; };
+  controls.addEventListener("change", requestRender);
+  gizmo.addEventListener("change", requestRender);
   const getData = () => ({
     schema: 1,
     units: "mm",
@@ -111,6 +117,7 @@ export async function mountViewer(host, saved, onSave, notify) {
       .join(
         " × ",
       )} ${unit}. ${report.some((r) => r.boundary === null) ? "Edge check skipped above 50k triangles." : `${report.reduce((n, r) => n + r.boundary, 0)} boundary edges; ${report.reduce((n, r) => n + r.nonmanifold, 0)} edges with >2 incident faces.`} Not a printability certificate.`;
+    requestRender();
     if (lastDistance !== null)
       $("#measurement").textContent =
         (lastDistance * unitFactor()).toFixed(3) +
@@ -128,6 +135,7 @@ export async function mountViewer(host, saved, onSave, notify) {
       p.material.color.set(p === selected ? 0xd8ec97 : 0x8fc8ad);
       p.material.needsUpdate = true;
     }
+    requestRender();
   }
   function select(p) {
     selected = p;
@@ -414,8 +422,10 @@ export async function mountViewer(host, saved, onSave, notify) {
     opacity = Number(e.target.value);
     appearance();
   };
-  $("#grid-toggle").onchange = (e) =>
-    (grid.visible = axes.visible = e.target.checked);
+  $("#grid-toggle").onchange = (e) => {
+    grid.visible = axes.visible = e.target.checked;
+    requestRender();
+  };
   $("#snap").onchange = (e) => {
     gizmo.setTranslationSnap(e.target.checked ? 1 : null);
     gizmo.setRotationSnap(e.target.checked ? Math.PI / 12 : null);
@@ -423,8 +433,10 @@ export async function mountViewer(host, saved, onSave, notify) {
   };
   $("#gizmo-mode").onchange = () => select(selected);
   $("#explode").oninput = (e) => applyExplosion(e.target.value);
-  $("#clipping").oninput = (e) =>
-    (clippingPlane.constant = Number(e.target.value));
+  $("#clipping").oninput = (e) => {
+    clippingPlane.constant = Number(e.target.value);
+    requestRender();
+  };
   $("#clip-enable").onchange = (e) => {
     clip = e.target.checked;
     appearance();
@@ -571,13 +583,17 @@ export async function mountViewer(host, saved, onSave, notify) {
       ortho.right = (height * w) / h / 2;
       ortho.updateProjectionMatrix();
     }
+    requestRender();
   }
   const observer = new ResizeObserver(resize);
   observer.observe(viewport);
   resize();
   renderer.setAnimationLoop(() => {
-    controls.update();
+    if (document.hidden) return;
+    controls.update(); // Damping emits change events until the camera settles.
+    if (!needsRender) return;
     renderer.render(scene, camera);
+    needsRender = false;
   });
   try {
     if (saved?.parts?.length) append(restoreParts(saved.parts));
@@ -592,6 +608,8 @@ export async function mountViewer(host, saved, onSave, notify) {
     save();
     observer.disconnect();
     renderer.setAnimationLoop(null);
+    controls.removeEventListener("change", requestRender);
+    gizmo.removeEventListener("change", requestRender);
     controls.dispose();
     gizmo.dispose();
     parts.forEach((p) => {

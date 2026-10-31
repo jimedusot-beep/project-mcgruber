@@ -38,7 +38,7 @@ A mobile-first web application now lives in [web/](https://github.com/jimedusot-
 - [Development/build instructions](https://github.com/jimedusot-beep/project-mcgruber/blob/main/web/README.md) · [Pages deployment workflow](https://github.com/jimedusot-beep/project-mcgruber/actions/workflows/web-lab.yml)
 - [Engineering integrations](docs/ENGINEERING_INTEGRATIONS.md) · [Private saving and future sync](docs/CLOUD_SYNC_DESIGN.md)
 
-**Deployment audit:** The software tests/build pass, but McGruber Lab is **not yet publicly deployed** because GitHub Pages must be enabled manually by the repository owner. [Read the verified 2026-10-23 failure and exact setup steps](docs/PUBLISH.md). The updated workflow retains a downloadable static preview artifact even while Pages is disabled. For an already-published 3D tripwire view, use [3D Vision's exploded 13-part concept](https://jimedusot-beep.github.io/3D-vision/?example=mcgruber-tripwire-exploded) or [the Cyborg hardware case study](https://github.com/jimedusot-beep/Herbie-cyborg-hardware/tree/main/examples/mcgruber-light-beam-tripwire). The conceptual model is not physical measurement or evidence of working hardware.
+**Deployment status — October 31, 2026:** [Main-branch validation and deployment succeeded](https://github.com/jimedusot-beep/project-mcgruber/actions/runs/41197585759) on `f1bff5a`. [Open McGruber Lab](https://jimedusot-beep.github.io/project-mcgruber/#/tripwire-3d); real-iPhone smoke testing remains pending. The October 23 Pages permission failure is historical; see [publishing guidance](docs/PUBLISH.md). For an already-published 3D tripwire view, use [3D Vision's exploded 13-part concept](https://jimedusot-beep.github.io/3D-vision/?example=mcgruber-tripwire-exploded) or [the Cyborg hardware case study](https://github.com/jimedusot-beep/Herbie-cyborg-hardware/tree/main/examples/mcgruber-light-beam-tripwire). The conceptual model is not physical measurement or evidence of working hardware.
 
 ## Silent phone tripwire — build and test
 
@@ -90,7 +90,7 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 - [16 × 9 compatibility matrix](component-bank/compatibility.csv) and [explanation](component-bank/COMPATIBILITY.md)
 - [12-item Inventory V2](component-bank/inventory-v2.csv) and [intake log](component-bank/intake-log.csv)
 - [Real-world measurement protocol](docs/MEASUREMENT_PROTOCOL.md) and [circuit status](docs/CIRCUIT_STATUS.md)
-- [Authentic photo/video checklist](media/CAPTURE_GUIDE.md) and [media manifest](media/manifest.csv) — **not yet provided**
+- [Authentic photo/video checklist](media/CAPTURE_GUIDE.md) and [media manifest](media/manifest.csv). A separate [October 25 inventory supplement](component-bank/PHOTO_IDENTIFICATIONS_2026-10-25.md) now includes 35 owner photographs and 35 annotated views; completed-build media and test-video evidence remain outstanding.
 - [Original parametric angle support + ASCII STL](cad-and-stl/README.md) — digitally generated, **unprinted and fit-unverified**
 - [Hardware license CERN-OHL-P-2.0](LICENSE-HARDWARE) and [scope guidance](docs/LICENSE_GUIDE.md)
 - [Ten-item upgrade checklist](docs/UPGRADE_CHECKLIST.md)

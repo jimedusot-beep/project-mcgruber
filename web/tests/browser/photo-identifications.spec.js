@@ -13,6 +13,9 @@ test('owner can find regulator photo and open source evidence', async ({page}) =
   const annotatedResponse = await page.request.get(await annotatedPhoto.getAttribute('href'));
   expect(annotatedResponse.ok()).toBeTruthy();
   expect(annotatedResponse.headers()['content-type']).toContain('image/svg+xml');
+  const gallery = page.locator('details.source-photo-gallery');
+  await expect(gallery).not.toHaveAttribute('open', '');
+  await gallery.locator('summary').click();
   const annotatedImage = page.locator('.source-photo img');
   await annotatedImage.scrollIntoViewIfNeeded();
   await expect.poll(() => annotatedImage.evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
