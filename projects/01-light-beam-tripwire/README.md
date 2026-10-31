@@ -4,6 +4,12 @@
 
 **Status:** Owner-reported automatic red-light / iPhone-camera interruption detection at nominal 1, 3, 6, 10 and 15 ft (October 23, 2026); fixed-mount reliability, electrical details and independent hardware receiver remain unverified. See [field report](FIELD_TEST_2026-10-23.md).
 
+## Experiment B — standalone silent optical receiver (research only)
+
+[Blue-emitter / unpowered-red-LED sensor guide](EXPERIMENT_B_LED_AS_SENSOR.md) · [Blank ten-trial DC measurements](EXPERIMENT_B_MEASUREMENTS.csv)
+
+The sensor response, necessary analog amplification, threshold/hysteresis, and automatic warning-light operation are **not yet verified**. Do not assume the phone-camera experiment proves this standalone circuit.
+
 ## Earlier phone-only prototype
 
 [Phone build and test package](PHONE_BUILD_TEST.md) contains the required/optional parts, electrical measurements, range tests and recovery gate. [Open the public detector](https://jimedusot-beep.github.io/3D-vision/beam-detector/) and check its displayed version; a PR is not a deployed release. The printable guide and wiring SVG ship with the app.

@@ -18,6 +18,13 @@
 
 **Critical distinction:** Owner-reported phone optical detection through nominal 15 ft is encouraging; a bare unpowered red LED, 2N4401/2N4403, and the unpopulated NightFire boards do *not* yet constitute a demonstrated standalone no-phone receiver. Do not connect an unverified 9V source to an unresisted LED or unknown PCB.
 
+## Silent standalone light-tripwire research — experiments B and C
+
+- **[Experiment B: blue LED emitter → unpowered red LED photodetector](projects/01-light-beam-tripwire/EXPERIMENT_B_LED_AS_SENSOR.md)** — research and a [blank 10-reading worksheet](projects/01-light-beam-tripwire/EXPERIMENT_B_MEASUREMENTS.csv). The measured analog signal and amplifier/threshold design remain **unverified**; this is not a finished standalone receiver.
+- **[Experiment C: matched IR beam-break pair → silent warning LED](projects/08-infrared-tripwire/EXPERIMENT_C_SILENT_IR.md)** — model-specific vendor circuit [diagram](projects/08-infrared-tripwire/diagrams/experiment-c-silent-adafruit-5v.svg) and [blank 10-trial worksheet](projects/08-infrared-tripwire/EXPERIMENT_C_MEASUREMENTS.csv). Verify the exact hardware voltage, output polarity and current limits before assembly; no physical acceptance is claimed.
+
+These guides were preserved from historical PR #32. Both are **documentation and software-test evidence only**, not demonstrated electrical circuits or completed hardware tests. No audio or autonomous output is enabled.
+
 ## Start here — the next real hardware test
 
 For the silent, no-phone light tripwire, open the **[one-step-at-a-time bench guide](web/public/beam-detector/start-here.html)**. The existing public-phone route is [McGruber Start Here](https://jimedusot-beep.github.io/3D-vision/beam-detector/start-here.html) (site deployment may need to finish). It starts with a **9V resistor/current-limiting check**, then a measured LED-as-receiver DC experiment, a verified 2N4401 output switch, an explicitly **unverified** analog threshold front-end, and honest range acceptance tests. Test results are owner-entered, not remotely measured.
