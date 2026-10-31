@@ -142,3 +142,7 @@ available without any account.
 Original and annotated donor photos load on demand in a collapsed gallery and are excluded from the installation precache and runtime cache. Source guides and application scripts remain available offline. The cache version incorporates content bytes, so editing a file without changing its name refreshes the offline install. Photos require a connection, or a manually saved copy, for viewing.
 
 Desktop Chromium's software GL path must render a real tripwire canvas in browser CI. Linux WebKit may instead verify the no-WebGL fallback; neither mode substitutes for real iPhone Safari testing.
+
+## Catalog and model-import integrity
+
+The catalog build now validates the **exact nine known project folder identities**, derives stable IDs from those folder names, and joins component compatibility by the `category + component` identity—not CSV row order. It rejects duplicate, missing or unexpected component rows and invalid project cells before generating a potentially misleading app catalog. The generic 3D viewer stages all models selected in one import batch and commits them together; a malformed later file leaves the previous scene untouched. See `tests/catalog-data.test.mjs` and the Chromium import regression.
