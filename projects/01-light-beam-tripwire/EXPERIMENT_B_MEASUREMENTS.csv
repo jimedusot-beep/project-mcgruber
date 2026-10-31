@@ -1,0 +1,11 @@
+trial,date,emitter,distance_in,lighting,emitter_supply_V,emitter_series_ohm,emitter_resistor_drop_V,detector_orientation,on_DC_mV,blocked_DC_mV,restored_DC_mV,consistent_polarity,recovered,instrument_and_range,notes,result
+1,,,,,,,,,,,,,,,,NOT_RUN
+2,,,,,,,,,,,,,,,,NOT_RUN
+3,,,,,,,,,,,,,,,,NOT_RUN
+4,,,,,,,,,,,,,,,,NOT_RUN
+5,,,,,,,,,,,,,,,,NOT_RUN
+6,,,,,,,,,,,,,,,,NOT_RUN
+7,,,,,,,,,,,,,,,,NOT_RUN
+8,,,,,,,,,,,,,,,,NOT_RUN
+9,,,,,,,,,,,,,,,,NOT_RUN
+10,,,,,,,,,,,,,,,,NOT_RUN
