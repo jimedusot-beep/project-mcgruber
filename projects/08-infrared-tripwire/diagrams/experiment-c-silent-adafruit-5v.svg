@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 660" role="img" aria-labelledby="t d">
+<title id="t">C1 silent 5-volt IR breakbeam circuit for Adafruit 2167 or 2168 only</title>
+<desc id="d">Left rated IR transmitter: red lead to 5 volts, black lead to ground. Across a wireless infrared optical beam, receiver has red to regulated 5 volts, black to ground and white or yellow to an OUT node. Pull-up resistor 10 kilo-ohms from receiver 5 volts to OUT. Warning LED and series 1 kilo-ohm resistor from 5 volts to OUT, LED cathode at OUT. When beam is broken, Adafruit OUT pulls low and warning LED illuminates. Do not apply to unverified other modules.</desc>
+<rect width="1120" height="660" rx="19" fill="#f4f8ff"/>
+<text x="40" y="54" font-family="sans-serif" font-size="27" fill="#152e50" font-weight="bold">Silent IR break-beam — Example C1</text>
+<text x="40" y="86" font-family="sans-serif" font-size="16" fill="#45566c">For Adafruit 2167 or 2168 complete rated pair only · regulated 5 V · NO sound, phone or controller</text>
+<rect x="33" y="115" width="363" height="410" rx="15" fill="#e6eefb" stroke="#618ac0" stroke-width="2"/>
+<rect x="415" y="115" width="672" height="410" rx="15" fill="#e1f7f5" stroke="#4c9c95" stroke-width="2"/>
+<text x="52" y="149" font-family="sans-serif" font-size="21" font-weight="bold" fill="#123f74">EMITTER · Adafruit two-wire unit</text>
+<text x="438" y="149" font-family="sans-serif" font-size="21" font-weight="bold" fill="#12665f">RECEIVER · Adafruit three-wire unit</text>
+<rect x="78" y="233" width="260" height="131" rx="13" fill="#fff" stroke="#7599bb" stroke-width="2"/>
+<text x="108" y="269" font-family="sans-serif" font-size="19" fill="#123f74">IR transmitter module</text>
+<text x="108" y="303" font-family="sans-serif" font-size="16" fill="#335774">RED lead → +5 V</text>
+<text x="108" y="331" font-family="sans-serif" font-size="16" fill="#335774">BLACK lead → GND</text>
+<path d="M208 233 V203" stroke="#e36a62" stroke-width="3"/><text x="220" y="209" font-family="sans-serif" font-size="16" fill="#9d2c28">+5 V</text>
+<path d="M208 364 V395" stroke="#365276" stroke-width="3"/><text x="220" y="398" font-family="sans-serif" font-size="16" fill="#23416b">GND</text>
+<path d="M340 302 H433" stroke="#e6a83e" stroke-width="3" stroke-dasharray="9 9"/><path d="M424 295 L435 302 424 309" fill="none" stroke="#e6a83e" stroke-width="3"/>
+<text x="350" y="285" font-family="sans-serif" font-size="12" fill="#8b5916">IR light</text>
+<rect x="452" y="230" width="205" height="134" rx="12" fill="#fff" stroke="#4c9c95" stroke-width="2"/>
+<text x="470" y="261" font-family="sans-serif" font-size="18" fill="#12665f">IR receiver</text>
+<text x="470" y="286" font-family="sans-serif" font-size="14" fill="#12665f">RED → +5 V</text>
+<text x="470" y="309" font-family="sans-serif" font-size="14" fill="#12665f">BLACK → GND</text>
+<text x="470" y="334" font-family="sans-serif" font-size="14" fill="#12665f">WHITE/YELLOW → OUT</text>
+<path d="M555 230 V190 H1011" stroke="#c63c42" stroke-width="3" fill="none"/>
+<text x="798" y="179" font-family="sans-serif" font-size="16" fill="#b92d35" font-weight="bold">+5 V regulated, receiver side</text>
+<path d="M554 364 V465 H1011" stroke="#324c6c" stroke-width="3" fill="none"/>
+<text x="812" y="490" font-family="sans-serif" font-size="16" fill="#324c6c">GND · receiver side</text>
+<path d="M657 329 H1010" stroke="#198e83" stroke-width="3" fill="none"/>
+<circle cx="791" cy="329" r="5" fill="#198e83"/>
+<text x="968" y="350" font-family="sans-serif" font-size="17" fill="#12665f" font-weight="bold">OUT</text>
+<path d="M757 190 V219" stroke="#c63c42" stroke-width="3"/>
+<rect x="735" y="220" width="44" height="59" rx="4" fill="#f9fff6" stroke="#407b44" stroke-width="2"/>
+<text x="791" y="253" font-family="sans-serif" font-size="15" fill="#246a35">10 kΩ</text>
+<text x="791" y="271" font-family="sans-serif" font-size="12" fill="#246a35">pull-up</text>
+<path d="M757 279 V329" stroke="#198e83" stroke-width="3"/>
+<path d="M954 190 V216" stroke="#c63c42" stroke-width="3"/>
+<rect x="933" y="216" width="42" height="49" rx="4" fill="#fff" stroke="#487cab" stroke-width="2"/>
+<text x="982" y="247" font-family="sans-serif" font-size="15" fill="#204e75">1 kΩ</text>
+<path d="M954 265 V290" stroke="#c63c42" stroke-width="3"/>
+<path d="M929 291 L980 291 954 315Z" fill="#ec5150" stroke="#a72d39" stroke-width="2"/>
+<path d="M929 321 H979" stroke="#264b70" stroke-width="4"/>
+<path d="M954 321 V329" stroke="#198e83" stroke-width="3"/>
+<text x="995" y="290" font-family="sans-serif" font-size="13" fill="#af3b43">RED LED</text>
+<text x="995" y="305" font-family="sans-serif" font-size="11" fill="#af3b43">Anode up</text>
+<text x="995" y="319" font-family="sans-serif" font-size="11" fill="#af3b43">Cathode down</text>
+<rect x="48" y="552" width="1024" height="83" rx="10" fill="#fff" stroke="#abbcce"/>
+<text x="63" y="578" font-family="sans-serif" font-size="18" fill="#17385d" font-weight="bold">Truth table (verified for Adafruit pair)</text>
+<text x="63" y="607" font-family="sans-serif" font-size="16" fill="#245071">Beam present = OUT HIGH → red warning OFF   •   Beam blocked = OUT LOW → red warning ON</text>
+<text x="63" y="626" font-family="sans-serif" font-size="12" fill="#566479">Illustrative circuit only: check real lead colors, polarity and rated supply before energizing. Unplugged sensor is not fail-safe.</text>
+</svg>
