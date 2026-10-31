@@ -36,7 +36,7 @@ CI runs in the matching official `mcr.microsoft.com/playwright:v1.64.1-noble` im
 - `src/core.js` holds pure calculators, deterministic behavior models, record validation, CircuitJS starter exports and evidence classifications.
 - `src/storage.js` uses revision-checked IndexedDB transactions for workspace snapshots and media. Stale tabs pause autosave and can preserve their draft in the ten-revision history before loading newer work. Media hashes share matching uploads in secure contexts; cleanup protects current/draft/history references and recent files. Backup restore remaps media IDs. Full JSON backups and records-only CSV/JSON exports are separate operations.
 - `src/mesh.js` parses real mesh formats, inspects geometry and round-trips editable scene transforms. `src/viewer.js` lazily loads Three.js, controls, importers and exporters.
-- Local sessions never transmit records, photos or model geometry to a server. No login or access-token UI exists.
+- Local-only sessions keep records, photos and models in IndexedDB. Optional, opt-in authenticated Supabase vault transfer uploads AES-GCM-encrypted backups to the user's own configured service. No backend is connected by default; never enter secret/service-role keys.
 - `scripts/verify-build.mjs` verifies static assets and emits the offline service worker.
 
 See [user guide](../docs/LAB_USER_GUIDE.md), [acceptance evidence](../docs/LAB_ACCEPTANCE.md), [integration research](../docs/ENGINEERING_INTEGRATIONS.md), and [sync design](../docs/CLOUD_SYNC_DESIGN.md).
@@ -136,3 +136,9 @@ See [supabase/README.md](../supabase/README.md) for complete setup,
 scope limitations, quotas, safe cleanup and the real two-device security
 test checklist. Local IndexedDB saving and encrypted manual backup remain
 available without any account.
+
+## Offline photographs and graphics tests — October 31, 2026
+
+Original and annotated donor photos load on demand in a collapsed gallery and are excluded from the installation precache and runtime cache. Source guides and application scripts remain available offline. The cache version incorporates content bytes, so editing a file without changing its name refreshes the offline install. Photos require a connection, or a manually saved copy, for viewing.
+
+Desktop Chromium's software GL path must render a real tripwire canvas in browser CI. Linux WebKit may instead verify the no-WebGL fallback; neither mode substitutes for real iPhone Safari testing.
