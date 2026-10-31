@@ -350,7 +350,7 @@ test("real 3D model loads, transforms, duplicates, explodes, saves and exports g
   await expect(page.locator("#toast")).toContainText("Invalid GLB");
   await expect(page.locator("#mesh-status")).toContainText("2 parts");
   // Batch imports must be all-or-nothing if a later file is malformed.
-  const triangle = Buffer.from("o triangle\\nv 0 0 0\\nv 1 0 0\\nv 0 1 0\\nf 1 2 3\\n".replaceAll("\\\\n", "\\n"));
+  const triangle = Buffer.from(["o triangle", "v 0 0 0", "v 1 0 0", "v 0 1 0", "f 1 2 3"].join("\n"));
   await page.locator("#model-files").setInputFiles([
     { name: "good.obj", mimeType: "text/plain", buffer: triangle },
     { name: "bad-second.glb", mimeType: "application/octet-stream", buffer: Buffer.from("invalid") },
