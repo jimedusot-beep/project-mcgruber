@@ -4,6 +4,12 @@
 
 **Status:** Matched emitter and receiver not confirmed.
 
+## Experiment C — vendor-specific silent IR break-beam (research only)
+
+[Model-specific build and measurement guide](EXPERIMENT_C_SILENT_IR.md) · [Unfilled ten-trial log](EXPERIMENT_C_MEASUREMENTS.csv) · [Proposed Adafruit 5 V circuit illustration](diagrams/experiment-c-silent-adafruit-5v.svg)
+
+The diagram applies only to the specified rated device family. Confirm supply, output polarity and LED current on actual components before wiring; no hardware test is recorded.
+
 ## Required hardware or software (proposed)
 Matching break-beam IR emitter/receiver; rated power, pull-up where required, threshold logic/driver, separate warning LED with current limiting, supports. Exact parts and wiring remain unverified.
 
