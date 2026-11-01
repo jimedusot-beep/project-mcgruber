@@ -321,6 +321,9 @@ test("real 3D model loads, transforms, duplicates, explodes, saves and exports g
   });
   // Some headless WebKit hosts have no WebGL device. That is reported as a compatibility limitation, never a pass for 3D.
   await expect(page.locator("#viewport canvas")).toBeVisible();
+  await expect(page.locator("#material-mode")).toHaveValue("source");
+  await page.locator("#material-mode").selectOption("simple");
+  await page.locator("#material-mode").selectOption("source");
   await page
     .getByRole("button", { name: "Duplicate part", exact: true })
     .click();
