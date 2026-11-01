@@ -1,0 +1,33 @@
+name: Compile optional Arduino switch sketch
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/arduino-smoke.yml"
+      - "hardware/switch-indicator/**"
+  pull_request:
+    paths:
+      - ".github/workflows/arduino-smoke.yml"
+      - "hardware/switch-indicator/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile-uno:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install official Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+        with:
+          version: "1.5.1"
+      - name: Install Uno core and pinned Bounce2 dependency
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib install "Bounce2@2.71"
+          arduino-cli lib list
+      - name: Compile switch-indicator sketch (no hardware)
+        run: |
+          arduino-cli compile --fqbn arduino:avr:uno hardware/switch-indicator/arduino
