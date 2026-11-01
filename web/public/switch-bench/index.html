@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#10231f"><title>McGruber · Switch Continuity Bench</title>
+<style>
+:root{font:16px/1.45 system-ui,sans-serif;color-scheme:dark;--bg:#10231f;--panel:#1d352e;--line:#4b7968;--text:#f3fff8;--muted:#c8e3d6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}
+main{width:min(760px,100%);margin:auto;padding:18px 14px 60px}
+h1{font-size:clamp(1.7rem,6vw,2.3rem);margin:12px 0}h2{font-size:1.2rem;margin:0 0 9px}
+p{margin:8px 0 13px}a{color:#9fe2d7}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px;margin:13px 0}
+.warning{border-left:4px solid #efc17b;padding:9px 12px;background:#473a29}
+label{display:block;margin:8px 0;font-weight:650}
+input,select,button{font:inherit;color:inherit;background:#132a25;border:1px solid #80a698;border-radius:8px;min-height:44px;padding:8px 11px}
+input:not([type=checkbox]),select{width:100%;margin-top:4px}
+button{cursor:pointer;background:#275d4e;font-weight:700}
+table{border-collapse:collapse;width:100%;table-layout:fixed}th,td{padding:7px;text-align:left;border-bottom:1px solid #4b7968}
+th{font-size:.84rem}td select{min-width:0;width:100%;font-size:.9rem}
+.status{white-space:pre-line;border:1px solid var(--line);padding:12px;border-radius:9px;background:#122e28}
+.muted{color:var(--muted)}.small{font-size:.85rem}.cycles{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:6px}
+.cycles label{display:flex;align-items:center;gap:8px;margin:0;padding:8px;border:1px solid var(--line);border-radius:8px}
+.cycles input{width:22px;height:22px;min-height:22px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:380px){th,td{padding:3px}td select{padding:7px 3px;font-size:.79rem}}
+@media print{body{background:white;color:black}.card{background:white;color:black;border:1px solid #888}.actions{display:none}}
+</style></head>
+<body><main>
+<nav><a href="../#/circuit">McGruber Circuit Lab</a> · <a href="../#/project/P04">P04 Object-Removal Alarm</a></nav>
+<h1>Switch continuity bench</h1>
+<p class="muted">Map salvaged mouse-switch contacts using your Fluke. This is a worksheet, not a digital meter: only readings you enter are analyzed.</p>
+<div class="card warning"><strong>Before measuring:</strong> Unplug USB and disconnect every battery and power supply. Use continuity/ohms ONLY on a completely unpowered, isolated switch. Other circuits attached to the PCB can give misleading results. Do not apply 9V to an Arduino GPIO.</div>
+<section class="card" aria-labelledby="steps"><h2 id="steps">1 · Identify the switch</h2>
+<label>Number of accessible terminals <select id="terminals"><option value="3">Three terminals (changeover candidate)</option><option value="2">Two terminals (simple contact)</option></select></label>
+<p class="small muted">Photograph and label the physical legs A, B and (if present) C. Do not assume A is COM. Check each pair while the switch is <strong>released</strong> and <strong>pressed</strong>.</p>
+<label>Tester or reference (optional) <input id="tester" autocomplete="off" placeholder="e.g., donor mouse #1"></label>
+<label>Instrument / mode <input id="instrument" autocomplete="off" placeholder="e.g., Fluke 15B+, continuity / Ω"></label>
+</section>
+<section class="card" aria-labelledby="measure"><h2 id="measure">2 · Enter actual readings</h2>
+<table><thead><tr><th style="width:20%">Pin pair</th><th>Button released</th><th>Button pressed</th></tr></thead><tbody id="pairs"></tbody></table>
+<p id="analysis" class="status" role="status" aria-live="polite">No measurements entered.</p>
+<p class="small muted">An inferred contact arrangement is a candidate only, not proof of switch identity, safety rating, or electrical isolation.</p>
+</section>
+<section class="card" aria-labelledby="repeat"><h2 id="repeat">3 · Repeat the observation</h2>
+<p class="muted">Check a full press/release for each cycle. Mark a cycle only if all contact states matched your mapped readings. Slow continuity checks do not quantify fast contact bounce.</p>
+<div class="cycles" id="cycles"></div>
+<p id="cycle-count" aria-live="polite">0 of 10 consistent cycles reported.</p>
+</section>
+<section class="card" aria-labelledby="export-heading"><h2 id="export-heading">4 · Export an unverified record</h2>
+<label>Measurement notes <input id="notes" autocomplete="off" placeholder="Probe contact, part markings, inconsistencies, failures"></label>
+<p class="small muted">Saved CSV records are explicitly marked OWNER_ENTERED_UNVERIFIED. McGruber does not send these readings to a server or automatically update inventory. Download your CSV before leaving this page.</p>
+<div class="actions"><button id="export">Download CSV evidence</button><button id="clear" type="button">Clear worksheet</button></div>
+<p id="feedback" role="status" aria-live="polite"></p>
+</section>
+<p class="small muted">For the physical acceptance gate, attach labeled photos, resistor/LED measurements and twenty actual removal cycles to <a href="https://github.com/jimedusot-beep/project-mcgruber/issues/7" target="_blank" rel="noopener">McGruber issue #7</a>. An input in this worksheet is not automatically evidence of a working invention.</p>
+</main>
+<script type="module">
+import {PAIRS,analyzeContacts,exportContactCsv} from "./switch-core.mjs";
+const $=id=>document.getElementById(id);
+const select=(pair,mode)=>'<select aria-label="'+pair+' '+mode+'" data-pair="'+pair+'" data-mode="'+mode+'"><option value="unknown">Not measured</option><option value="open">Open (no beep)</option><option value="closed">Closed (beep)</option></select>';
+function initialize(){
+ $("pairs").replaceChildren();
+ const n=Number($("terminals").value);
+ for(const p of PAIRS[n]){
+   const row=document.createElement("tr");
+   const label=document.createElement("th");label.textContent=p;label.scope="row";
+   const a=document.createElement("td");a.innerHTML=select(p,"released");
+   const c=document.createElement("td");c.innerHTML=select(p,"pressed");
+   row.append(label,a,c);$("pairs").append(row);
+ }
+ $("cycles").replaceChildren();
+ for(let i=0;i<10;i++){
+   const label=document.createElement("label");
+   const input=document.createElement("input");input.type="checkbox";input.dataset.cycle=String(i+1);
+   label.append(input,document.createTextNode("Cycle "+(i+1)));
+   $("cycles").append(label);
+ }
+ $("feedback").textContent="";
+ update();
+}
+function readings(){
+ const result={};
+ for(const p of PAIRS[Number($("terminals").value)]){
+   result[p]={released:document.querySelector('[data-pair="'+p+'"][data-mode="released"]').value,
+              pressed:document.querySelector('[data-pair="'+p+'"][data-mode="pressed"]').value};
+ }
+ return result;
+}
+function cycles(){return [...document.querySelectorAll('[data-cycle]')].map(x=>x.checked);}
+function update(){
+ const result=analyzeContacts(Number($("terminals").value),readings());
+ const map=result.map?(result.map.COM
+   ? "Candidate COM="+result.map.COM+", NC="+result.map.NC+", NO="+result.map.NO+"."
+   : "Candidate "+result.map.contact+" between pins A and B."):"No pin identities assigned.";
+ $("analysis").textContent=result.completed+" of "+result.total+" pin pairs measured. "+result.message+"\n"+map+"\nStatus: owner-entered / unverified.";
+ $("cycle-count").textContent=cycles().filter(Boolean).length+" of 10 consistent cycles reported (self-report only).";
+}
+$("terminals").addEventListener("change",initialize);
+$("pairs").addEventListener("change",update);
+$("cycles").addEventListener("change",update);
+$("clear").addEventListener("click",()=>{
+ $("tester").value="";$("instrument").value="";$("notes").value="";
+ initialize();
+});
+$("export").addEventListener("click",()=>{
+ if(!$("instrument").value.trim()){
+   $("feedback").textContent="Enter the actual meter/instrument mode before exporting a measurement record.";
+   $("instrument").focus();return;
+ }
+ const data=exportContactCsv({terminals:Number($("terminals").value),readings:readings(),
+   tester:$("tester").value.trim(),instrument:$("instrument").value.trim(),notes:$("notes").value.trim(),cycles:cycles()});
+ const url=URL.createObjectURL(new Blob([data],{type:"text/csv;charset=utf-8"}));
+ const link=document.createElement("a");link.href=url;link.download="mcgruber-switch-owner-entered-unverified.csv";
+ document.body.append(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+ $("feedback").textContent="CSV download requested. Save the file and attach real photo evidence before any hardware verification.";
+});
+initialize();
+</script></body></html>
