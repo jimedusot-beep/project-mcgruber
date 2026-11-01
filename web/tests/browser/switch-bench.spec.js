@@ -13,7 +13,7 @@ test("switch worksheet has no fabricated readings and derives only candidate COM
  await page.getByRole("combobox",{name:"B-C pressed"}).selectOption("open");
  await expect(page.locator("#analysis")).toContainText("Candidate COM=A, NC=B, NO=C.");
  await expect(page.locator("#analysis")).toContainText("unverified");
- await page.getByRole("checkbox",{name:"Cycle 1"}).check();
+ await page.getByRole("checkbox",{name:"Cycle 1",exact:true}).check();
  await expect(page.locator("#cycle-count")).toContainText("1 of 10");
  await page.getByRole("button",{name:"Download CSV evidence"}).click();
  await expect(page.locator("#feedback")).toContainText("Enter the actual meter");
