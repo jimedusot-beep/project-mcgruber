@@ -157,3 +157,7 @@ The camera now avoids zero-size aspect ratios during collapsed or rotated mobile
 ## Five-upstream switch bench / GLB optimization
 
 See [first switch build track](../docs/FIRST_SWITCH_BUILD_TRACK.md). The Circuit Lab now offers a **9V object-removal resistor-only CircuitJS proxy** (not an LED simulation) and maintains its physical measurements separately. For local models, install glTF Transform's external MIT CLI and run `npm run 3d:dedup -- input.glb output.glb`; it refuses overwrites and reports before/after size, but does not certify rendering/performance. The optional Arduino Bounce2 sketch and OpenSCAD switch gauge are repository source files, not demonstrated physical hardware.
+
+## Switch continuity bench
+
+The [P04/P06 switch-contact worksheet](../docs/SWITCH_CONTACT_WORKSHEET.md) is deployed as `/switch-bench/`. It interprets only manually entered released/pressed observations, flags conflicting three-terminal mappings, records ten self-reported repeat checks, and downloads CSV labeled `OWNER_ENTERED_UNVERIFIED`. It performs no electrical measurements itself and does not update the hardware inventory automatically. Desktop Chromium and iPhone WebKit test the UI separately.
