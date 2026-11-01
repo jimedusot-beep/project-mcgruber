@@ -39,7 +39,7 @@ jobs:
       - name: Desktop Chromium and iPhone WebKit emulation
         timeout-minutes: 12
         run: npm run test:browser
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: browser-evidence
@@ -47,7 +47,7 @@ jobs:
             web/playwright-report/
             web/test-results/
           retention-days: 7
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: mcgruber-lab-static-preview
           path: web/dist/
