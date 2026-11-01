@@ -30,4 +30,4 @@ jobs:
           arduino-cli lib list
       - name: Compile switch-indicator sketch (no hardware)
         run: |
-          arduino-cli compile --fqbn arduino:avr:uno hardware/switch-indicator/arduino
+          arduino-cli compile --fqbn arduino:avr:uno hardware/switch-indicator/arduino/switch_indicator
