@@ -24,6 +24,9 @@ for (const needed of [
   "beam-detector/engineering-hub.html",
   "beam-detector/engineering-checks.html",
   "beam-detector/engineering-core.mjs",
+  "repository/hardware/switch-indicator/arduino/switch_indicator.ino",
+  "repository/cad-and-stl/switch-fit-gauge.scad",
+  "repository/docs/FIRST_SWITCH_BUILD_TRACK.md",
 ]) {
   if (!(await stat(path.join(dist, needed)).catch(() => null))?.isFile())
     throw Error("Missing mobile engineering asset: " + needed);
