@@ -92,13 +92,28 @@ test("glTF PBR colors survive scene export and reload, with legacy fallback and 
   const gltf = {
     asset: {version: "2.0"}, scene: 0, scenes: [{nodes: [0]}],
     nodes: [{mesh: 0, name: "Colored prototype"}],
-    buffers: [{uri: "data:application/octet-stream;base64," + positions.toString("base64"), byteLength: 36}],
+    buffers: [{byteLength: 36}],
     bufferViews: [{buffer: 0, byteOffset: 0, byteLength: 36}],
     accessors: [{bufferView: 0, componentType: 5126, count: 3, type: "VEC3", min: [0,0,0], max: [1,1,0]}],
     materials: [{pbrMetallicRoughness: {baseColorFactor: [0.8,0.1,0.2,1], metallicFactor: 0.65, roughnessFactor: 0.3}, doubleSided: true}],
     meshes: [{primitives: [{attributes: {POSITION: 0}, material: 0}]}],
   };
-  const parsed = await parseModel(new File([JSON.stringify(gltf)], "colored.gltf"));
+  // Package JSON + BIN directly as a GLB. This isolates parser behavior and
+  // avoids Node-only data-URI fetch / ProgressEvent differences.
+  const json = Buffer.from(JSON.stringify(gltf), "utf8");
+  const paddedJson = Buffer.concat([json, Buffer.alloc((4 - json.length % 4) % 4, 0x20)]);
+  const header = Buffer.alloc(12);
+  header.writeUInt32LE(0x46546c67, 0);
+  header.writeUInt32LE(2, 4);
+  header.writeUInt32LE(12 + 8 + paddedJson.length + 8 + positions.length, 8);
+  const jsonChunk = Buffer.alloc(8);
+  jsonChunk.writeUInt32LE(paddedJson.length, 0);
+  jsonChunk.writeUInt32LE(0x4e4f534a, 4);
+  const binChunk = Buffer.alloc(8);
+  binChunk.writeUInt32LE(positions.length, 0);
+  binChunk.writeUInt32LE(0x004e4942, 4);
+  const glb = Buffer.concat([header, jsonChunk, paddedJson, binChunk, positions]);
+  const parsed = await parseModel(new File([glb], "colored.glb"));
   assert.equal(parsed.length, 1);
   assert.equal(parsed[0].userData.materialSpec.metalness, 0.65);
   assert.equal(parsed[0].userData.materialSpec.roughness, 0.3);
