@@ -30,7 +30,7 @@ In the McGruber Circuit Lab select **9V object-removal resistive proxy**, open C
 
 ## OpenSCAD — optional physical fit gauge
 
-- [Parametric three-clearance coupon](../cad-and-stl/switch-fit-gauge.scad): a simple OpenSCAD source, *not* a finished alarm enclosure.
+- [Parametric three-clearance coupon](../cad-and-stl/switch-fit-gauge.scad) and [sample STL](../cad-and-stl/switch-fit-gauge.stl): original OpenSCAD source and generated digital preview, *not* a finished alarm enclosure. Use **Add switch-fit gauge STL** in the 3D Workshop to inspect the three pockets.
 - Measure the actual switch body length/width/height **before** editing the placeholder dimensions.
 - Render with OpenSCAD (`openscad -o switch-fit-gauge.stl cad-and-stl/switch-fit-gauge.scad`), inspect STL and print flat at the library if needed.
 - Three left-to-right pockets give 0.20, 0.40, and 0.60 mm per-side clearance (editable). **Fit-tested clearance** is only known after actually checking the printed coupon with the part. Keep electronics disconnected during the trial. No adhesive, screws or load-bearing claims.
