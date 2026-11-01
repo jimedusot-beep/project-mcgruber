@@ -231,12 +231,14 @@ test("CSV quotes data and neutralizes spreadsheet formula injection", () => {
   assert.match(result, /"a,b\nline"/);
 });
 test("original CircuitJS starter files contain grounded closed circuits", () => {
-  for (const type of ["switch", "divider", "timer"]) {
+  for (const type of ["switch", "alarm", "divider", "timer"]) {
     const t = falstadCircuit(type);
     assert.ok(t.startsWith("$ 1 "));
     assert.match(t, /v 96 240 96 80/);
     assert.match(t, /g 96 240/);
   }
+  assert.match(falstadCircuit("alarm"), /v 96 240 96 80 0 0 40 9 /);
+  assert.match(falstadCircuit("alarm"), /r 224 80 352 80 0 1000/);
   assert.throws(() => falstadCircuit("bogus"));
 });
 test("catalog covers real repository files, all nine procedures, and preserves unknown specifications", async () => {

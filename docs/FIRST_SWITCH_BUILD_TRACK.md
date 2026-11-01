@@ -4,19 +4,19 @@
 
 ## Track A — no microcontroller, no new purchase
 
-This is the primary experiment. Follow the existing [P04 build](../../projects/04-object-removal-alarm/BUILD.md) rather than buying an Arduino board merely to run the optional sketch.
+This is the primary experiment. Follow the existing [P04 build](../projects/04-object-removal-alarm/BUILD.md) rather than buying an Arduino board merely to run the optional sketch.
 
 1. Disconnect every power source from the donor mouse. Photograph the switch markings and solder pads; record its physical dimensions, donor identity and which pads are actually connected to the switch.
 2. With the Fluke on continuity/ohms, check every pin pair in both the *physically pressed* and *released* states. Do **not** assume COM/NC based on a similar switch online. Record at least ten consistent observations.
 3. Confirm the red LED's polarity/rating, a measured 1 kΩ resistor of appropriate power rating, and a measured 9V battery supply. The **conditional** low-voltage direct series circuit is `9V+ → verified COM/NC → measured 1 kΩ → correctly oriented LED → 9V−`. Never omit the resistor.
 4. Power on only after inspecting for shorts and insulating loose wiring. With the object pressing the microswitch, LED should be **OFF**; when removed (switch released), LED should be **ON**. Record the loaded supply and voltage across the resistor, and calculate actual current.
-5. Perform twenty real object-lift/replace cycles. Record missed triggers and false alarms. Use [TEST_LOG.csv](../../projects/04-object-removal-alarm/TEST_LOG.csv) or a McGruber notebook entry with genuine measurements and photo evidence.
+5. Perform twenty real object-lift/replace cycles. Record missed triggers and false alarms. Use [TEST_LOG.csv](../projects/04-object-removal-alarm/TEST_LOG.csv) or a McGruber notebook entry with genuine measurements and photo evidence.
 
 **Stop conditions:** unidentified terminal, unknown resistor/LED rating, shorts, hot parts, inconsistent contacts, or any suggestion to connect a 9V source to a microcontroller GPIO.
 
 ## Track B — optional Arduino + Bounce2, only if a compatible board is already available
 
-- [McGruber sketch](../../hardware/switch-indicator/arduino/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
+- [McGruber sketch](../hardware/switch-indicator/arduino/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
 - [Arduino StateChangeDetection](https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/StateChangeDetection/StateChangeDetection.ino) (public-domain/CC0) is the model for one event per transition.
 - [Bounce2 Button documentation](https://github.com/thomasfredericks/Bounce2/blob/master/README.md) specifies `attach`, `interval`, `setPressedState`, `update`, and `pressed`/`released`.
 
@@ -30,7 +30,7 @@ In the McGruber Circuit Lab select **9V object-removal resistive proxy**, open C
 
 ## OpenSCAD — optional physical fit gauge
 
-- [Parametric three-clearance coupon](../../cad-and-stl/switch-fit-gauge.scad): a simple OpenSCAD source, *not* a finished alarm enclosure.
+- [Parametric three-clearance coupon](../cad-and-stl/switch-fit-gauge.scad): a simple OpenSCAD source, *not* a finished alarm enclosure.
 - Measure the actual switch body length/width/height **before** editing the placeholder dimensions.
 - Render with OpenSCAD (`openscad -o switch-fit-gauge.stl cad-and-stl/switch-fit-gauge.scad`), inspect STL and print flat at the library if needed.
 - Three left-to-right pockets give 0.20, 0.40, and 0.60 mm per-side clearance (editable). **Fit-tested clearance** is only known after actually checking the printed coupon with the part. Keep electronics disconnected during the trial. No adhesive, screws or load-bearing claims.
