@@ -150,6 +150,7 @@ for (const dir of [
   "projects",
   "component-bank",
   "cad-and-stl",
+  "hardware",
   "docs",
   "media",
 ]) {
@@ -164,7 +165,7 @@ for (const dir of [
       const rel = p + "/" + f.name;
       if (f.isDirectory()) {
         if (f.name !== "__pycache__") await walk(rel);
-      } else if (/\.(md|csv|svg|stl|scad|py)$/.test(rel))
+      } else if (/\.(md|csv|svg|stl|scad|py|ino)$/.test(rel))
         documents.push({ path: rel, title: f.name, group: p });
     }
   }

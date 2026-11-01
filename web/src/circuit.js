@@ -24,6 +24,7 @@ export function mountCircuit(ctx) {
     drag = null,
     simCleanup;
   $("#circuit-type").value = type;
+  $("#circuit-voltage").value = type === "alarm" ? "9" : "5";
   const persist = () => {
     ctx.workspace.circuit = { type, positions };
     ctx.save();
@@ -37,7 +38,7 @@ export function mountCircuit(ctx) {
       `M${control[0] + 45},${control[1]}H${load[0]}V${load[1] - 30}`,
       `M${load[0]},${load[1] + 30}V270H${source[0]}V${source[1] + 30}`,
     ];
-    svg.innerHTML = `<defs><pattern id="circuit-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--line)"/></pattern></defs><rect width="800" height="320" fill="url(#circuit-grid)"/>${p.map((d, i) => `<path data-wire="${i}" d="${d}" fill="none" stroke="${i === selectedWire ? "var(--amber)" : "var(--accent)"}" stroke-width="${i === selectedWire ? 5 : 3}" tabindex="0" role="button" aria-label="Trace wire ${i + 1}"/>`).join("")}<g data-node="source" transform="translate(${source})" tabindex="0" role="button" aria-label="Inspect ideal DC supply"><circle r="30" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="-7" text-anchor="middle" fill="var(--ink)">+</text><text y="16" text-anchor="middle" fill="var(--ink)">−</text><text y="-46" text-anchor="middle" fill="var(--muted)">DC SUPPLY</text></g><g data-node="control" transform="translate(${control})" tabindex="0" role="button" aria-label="Inspect control element"><rect x="-45" y="-26" width="90" height="52" rx="5" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="5" text-anchor="middle" fill="var(--ink)">${type === "switch" ? "SW" : type === "divider" ? "R top" : "R 10k"}</text><text y="-40" text-anchor="middle" fill="var(--muted)">${type === "switch" ? "IDEAL SWITCH" : "RESISTOR"}</text></g><g data-node="load" transform="translate(${load})" tabindex="0" role="button" aria-label="Inspect load"><rect x="-25" y="-30" width="50" height="60" rx="4" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="5" text-anchor="middle" fill="var(--ink)">${type === "timer" ? "C" : "R"}</text><text y="-46" text-anchor="middle" fill="var(--muted)">${type === "timer" ? "100 µF" : "RESISTIVE LOAD"}</text></g><text x="350" y="305" fill="var(--muted)" font-size="12">Connection-order illustration · unknown physical pinouts</text>`;
+    svg.innerHTML = `<defs><pattern id="circuit-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--line)"/></pattern></defs><rect width="800" height="320" fill="url(#circuit-grid)"/>${p.map((d, i) => `<path data-wire="${i}" d="${d}" fill="none" stroke="${i === selectedWire ? "var(--amber)" : "var(--accent)"}" stroke-width="${i === selectedWire ? 5 : 3}" tabindex="0" role="button" aria-label="Trace wire ${i + 1}"/>`).join("")}<g data-node="source" transform="translate(${source})" tabindex="0" role="button" aria-label="Inspect ideal DC supply"><circle r="30" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="-7" text-anchor="middle" fill="var(--ink)">+</text><text y="16" text-anchor="middle" fill="var(--ink)">−</text><text y="-46" text-anchor="middle" fill="var(--muted)">DC SUPPLY</text></g><g data-node="control" transform="translate(${control})" tabindex="0" role="button" aria-label="Inspect control element"><rect x="-45" y="-26" width="90" height="52" rx="5" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="5" text-anchor="middle" fill="var(--ink)">${(type === "switch" || type === "alarm") ? "SW" : type === "divider" ? "R top" : "R 10k"}</text><text y="-40" text-anchor="middle" fill="var(--muted)">${(type === "switch" || type === "alarm") ? "IDEAL SWITCH" : "RESISTOR"}</text></g><g data-node="load" transform="translate(${load})" tabindex="0" role="button" aria-label="Inspect load"><rect x="-25" y="-30" width="50" height="60" rx="4" fill="var(--panel)" stroke="var(--ink)" stroke-width="2"/><text y="5" text-anchor="middle" fill="var(--ink)">${type === "timer" ? "C" : "R"}</text><text y="-46" text-anchor="middle" fill="var(--muted)">${type === "timer" ? "100 µF" : "RESISTIVE LOAD"}</text></g><text x="350" y="305" fill="var(--muted)" font-size="12">Connection-order illustration · unknown physical pinouts</text>`;
     $$("[data-wire]", svg).forEach((el) => {
       const select = () => {
         selectedWire = Number(el.dataset.wire);
@@ -112,7 +113,7 @@ export function mountCircuit(ctx) {
       const result =
         type === "divider"
           ? calculate("divider", { voltage: v, top, bottom: r })
-          : type === "switch"
+          : (type === "switch" || type === "alarm")
             ? {
                 "Ideal load current (mA)": $("#circuit-closed").checked
                   ? (v / r) * 1000
@@ -126,6 +127,7 @@ export function mountCircuit(ctx) {
                 "Steady-state capacitor voltage (V)": v,
               };
       $("#circuit-result").textContent =
+        (type === "alarm" ? "Resistor-only proxy: NOT an LED model. " : "") +
         Object.entries(result)
           .map(
             ([k, v]) =>
@@ -141,6 +143,10 @@ export function mountCircuit(ctx) {
   }
   $("#circuit-type").onchange = (e) => {
     type = e.target.value;
+    if (type === "alarm" || type === "switch") {
+      $("#circuit-voltage").value = type === "alarm" ? "9" : "5";
+      $("#circuit-resistance").value = "1000";
+    }
     persist();
     update();
   };
@@ -160,6 +166,7 @@ export function mountCircuit(ctx) {
   $("#spice-download").onclick = () => {
     const netlist = {
       switch: "V1 supply 0 DC 5\nRcontact supply out 0.01\nRload out 0 1k\n.op",
+      alarm: "V1 supply 0 DC 9\nRcontact supply out 0.01\nRproxy out 0 1k\n.op",
       divider: "V1 supply 0 DC 5\nRtop supply out 10k\nRbottom out 0 10k\n.op",
       timer:
         "V1 supply 0 PULSE(0 5 0 1u 1u 1 2)\nR1 supply out 10k\nC1 out 0 100u\n.tran 1m 5",

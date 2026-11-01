@@ -306,6 +306,12 @@ test("circuit starter links and ideal DC results agree and external engine loads
   await expect(page.locator("#circuit-result")).toContainText("0.000");
   await page.locator("#circuit-type").selectOption("divider");
   await expect(page.locator("#circuit-result")).toContainText("0.4545");
+  await page.locator("#circuit-type").selectOption("alarm");
+  await expect(page.locator("#circuit-voltage")).toHaveValue("9");
+  await expect(page.locator("#circuit-result")).toContainText("Resistor-only proxy");
+  await expect(page.locator("#circuit-open")).toHaveAttribute("href", /cct=.*40%209/);
+  await page.locator("#circuit-closed").check();
+  await expect(page.locator("#circuit-result")).toContainText("9.000");
 });
 test("real 3D model loads, transforms, duplicates, explodes, saves and exports geometry", async ({
   page,

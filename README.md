@@ -110,3 +110,8 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 ## Community engineering references
 
 - [Open-source study bench](docs/OPEN_SOURCE_STUDY_BENCH_2026-11-01.md) — Arduino, Hackster, Adafruit, Analog Devices, AskElectronics and Khronos references, with distinct evidence gates for the salvaged microswitch, blue/red LED receiver, matched infrared pair, 3D material tests and maintenance.
+
+
+## First five upstream integration track
+
+[First switch build track](docs/FIRST_SWITCH_BUILD_TRACK.md) — no-purchase continuity and LED test first, optional Arduino/Bounce2 firmware, linked CircuitJS resistive simulation, parametric OpenSCAD switch clearance gauge, and optional glTF Transform GLB deduplication/size report. No electrical verification is claimed by this software change.
