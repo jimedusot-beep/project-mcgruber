@@ -629,7 +629,7 @@ export function falstadCircuit(type) {
     return (
       header +
       (type === "alarm" ? source.replace(" 40 5 0 0 0.5", " 40 9 0 0 0.5") : source) +
-      "s 96 80 224 80 0 0 false\\nr 224 80 352 80 0 1000\\nw 352 80 352 240 0\\nw 352 240 96 240 0\\ng 96 240 96 272 0\\n"
+      "s 96 80 224 80 0 0 false\nr 224 80 352 80 0 1000\nw 352 80 352 240 0\nw 352 240 96 240 0\ng 96 240 96 272 0\n"
     );
   if (type === "divider")
     return (
