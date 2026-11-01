@@ -24,6 +24,7 @@ export function mountCircuit(ctx) {
     drag = null,
     simCleanup;
   $("#circuit-type").value = type;
+  $("#circuit-voltage").value = type === "alarm" ? "9" : "5";
   const persist = () => {
     ctx.workspace.circuit = { type, positions };
     ctx.save();
@@ -164,8 +165,8 @@ export function mountCircuit(ctx) {
     );
   $("#spice-download").onclick = () => {
     const netlist = {
-      switch: "V1 supply 0 DC 5\\nRcontact supply out 0.01\\nRload out 0 1k\\n.op",
-      alarm: "V1 supply 0 DC 9\\nRcontact supply out 0.01\\nRproxy out 0 1k\\n.op",
+      switch: "V1 supply 0 DC 5\nRcontact supply out 0.01\nRload out 0 1k\n.op",
+      alarm: "V1 supply 0 DC 9\nRcontact supply out 0.01\nRproxy out 0 1k\n.op",
       divider: "V1 supply 0 DC 5\nRtop supply out 10k\nRbottom out 0 10k\n.op",
       timer:
         "V1 supply 0 PULSE(0 5 0 1u 1u 1 2)\nR1 supply out 10k\nC1 out 0 100u\n.tran 1m 5",
