@@ -105,3 +105,8 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 - [Conditional object-alarm wiring illustration](projects/04-object-removal-alarm/diagrams/wiring-example-5v.svg)
 - [Conditional standalone-buzzer wiring illustration](projects/07-standalone-control-box/diagrams/wiring-example-5v.svg)
 
+
+
+## Community engineering references
+
+- [Open-source study bench](docs/OPEN_SOURCE_STUDY_BENCH_2026-11-01.md) — Arduino, Hackster, Adafruit, Analog Devices, AskElectronics and Khronos references, with distinct evidence gates for the salvaged microswitch, blue/red LED receiver, matched infrared pair, 3D material tests and maintenance.
