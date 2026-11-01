@@ -20,13 +20,13 @@ jobs:
       run:
         working-directory: web
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - run: npm ci
@@ -39,7 +39,7 @@ jobs:
       - name: Desktop Chromium and iPhone WebKit emulation
         timeout-minutes: 12
         run: npm run test:browser
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: browser-evidence
@@ -47,7 +47,7 @@ jobs:
             web/playwright-report/
             web/test-results/
           retention-days: 7
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: mcgruber-lab-static-preview
           path: web/dist/
