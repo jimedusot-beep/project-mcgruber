@@ -4,6 +4,10 @@
 
 **State:** Proposed and electrically unverified. Salvaged mouse switches, Fluke, 9V snap, resistors, visible LEDs, wires and tape are owned/reported; the switch contact map and actual supply current have not yet been measured.
 
+[Phone-friendly continuity worksheet](../../docs/SWITCH_CONTACT_WORKSHEET.md) — record the actual unpowered pin-pair states and export a clearly unverified CSV before wiring.
+
+[New first-switch open-source build track](../../docs/FIRST_SWITCH_BUILD_TRACK.md) — includes optional Arduino + Bounce2 firmware, CircuitJS resistive proxy, printable OpenSCAD fit gauge and conservative glTF file workflow. None replaces the 20-cycle physical pass gate.
+
 ## Procedure
 
 1. Remove all power and map the donor microswitch COM/NO/NC contacts with the Fluke in continuity mode.

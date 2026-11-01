@@ -618,16 +618,17 @@ export function validateWorkspace(w) {
 }
 export const circuitTypes = {
   switch: "5V switch + resistive load",
+  alarm: "9V object-removal resistive proxy",
   divider: "Light-sensor divider (fixed example)",
   timer: "RC timing example",
 };
 export function falstadCircuit(type) {
   const header = "$ 1 0.000005 10.20027730826997 50 5 50\n";
   const source = "v 96 240 96 80 0 0 40 5 0 0 0.5\n";
-  if (type === "switch")
+  if (type === "switch" || type === "alarm")
     return (
       header +
-      source +
+      (type === "alarm" ? source.replace(" 40 5 0 0 0.5", " 40 9 0 0 0.5") : source) +
       "s 96 80 224 80 0 0 false\nr 224 80 352 80 0 1000\nw 352 80 352 240 0\nw 352 240 96 240 0\ng 96 240 96 272 0\n"
     );
   if (type === "divider")

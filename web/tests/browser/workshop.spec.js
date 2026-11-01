@@ -306,6 +306,12 @@ test("circuit starter links and ideal DC results agree and external engine loads
   await expect(page.locator("#circuit-result")).toContainText("0.000");
   await page.locator("#circuit-type").selectOption("divider");
   await expect(page.locator("#circuit-result")).toContainText("0.4545");
+  await page.locator("#circuit-type").selectOption("alarm");
+  await expect(page.locator("#circuit-voltage")).toHaveValue("9");
+  await expect(page.locator("#circuit-result")).toContainText("Resistor-only proxy");
+  await expect(page.locator("#circuit-open")).toHaveAttribute("href", /cct=.*40%209/);
+  await page.locator("#circuit-closed").check();
+  await expect(page.locator("#circuit-result")).toContainText("9.000");
 });
 test("real 3D model loads, transforms, duplicates, explodes, saves and exports geometry", async ({
   page,
@@ -321,6 +327,9 @@ test("real 3D model loads, transforms, duplicates, explodes, saves and exports g
   });
   // Some headless WebKit hosts have no WebGL device. That is reported as a compatibility limitation, never a pass for 3D.
   await expect(page.locator("#viewport canvas")).toBeVisible();
+  await expect(page.locator("#material-mode")).toHaveValue("source");
+  await page.locator("#material-mode").selectOption("simple");
+  await page.locator("#material-mode").selectOption("source");
   await page
     .getByRole("button", { name: "Duplicate part", exact: true })
     .click();
@@ -366,4 +375,20 @@ test("real 3D model loads, transforms, duplicates, explodes, saves and exports g
     path: info.outputPath("viewer.png"),
     fullPage: true,
   });
+});
+
+test("three-pocket OpenSCAD sample is accessible in the 3D viewer without replacing the current scene", async ({ page, browserName }) => {
+  test.skip(browserName === "webkit", "Headless Linux WebKit does not guarantee real hardware WebGL.");
+  await page.goto("/#/viewer");
+  await expect(page.locator("#mesh-status")).toContainText("1 parts", {timeout:20000});
+  await page.getByRole("button", {name: "Add switch-fit gauge STL"}).click();
+  await expect(page.locator("#mesh-status")).toContainText("2 parts");
+  await expect(page.locator("#part-list")).toContainText("Switch-fit gauge (placeholder dimensions)");
+  await expect(page.locator("#toast")).toContainText("unmeasured fit");
+  await expect(page.locator("#viewport canvas")).toBeVisible();
+  await page.getByRole("button", {name: "Save scene revision"}).click();
+  await expect(page.locator("#save-status")).toHaveText("Saved on this device");
+  await page.reload();
+  await expect(page.locator("#mesh-status")).toContainText("2 parts", {timeout:20000});
+  await expect(page.locator("#part-list")).toContainText("Switch-fit gauge (placeholder dimensions)");
 });
