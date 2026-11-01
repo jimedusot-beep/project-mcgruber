@@ -1,6 +1,20 @@
 // Validate serialized scenes before allocating Three.js objects or replacing data.
 export const SCENE_LIMITS = { bytes: 20 * 1024 * 1024, triangles: 500000, parts: 100 };
 const orders = ["XYZ", "YZX", "ZXY", "XZY", "YXZ", "ZYX"];
+const validHex = n => Number.isInteger(n) && n >= 0 && n <= 0xffffff;
+const unitFloat = n => typeof n === "number" && Number.isFinite(n) && n >= 0 && n <= 1;
+export function validateMaterialSpec(material) {
+  if (!material || typeof material !== "object" || Array.isArray(material) ||
+      Object.keys(material).some(k => !["color","emissive","metalness","roughness","opacity","transparent","side","vertexColors"].includes(k)) ||
+      !validHex(material.color) || !validHex(material.emissive) ||
+      !unitFloat(material.metalness) || !unitFloat(material.roughness) ||
+      !unitFloat(material.opacity) ||
+      typeof material.transparent !== "boolean" ||
+      typeof material.vertexColors !== "boolean" ||
+      ![0,1,2].includes(material.side))
+    throw Error("Invalid saved PBR material. Use bounded color and material values.");
+  return material;
+}
 const vector = (v, positive = false) =>
   Array.isArray(v) && v.length === 3 && v.every((n) =>
     typeof n === "number" && Number.isFinite(n) && Math.abs(n) <= 1e8 && (!positive || n > 0));
@@ -22,6 +36,8 @@ export function validateSceneParts(parts) {
         throw Error("Invalid or duplicate saved part ID.");
       ids.add(p.id);
     }
+    // Schema 1 scenes without a material remain valid and receive the legacy green default.
+    if (p.material !== undefined) validateMaterialSpec(p.material);
     const g = p.geometry?.data, a = g?.attributes?.position;
     if (!a || a.itemSize !== 3 || !Array.isArray(a.array) ||
         a.array.length < 9 || a.array.length % 3 ||

@@ -146,3 +146,9 @@ Desktop Chromium's software GL path must render a real tripwire canvas in browse
 ## Catalog and model-import integrity
 
 The catalog build now validates the **exact nine known project folder identities**, derives stable IDs from those folder names, and joins component compatibility by the `category + component` identity—not CSV row order. It rejects duplicate, missing or unexpected component rows and invalid project cells before generating a potentially misleading app catalog. The generic 3D viewer stages all models selected in one import batch and commits them together; a malformed later file leaves the previous scene untouched. See `tests/catalog-data.test.mjs` and the Chromium import regression.
+
+## 3D material fidelity (source-color mode)
+
+The generic viewer now retains the **base color, emissive color, roughness, metalness, opacity, facing and vertex-color flag** of supported glTF PBR mesh materials in the editable local scene JSON (backward-compatible optional schema 1 material field). Selecting a mesh uses a temporary emissive highlight without destroying the source base color. The **Part colors** control can switch to a geometry-only green overview. OBJ is still geometry-only, while glTF textures, multiple per-face material slots, material extensions, skinning and animation are **not persisted**. Do not call this a full glTF material or texture round-trip. A tiny hand-authored texture-free glTF regression follows the [Khronos testing fixture approach](https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/Models-testing.md).
+
+The camera now avoids zero-size aspect ratios during collapsed or rotated mobile layouts and requests a redraw when a hidden tab becomes visible.

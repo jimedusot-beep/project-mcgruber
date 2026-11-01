@@ -5,6 +5,35 @@ import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { SCENE_LIMITS, validateSceneParts } from "./scene-validation.js";
 export const MESH_LIMITS = SCENE_LIMITS;
+// Preserve a bounded, texture-free subset of glTF PBR base materials. We
+// intentionally do NOT serialize textures, shader extensions or animations.
+export const DEFAULT_MATERIAL = Object.freeze({
+  color: 0xa5d5ad, emissive: 0, metalness: 0.14, roughness: 0.55,
+  opacity: 1, transparent: false, side: THREE.DoubleSide, vertexColors: false,
+});
+export function captureMaterialSpec(source, geometry) {
+  const material = Array.isArray(source) ? source[0] : source;
+  if (!material?.isMeshStandardMaterial) return { ...DEFAULT_MATERIAL };
+  return {
+    color: material.color.getHex(),
+    emissive: material.emissive?.getHex() ?? 0,
+    metalness: material.metalness,
+    roughness: material.roughness,
+    opacity: material.opacity,
+    transparent: material.transparent,
+    side: material.side,
+    vertexColors: !!(material.vertexColors && geometry.getAttribute("color")),
+  };
+}
+export function createPartMaterial(spec = DEFAULT_MATERIAL) {
+  return new THREE.MeshStandardMaterial({
+    color: spec.color, emissive: spec.emissive,
+    metalness: spec.metalness, roughness: spec.roughness,
+    opacity: spec.opacity, transparent: spec.transparent,
+    side: spec.side, vertexColors: spec.vertexColors,
+  });
+}
+
 export function inspectGeometry(g) {
   const a = g.getAttribute("position");
   if (!a || a.count < 3 || a.itemSize !== 3)
@@ -118,16 +147,11 @@ export async function parseModel(file, units = "mm", companions = []) {
       geometry.computeVertexNormals();
       const center = geometry.boundingBox.getCenter(new THREE.Vector3());
       geometry.translate(-center.x, -center.y, -center.z);
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xa5d5ad,
-        roughness: 0.55,
-        metalness: 0.14,
-        side: THREE.DoubleSide,
-      });
-      const part = new THREE.Mesh(geometry, material);
+      const materialSpec = captureMaterialSpec(node.material, geometry);
+      const part = new THREE.Mesh(geometry, createPartMaterial(materialSpec));
       part.position.copy(center);
       part.name = node.name || file.name;
-      part.userData = { id: newId(), source: file.name, report };
+      part.userData = { id: newId(), source: file.name, report, materialSpec };
       parts.push(part);
     }
   });
@@ -145,6 +169,7 @@ export function serializeParts(parts) {
     name: p.name,
     source: p.userData.source,
     geometry: p.geometry.toJSON(),
+    material: { ...(p.userData.materialSpec || DEFAULT_MATERIAL) },
     position: p.position.toArray(),
     rotation: p.rotation.toArray(),
     scale: p.scale.toArray(),
@@ -165,21 +190,14 @@ export function restoreParts(data) {
       throw Error("Invalid saved part transform.");
     const geometry = loader.parse(d.geometry),
       report = inspectGeometry(geometry),
-      p = new THREE.Mesh(
-        geometry,
-        new THREE.MeshStandardMaterial({
-          color: 0xa5d5ad,
-          roughness: 0.55,
-          metalness: 0.14,
-          side: THREE.DoubleSide,
-        }),
-      );
+      materialSpec = { ...(d.material || DEFAULT_MATERIAL) },
+      p = new THREE.Mesh(geometry, createPartMaterial(materialSpec));
     p.position.fromArray(d.position);
     p.rotation.fromArray(d.rotation);
     p.scale.fromArray(d.scale);
     p.visible = d.visible !== false;
     p.name = d.name;
-    p.userData = { id: d.id || newId(), source: d.source, report };
+    p.userData = { id: d.id || newId(), source: d.source, report, materialSpec };
     return p;
   });
 }
