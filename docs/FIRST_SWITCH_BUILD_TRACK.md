@@ -16,7 +16,7 @@ This is the primary experiment. Follow the existing [P04 build](../projects/04-o
 
 ## Track B — optional Arduino + Bounce2, only if a compatible board is already available
 
-- [McGruber sketch](../hardware/switch-indicator/arduino/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
+- [McGruber sketch](../hardware/switch-indicator/arduino/switch_indicator/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
 - [Arduino StateChangeDetection](https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/StateChangeDetection/StateChangeDetection.ino) (public-domain/CC0) is the model for one event per transition.
 - [Bounce2 Button documentation](https://github.com/thomasfredericks/Bounce2/blob/master/README.md) specifies `attach`, `interval`, `setPressedState`, `update`, and `pressed`/`released`.
 
