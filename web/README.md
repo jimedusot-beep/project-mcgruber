@@ -161,3 +161,7 @@ See [first switch build track](../docs/FIRST_SWITCH_BUILD_TRACK.md). The Circuit
 ## Switch continuity bench
 
 The [P04/P06 switch-contact worksheet](../docs/SWITCH_CONTACT_WORKSHEET.md) is deployed as `/switch-bench/`. It interprets only manually entered released/pressed observations, flags conflicting three-terminal mappings, records ten self-reported repeat checks, and downloads CSV labeled `OWNER_ENTERED_UNVERIFIED`. It performs no electrical measurements itself and does not update the hardware inventory automatically. Desktop Chromium and iPhone WebKit test the UI separately.
+
+## Physical P04 LED evidence stage
+
+Following `/switch-bench/`, open `/switch-bench/led.html` for the separate **manual** LED/alarm test: six explicit safety steps, loaded source voltage, measured resistor ohms/DC volts, documented LED/resistor ratings, stationary false alarms and 20 two-position LED checks. Draft is saved locally in this browser only; CSV labels remain `OWNER_ENTERED_UNVERIFIED` irrespective of completeness. The worksheet can't measure a circuit or certify hardware. See [P04 guide](../docs/P04_LED_TEST_WORKSHEET.md).
