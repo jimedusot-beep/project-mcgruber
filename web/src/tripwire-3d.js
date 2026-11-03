@@ -113,7 +113,7 @@ function cable(scene, points, color) {
 }
 export async function mountTripwire3D(host, notify = () => {}) {
   host.innerHTML = [
-    "<div class='tw3d-intro'><a class='back-link' href='#/project/P01'>← Back to tripwire</a>",
+    "<div class='tw3d-intro'><a class='back-link' href='#/project/P01'>← Back to tripwire</a> · <a href='./iphone-qa/'>Real iPhone acceptance worksheet</a>",
     "<div class='eyebrow'>PROJECT McGRUBER · 3D CONCEPT WORKSHOP</div>",
     "<h1>Take the tripwire apart—in 3D.</h1>",
     "<p>Rotate, zoom, explode, hide and select individual pieces. Geometry is illustrative, not measured CAD or a tested circuit.</p></div>",
