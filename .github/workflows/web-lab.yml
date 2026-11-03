@@ -52,9 +52,21 @@ jobs:
           name: mcgruber-lab-static-preview
           path: web/dist/
           retention-days: 14
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: web/dist
+          include-hidden-files: true
+      - name: Verify uploaded Pages archive keeps .nojekyll
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="${RUNNER_TEMP}/artifact.tar"
+          test -f "$archive" || { echo "::error::Pages archive was not created"; exit 1; }
+          if ! tar -tf "$archive" | grep -Fx './.nojekyll'; then
+            echo "::error::Uploaded Pages artifact is missing .nojekyll"
+            exit 1
+          fi
+          echo "Verified .nojekyll is included in the Pages upload archive."
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: validate
