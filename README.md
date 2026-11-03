@@ -119,3 +119,8 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 ## First standalone alarm: hands-on testing
 
 After [the Fluke continuity worksheet](web/public/switch-bench/index.html), use [P04's physical LED test bench](web/public/switch-bench/led.html) to record your real resistor-voltage measurements, confirm current limits and log 20 actual object-removal cycles. It is intentionally owner-entered only and never counts as independently verified hardware. See [safe procedure](docs/P04_LED_TEST_WORKSHEET.md).
+
+
+## RF key-fob research archive
+
+[Source-linked 433 MHz receiver ideas and licensing notes](docs/RF_433_RESEARCH_CATALOG.md) preserve the completed initial research list from [#36](https://github.com/jimedusot-beep/project-mcgruber/issues/36); only [physical P05 receiver compatibility #8](https://github.com/jimedusot-beep/project-mcgruber/issues/8) can establish our specific fob's actual behavior. No RF measurement is claimed.

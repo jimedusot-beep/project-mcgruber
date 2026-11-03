@@ -28,3 +28,8 @@ Reference (candidate encoder family only): https://www.es.co.th/Schemetic/PDF/SC
 - [Blank physical test log](TEST_LOG.csv) — **NOT_RUN** until real tests
 
 See [project-wide requirements](../../docs/BUILD_STANDARD.md) and [tracking issues](../../docs/ISSUE_TRACKING.md).
+
+
+## RF study reference
+
+[Original fifteen RF source entries and eight proposed builds](../../docs/RF_433_RESEARCH_CATALOG.md) are archived from [research issue #36](https://github.com/jimedusot-beep/project-mcgruber/issues/36). This is a **source study**, not measured compatibility or a verified receiver. Continue real-device validation in [issue #8](https://github.com/jimedusot-beep/project-mcgruber/issues/8).
