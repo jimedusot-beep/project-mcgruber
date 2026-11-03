@@ -16,7 +16,7 @@ This is the primary experiment. Follow the existing [P04 build](../projects/04-o
 
 ## Track B — optional Arduino + Bounce2, only if a compatible board is already available
 
-- [McGruber sketch](../hardware/switch-indicator/arduino/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
+- [McGruber sketch](../hardware/switch-indicator/arduino/switch_indicator/switch_indicator.ino) uses `Bounce2::Button` (upstream MIT library installed through Arduino IDE Library Manager). It does not include or clone Bounce2 code.
 - [Arduino StateChangeDetection](https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/StateChangeDetection/StateChangeDetection.ino) (public-domain/CC0) is the model for one event per transition.
 - [Bounce2 Button documentation](https://github.com/thomasfredericks/Bounce2/blob/master/README.md) specifies `attach`, `interval`, `setPressedState`, `update`, and `pressed`/`released`.
 
@@ -30,7 +30,7 @@ In the McGruber Circuit Lab select **9V object-removal resistive proxy**, open C
 
 ## OpenSCAD — optional physical fit gauge
 
-- [Parametric three-clearance coupon](../cad-and-stl/switch-fit-gauge.scad): a simple OpenSCAD source, *not* a finished alarm enclosure.
+- [Parametric three-clearance coupon](../cad-and-stl/switch-fit-gauge.scad) and [sample STL](../cad-and-stl/switch-fit-gauge.stl): original OpenSCAD source and generated digital preview, *not* a finished alarm enclosure. Use **Add switch-fit gauge STL** in the 3D Workshop to inspect the three pockets.
 - Measure the actual switch body length/width/height **before** editing the placeholder dimensions.
 - Render with OpenSCAD (`openscad -o switch-fit-gauge.stl cad-and-stl/switch-fit-gauge.scad`), inspect STL and print flat at the library if needed.
 - Three left-to-right pockets give 0.20, 0.40, and 0.60 mm per-side clearance (editable). **Fit-tested clearance** is only known after actually checking the printed coupon with the part. Keep electronics disconnected during the trial. No adhesive, screws or load-bearing claims.
@@ -49,3 +49,7 @@ The McGruber generic viewer accepts uncompressed GLB/glTF and limits imports to 
 These five upstream resources were studied, **not forked or wholesale cloned**: [Arduino Examples](https://github.com/arduino/arduino-examples) (CC0), [Bounce2](https://github.com/thomasfredericks/Bounce2) (MIT), [CircuitJS1](https://github.com/pfalstad/circuitjs1) (GPL-2.0-or-later), [OpenSCAD](https://github.com/openscad/openscad) (GPL software, original McGruber CAD), and [glTF Transform](https://github.com/donmccurdy/glTF-Transform) (MIT). Upstream license notices apply if we ever vendor their sources; none were copied into this project.
 
 **Next genuine evidence required:** a labeled photograph of a specific physical mouse switch and ten Fluke continuity readings. Without this, the digital project cannot pass the hardware acceptance gate.
+
+## Stage 2: actual LED/current test and 20 cycles
+
+After your unpowered contact map, open [the physical P04 LED worksheet](P04_LED_TEST_WORKSHEET.md). It starts blank, calculates resistor current from actually entered voltages, compares conservative series limits against manufacturer ratings, records BOTH LED states on each of 20 cycles, and exports a clearly unverified CSV. Nothing in the worksheet physically certifies an alarm.

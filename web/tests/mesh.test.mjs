@@ -143,3 +143,14 @@ test("glTF PBR colors survive scene export and reload, with legacy fallback and 
     assert.throws(() => validateWorkspace(w), /material/);
   }
 });
+
+test("OpenSCAD switch-fit gauge STL is a real bounded watertight three-pocket sample", async () => {
+  const bytes = await readFile(new URL("../../cad-and-stl/switch-fit-gauge.stl", import.meta.url));
+  const parts = await parseModel(new File([bytes], "switch-fit-gauge.stl"));
+  assert.equal(parts.length, 1);
+  const r = parts[0].userData.report;
+  assert.equal(r.triangles, 60);
+  assert.equal(r.boundary, 0);
+  assert.equal(r.nonmanifold, 0);
+  assert.deepEqual(r.dimensions.map(n => Math.round(n * 10) / 10).sort((a,b) => a-b), [5, 11.2, 60.6]);
+});

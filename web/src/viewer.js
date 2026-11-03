@@ -15,14 +15,14 @@ import {
 } from "./mesh.js";
 import { download } from "./storage.js";
 export async function mountViewer(host, saved, onSave, notify) {
-  host.innerHTML = `<div class="viewer-toolbar"><label class="button primary">Import models<input id="model-files" type="file" accept=".stl,.obj,.glb,.gltf,.bin,.png,.jpg,.jpeg,.webp" multiple hidden></label><button id="demo-model">Add starter STL</button><button id="duplicate-part">Duplicate part</button><label>Import units<select id="model-units"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="in">inches</option></select></label><span class="muted small">glTF / GLB use meters → mm</span></div>
+  host.innerHTML = `<div class="viewer-toolbar"><label class="button primary">Import models<input id="model-files" type="file" accept=".stl,.obj,.glb,.gltf,.bin,.png,.jpg,.jpeg,.webp" multiple hidden></label><button id="demo-model">Add starter STL</button><button id="switch-gauge">Add switch-fit gauge STL</button><button id="duplicate-part">Duplicate part</button><label>Import units<select id="model-units"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="in">inches</option></select></label><span class="muted small">glTF / GLB use meters → mm</span></div>
     <div class="viewer-layout"><div><div id="viewport" tabindex="0" role="application" aria-label="3D model viewer. Drag to rotate, two fingers to pan and pinch to zoom. Select a part to edit it numerically."><div class="viewport-label"><span class="live-dot"></span> REAL GEOMETRY · mm</div><div class="viewport-help">Drag to orbit · pinch to zoom · two fingers to pan</div></div><p id="mesh-status" role="status" class="small muted"></p></div>
     <aside class="panel part-panel"><h3>Scene hierarchy</h3><div id="part-list"></div><div id="part-transform"></div><div class="row wrap"><button id="hide-part">Hide / show selected</button><button id="isolate-part">Isolate</button><button id="show-parts">Show all</button><button id="remove-part" class="danger">Remove selected</button></div></aside></div>
     <div class="panel viewer-controls"><div class="row wrap"><label>View<select id="view-preset"><option value="iso">Isometric</option><option value="front">Front</option><option value="rear">Rear</option><option value="right">Right</option><option value="left">Left</option><option value="top">Top</option></select></label><button id="fit-model">Fit scene</button><button id="projection">Orthographic</button><label><input id="wireframe" type="checkbox"> Wireframe</label><label>Part colors<select id="material-mode"><option value="source">Source colors</option><option value="simple">Simplified green</option></select></label><label><input id="grid-toggle" type="checkbox" checked> Grid + axes</label><label><input id="snap" type="checkbox"> Snap 1 mm / 15°</label><label>Gizmo<select id="gizmo-mode"><option value="translate">Move</option><option value="rotate">Rotate</option><option value="scale">Scale</option><option value="off">Off</option></select></label></div>
     <div class="control-grid"><label>Explode distance (mm)<input id="explode" type="range" min="0" max="100" value="0"><output id="explode-value">0 mm</output></label><label>Opacity<input id="opacity" type="range" min="0.15" max="1" step="0.05" value="1"></label><label>Section cut X (mm)<input id="clipping" type="range" min="-100" max="100" value="100"><span><input id="clip-enable" type="checkbox"> Enable clipping</span></label></div>
     <div class="row wrap"><button id="align-parts">Align centers to selected</button><button id="interference">Check bounding-box overlaps</button><label><input id="measure-mode" type="checkbox"> Measure two surface points</label><output id="measurement">Select two points</output><label>Display units<select id="display-units"><option value="mm">mm</option><option value="cm">cm</option><option value="in">inches</option></select></label></div>
     <div class="row wrap"><button id="save-scene">Save scene revision</button><button id="export-scene">Export editable scene JSON</button><label class="button">Restore scene JSON<input id="import-scene" type="file" accept=".json" hidden></label><button id="export-stl">Export visible STL</button><button id="export-glb">Export visible GLB</button><button id="screenshot">Screenshot PNG</button></div></div>
-    <p class="notice">The generic starter is unprinted and fit-unverified. Arrangement and STL export concatenate meshes; they do not perform Boolean union. Edge checks and bounding-box overlaps do not certify manifoldness, fit, or printability. Only glTF PBR base colors, roughness, metalness, emissive color and simple transparency persist when saving; textures, extra material slots, OBJ materials, glTF animation, compressed meshes and external network resources are not supported.</p>`;
+    <p class="notice">The generic starter and sample switch-fit gauge are unprinted and unverified against real hardware. The gauge uses placeholder switch dimensions and is not an enclosure. Arrangement and STL export concatenate meshes; they do not perform Boolean union. Edge checks and bounding-box overlaps do not certify manifoldness, fit, or printability. Only glTF PBR base colors, roughness, metalness, emissive color and simple transparency persist when saving; textures, extra material slots, OBJ materials, glTF animation, compressed meshes and external network resources are not supported.</p>`;
   const $ = (s) => host.querySelector(s),
     viewport = $("#viewport"),
     status = $("#mesh-status");
@@ -351,6 +351,22 @@ export async function mountViewer(host, saved, onSave, notify) {
     );
     notify("Generic support: unprinted, fit-unverified.");
   }
+  async function addSwitchGauge() {
+    // Generated from the original parametric OpenSCAD source, not a measured
+    // switch enclosure. Never silently change the user's selected scene.
+    const response = await fetch("./repository/cad-and-stl/switch-fit-gauge.stl");
+    if (!response.ok) throw Error("Switch-fit gauge STL could not be loaded.");
+    const imported = await parseModel(
+      new File([await response.arrayBuffer()], "switch-fit-gauge.stl"), "mm"
+    );
+    if (disposed) {
+      for (const p of imported) { p.geometry.dispose(); p.material.dispose(); }
+      return;
+    }
+    imported[0].name = "Switch-fit gauge (placeholder dimensions)";
+    append(imported);
+    notify("Loaded three-pocket sample gauge (unmeasured fit). Edit the OpenSCAD source using actual switch dimensions before printing.");
+  }
   function action(selector, fn) {
     $(selector).onclick = async () => {
       try {
@@ -383,6 +399,7 @@ export async function mountViewer(host, saved, onSave, notify) {
     }
   };
   action("#demo-model", demo);
+  action("#switch-gauge", addSwitchGauge);
   action("#duplicate-part", () => {
     if (!selected) throw Error("Select a part first.");
     const p = selected.clone();

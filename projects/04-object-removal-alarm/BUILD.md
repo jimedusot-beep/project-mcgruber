@@ -4,6 +4,10 @@
 
 **State:** Proposed and electrically unverified. Salvaged mouse switches, Fluke, 9V snap, resistors, visible LEDs, wires and tape are owned/reported; the switch contact map and actual supply current have not yet been measured.
 
+[Physical LED alarm test worksheet](../../docs/P04_LED_TEST_WORKSHEET.md) — after mapping contacts, enter actual DC source/resistor measurements and log 20 real lift/replace cycles. Completeness is only readiness for evidence review, not physical verification.
+
+[Phone-friendly continuity worksheet](../../docs/SWITCH_CONTACT_WORKSHEET.md) — record the actual unpowered pin-pair states and export a clearly unverified CSV before wiring.
+
 [New first-switch open-source build track](../../docs/FIRST_SWITCH_BUILD_TRACK.md) — includes optional Arduino + Bounce2 firmware, CircuitJS resistive proxy, printable OpenSCAD fit gauge and conservative glTF file workflow. None replaces the 20-cycle physical pass gate.
 
 ## Procedure

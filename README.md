@@ -115,3 +115,7 @@ Each [project directory](projects/) now includes a **BUILD.md**, **BOM.csv**, **
 ## First five upstream integration track
 
 [First switch build track](docs/FIRST_SWITCH_BUILD_TRACK.md) — no-purchase continuity and LED test first, optional Arduino/Bounce2 firmware, linked CircuitJS resistive simulation, parametric OpenSCAD switch clearance gauge, and optional glTF Transform GLB deduplication/size report. No electrical verification is claimed by this software change.
+
+## First standalone alarm: hands-on testing
+
+After [the Fluke continuity worksheet](web/public/switch-bench/index.html), use [P04's physical LED test bench](web/public/switch-bench/led.html) to record your real resistor-voltage measurements, confirm current limits and log 20 actual object-removal cycles. It is intentionally owner-entered only and never counts as independently verified hardware. See [safe procedure](docs/P04_LED_TEST_WORKSHEET.md).
