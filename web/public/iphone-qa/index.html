@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#142b30"><title>McGruber | Real iPhone QA</title>
+<style>
+:root{font:16px/1.5 system-ui,-apple-system,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:#142b30;color:#f4fcf8}main{max-width:800px;margin:auto;padding:18px 14px 60px}
+a{color:#b0f1e1}h1{font-size:clamp(1.75rem,6vw,2.4rem)}h2{font-size:1.2rem;margin:0 0 10px}
+.panel{border:1px solid #719a8e;border-radius:12px;background:#203f3a;padding:15px;margin:14px 0}
+.warning{background:#483b29;border-left:4px solid #edbb71;padding:12px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+label{display:block;font-weight:600;margin:8px 0}
+input,select,textarea,button{background:#102b28;color:white;border:1px solid #9ac3b4;border-radius:8px;padding:8px 10px;font:inherit;min-height:44px}
+input:not([type=checkbox]),textarea{display:block;width:100%;margin-top:4px}
+textarea{min-height:70px;resize:vertical}input[type=checkbox]{width:22px;height:22px;flex-shrink:0}
+button{background:#316657;font-weight:700;cursor:pointer}
+.check{padding:14px 0;border-top:1px solid #638f7f}
+.check h3{font-size:1.05rem;margin:0}
+.check p{margin:6px 0}
+.check select{width:min(180px,100%);flex-shrink:0}
+.check textarea{flex:1 1 180px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:start}
+.actions{display:flex;flex-wrap:wrap;gap:10px}.actions>*{flex:1 1 170px}
+.output{border:1px solid #719a8e;border-radius:8px;padding:12px;background:#112e2a;white-space:pre-line;overflow-wrap:anywhere}
+.small{font-size:.88rem;color:#d0e7df}
+@media(max-width:500px){.grid{grid-template-columns:1fr}}
+@media print{body{background:white;color:black}.panel{background:white;color:black}.actions,nav{display:none}}
+</style></head><body><main>
+<nav><a href="../#/">McGruber home</a> · <a href="../#/tripwire-3d">Tripwire model</a> · <a href="https://github.com/jimedusot-beep/project-mcgruber/issues/21" target="_blank" rel="noopener">Issue #21</a></nav>
+<h1>Real iPhone acceptance test</h1>
+<p>Use this worksheet on your <strong>physical iPhone in Safari</strong>. Open each feature in a separate tab, test it, then return to record what you observed. You can save an incomplete report, too.</p>
+<div class="warning"><strong>Evidence boundary:</strong> Browser emulation, a user-agent string or a checked box cannot independently prove physical iPhone testing. Every report remains <strong>OWNER_ENTERED_UNVERIFIED</strong> until actual screenshots and observations are reviewed. Report failures and blockers.</div>
+<form id="form" novalidate>
+<section class="panel"><h2>1. Actual device and tester details</h2><div class="grid">
+<label>Tester or reference <input id="tester" maxlength="120" placeholder="Your test reference"></label>
+<label>iPhone model (enter yourself) <input id="deviceModel" maxlength="120" placeholder="From iPhone Settings"></label>
+<label>iOS version (from Settings) <input id="iosVersion" maxlength="80" placeholder="Enter the version"></label>
+<label>Safari/browser version <input id="browserVersion" maxlength="80" placeholder="Safari on iOS ..."></label>
+<label>Actual test date <input id="testedAt" type="date"></label>
+<label>Screenshot(s) or report attachment reference <input id="evidenceReference" maxlength="400" placeholder="IMG_... / GitHub issue link"></label>
+</div><label style="display:flex;align-items:flex-start;gap:9px"><input id="physicalIPhoneConfirmed" type="checkbox"> I personally completed these checks on a physical iPhone (self-reported, not independently verified)</label>
+</section>
+<section class="panel"><h2>2. Browser diagnostics</h2>
+<p class="small">Optional software snapshot. It does not detect the exact phone model, demonstrate 3D performance, or confirm Safari was used on hardware.</p>
+<button type="button" id="capture">Capture diagnostics</button>
+<p id="diagnostics" class="output" role="status">Not captured.</p></section>
+<section class="panel"><h2>3. Manual checks</h2>
+<p class="small">Choose Pass, Fail, Blocked, or Not tested for each check. Record what happened, especially if the 3D view fell back to a flat drawing.</p>
+<div id="checklist"></div></section>
+<section class="panel"><h2>4. Share your observations</h2>
+<label>Overall observations / bugs / reproduction details <textarea id="overallNotes" maxlength="2000" placeholder="What did you tap? What did you see?"></textarea></label>
+<div id="review" class="output" role="status">Not reviewed.</div>
+<div class="actions"><button type="button" id="download">Download Markdown report</button><button type="button" id="copy">Copy report</button><button type="button" id="clear">Clear local draft</button></div>
+<p id="feedback" role="status" aria-live="polite"></p>
+<p class="small">Drafts save only in this browser; they are not uploaded. Download the report and attach authentic screenshots to <a href="https://github.com/jimedusot-beep/project-mcgruber/issues/21" target="_blank" rel="noopener">issue #21</a>. Remove private device identifiers or personal content before sharing.</p>
+</section></form></main>
+<script type="module">
+import {DEVICE_TESTS,DEVICE_STATES,blankIPhoneReport,reviewIPhoneReport,formatIPhoneReport} from "./core.mjs";
+const $=id=>document.getElementById(id),key="mcgruber:real-iphone-acceptance:v1";
+const urls={browser:"../#/", "3d-load":"../#/tripwire-3d","3d-touch":"../#/tripwire-3d","3d-explode":"../#/tripwire-3d",
+"3d-parts":"../#/tripwire-3d","3d-simulation":"../#/tripwire-3d","3d-export":"../#/tripwire-3d",
+"model-editor":"../#/viewer",photos:"../#/salvage",offline:"../#/",notebook:"../#/notebook",
+backup:"../#/settings",accessibility:"../#/"};
+let diagnostics={};
+const fields=["tester","deviceModel","iosVersion","browserVersion","testedAt","evidenceReference","overallNotes"];
+for(const t of DEVICE_TESTS){
+ const section=document.createElement("section");section.className="check";
+ const heading=document.createElement("h3");heading.textContent=t.title;
+ const tip=document.createElement("p");tip.className="small";tip.textContent=t.instructions;
+ const link=document.createElement("a");link.href=urls[t.id];link.target="_blank";link.rel="noopener";link.textContent="Open feature for this check";
+ const controls=document.createElement("div");controls.className="controls";
+ const select=document.createElement("select");select.dataset.test=t.id;select.setAttribute("aria-label",t.title+" result");
+ for(const s of DEVICE_STATES){const option=document.createElement("option");option.value=s;option.textContent=({"not-tested":"Not tested",pass:"Pass",fail:"Fail",blocked:"Blocked"})[s];select.append(option);}
+ const notes=document.createElement("textarea");notes.dataset.notes=t.id;notes.setAttribute("aria-label",t.title+" observations");notes.placeholder="Actual observation";notes.maxLength=600;
+ controls.append(select,notes);section.append(heading,tip,link,controls);$("checklist").append(section);
+}
+function readReport(){
+ const r=blankIPhoneReport();
+ for(const f of fields)r[f]=$(f).value;
+ r.physicalIPhoneConfirmed=$("physicalIPhoneConfirmed").checked;
+ for(const t of DEVICE_TESTS)r.results[t.id]={status:document.querySelector('[data-test="'+t.id+'"]').value,
+  notes:document.querySelector('[data-notes="'+t.id+'"]').value};
+ return r;
+}
+function populate(r){
+ for(const f of fields)$(f).value=typeof r[f]==="string"?r[f]:"";
+ $("physicalIPhoneConfirmed").checked=r.physicalIPhoneConfirmed===true;
+ for(const t of DEVICE_TESTS){
+  const v=r.results?.[t.id]||{};
+  document.querySelector('[data-test="'+t.id+'"]').value=DEVICE_STATES.includes(v.status)?v.status:"not-tested";
+  document.querySelector('[data-notes="'+t.id+'"]').value=typeof v.notes==="string"?v.notes:"";
+ }
+}
+function refresh(){
+ try{
+  const v=reviewIPhoneReport(readReport()),n=v.counts;
+  $("review").textContent=n.pass+" passed · "+n.fail+" failed · "+n.blocked+" blocked · "+n["not-tested"]+" not tested.\n"+
+  (v.readyForHumanReview?"Ready for HUMAN REVIEW only.":"Incomplete: test each item, enter the device and evidence details, and confirm actual phone usage.")+
+  "\nOWNER_ENTERED_UNVERIFIED — no independent device verification.";
+ }catch(e){$("review").textContent="Check entries: "+e.message;}
+}
+function save(){
+ try{localStorage.setItem(key,JSON.stringify(readReport()));$("feedback").textContent="Draft saved on this browser.";}
+ catch{$("feedback").textContent="Local storage unavailable; export before leaving.";}
+ refresh();
+}
+$("form").addEventListener("input",save);
+$("form").addEventListener("change",save);
+$("capture").addEventListener("click",()=>{
+ let webgl2="not available";
+ try{const c=document.createElement("canvas"),gl=c.getContext("webgl2");
+  if(gl){webgl2="context created (NOT a model rendering test)";gl.getExtension("WEBGL_lose_context")?.loseContext();}
+ }catch{webgl2="context failed";}
+ diagnostics={userAgent:navigator.userAgent,viewport:innerWidth+" x "+innerHeight,
+  devicePixelRatio:String(devicePixelRatio),webgl2,
+  onlineAtCapture:navigator.onLine?"navigator reports online":"navigator reports offline",
+  reducedMotion:matchMedia("(prefers-reduced-motion: reduce)").matches?"yes":"no"};
+ $("diagnostics").textContent=Object.entries(diagnostics).map(([k,v])=>k+": "+v).join("\n")+
+ "\nBrowser diagnostics only — NOT physical device proof.";
+});
+$("download").addEventListener("click",()=>{
+ const content=formatIPhoneReport(readReport(),diagnostics);
+ const url=URL.createObjectURL(new Blob([content],{type:"text/markdown;charset=utf-8"}));
+ const a=document.createElement("a");a.href=url;a.download="mcgruber-iphone-owner-entered-unverified.md";
+ document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+ $("feedback").textContent="Report download requested; attach real screenshots to issue #21.";
+});
+$("copy").addEventListener("click",async()=>{
+ try{await navigator.clipboard.writeText(formatIPhoneReport(readReport(),diagnostics));$("feedback").textContent="Report copied for issue #21.";}
+ catch{$("feedback").textContent="Clipboard unavailable; use Download instead.";}
+});
+$("clear").addEventListener("click",()=>{
+ if(!confirm("Erase your unexported iPhone QA draft?"))return;
+ try{localStorage.removeItem(key);}catch{}
+ populate(blankIPhoneReport());diagnostics={};$("diagnostics").textContent="Not captured.";
+ $("feedback").textContent="Local draft cleared.";refresh();
+});
+try{const old=localStorage.getItem(key);if(old){const parsed=JSON.parse(old);reviewIPhoneReport(parsed);populate(parsed);}}
+catch{$("feedback").textContent="Previous local draft unavailable or invalid.";}
+refresh();
+</script></body></html>
