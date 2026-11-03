@@ -1,0 +1,142 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#10231f"><title>McGruber P04 · LED Alarm Test</title>
+<style>
+:root{font:16px/1.5 system-ui,sans-serif;color-scheme:dark;--bg:#10231f;--panel:#1d352e;--line:#4b7968;--muted:#c8e3d6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f3fff8}
+main{max-width:760px;margin:auto;padding:20px 14px 60px}
+h1{font-size:clamp(1.8rem,7vw,2.4rem);line-height:1.15;margin:14px 0}h2{font-size:1.15rem;margin:0 0 12px}
+a{color:#9fe2d7}.muted,small{color:var(--muted)}.small{font-size:.86rem}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:15px;margin:14px 0}
+.warning{background:#4a3928;border-left:4px solid #efb870;padding:12px}
+label{display:block;font-weight:650;margin:8px 0}
+input,select,textarea,button{font:inherit;color:#f3fff8;background:#102821;border:1px solid #83af9e;border-radius:8px;padding:8px 10px;min-height:44px}
+label>input:not([type="checkbox"]),label>select,textarea{display:block;width:100%;margin-top:4px}
+textarea{resize:vertical;min-height:75px}
+button{background:#29624f;font-weight:700;cursor:pointer}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.checks{display:grid;gap:8px}
+.checks label{border:1px solid #668b7a;border-radius:8px;padding:9px;margin:0;display:flex;align-items:start;gap:10px;font-weight:500}
+input[type="checkbox"]{width:22px;height:22px;min-width:22px;min-height:22px}
+.readout{background:#0e2b21;border:1px solid var(--line);border-radius:9px;padding:12px;white-space:pre-line}
+table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #5b8073;text-align:left;padding:6px;font-size:.88rem}
+td select{width:100%;min-width:0;font-size:.86rem;padding:7px 4px}
+.buttons{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:430px){.cols{grid-template-columns:1fr}th,td{padding:4px 2px;font-size:.77rem}td select{font-size:.75rem}}
+@media print{body{background:white;color:black}.card{background:white;color:black}.buttons,nav{display:none}}
+</style></head><body><main>
+<nav><a href="./">1 · Switch contacts</a> · <a href="../#/project/P04">Project P04</a> · <a href="../#/circuit">Circuit Lab</a></nav>
+<h1>2 · Physical LED alarm test</h1>
+<p class="muted">Record actual low-voltage measurements and twenty object-lift cycles. <strong>This page is not connected to your multimeter.</strong> Every entry is manually supplied, never treated as verified automatically.</p>
+<div class="warning"><strong>Safety:</strong> Do not use continuity or ohms mode on a powered circuit. Disconnect battery before rewiring or measuring resistance. For the current measurement, set your meter to DC volts with leads in COM/VΩ and measure across the installed series resistor; the worksheet calculates I = V<sub>R</sub>/R. Never bridge a battery with a meter set to current mode. No mains power or direct 9V-to-GPIO wiring.</div>
+<form id="bench" novalidate>
+<section class="card"><h2>1 · Identify actual hardware</h2>
+<div class="cols">
+<label>Test date (when observed) <input id="testDate" name="testDate" type="date"></label>
+<label>Tester <input id="tester" name="tester" placeholder="Required for evidence review" maxlength="120"></label>
+<label>Donor/switch reference <input id="switchId" name="switchId" placeholder="HP mouse, switch A/B/C" maxlength="120"></label>
+<label>Meter and mode <input id="instrument" name="instrument" placeholder="Fluke, DCV / Ω" maxlength="120"></label>
+</div>
+</section>
+<section class="card"><h2>2 · Unpowered preparation and inspection</h2>
+<p class="small">Check each only after you have actually completed it. A checked box is still owner-reported.</p>
+<div class="checks" id="checks">
+<label><input data-check="isolated" type="checkbox"> Microswitch isolated from USB, batteries, and other PCB paths during continuity testing</label>
+<label><input data-check="contact_map" type="checkbox"> Actual released/pressed contacts mapped with meter (refer to Stage 1)</label>
+<label><input data-check="led_polarity" type="checkbox"> LED orientation and documented maximum current identified</label>
+<label><input data-check="supply_polarity" type="checkbox"> Supply polarity and voltage measured before wiring</label>
+<label><input data-check="series_resistor" type="checkbox"> Appropriate measured series resistor installed (never connect LED directly to 9V)</label>
+<label><input data-check="insulation" type="checkbox"> Leads individually insulated and no shorted adjacent switch pins</label>
+</div></section>
+<section class="card"><h2>3 · Meter readings and electrical limits</h2>
+<p class="small">Leave fields empty if unknown; example numbers are intentionally not pre-filled. For the proposed 9V circuit, the source must be measured, and the LED/resistor ratings must be known. Limit this teaching worksheet to 12V DC or less.</p>
+<div class="cols">
+<label>Loaded DC supply voltage (V) <input id="supplyVoltage" name="supplyVoltage" type="number" min="0.01" max="12" step="any" inputmode="decimal" placeholder="Measure, don't guess"></label>
+<label>Resistor measured unpowered (Ω) <input id="resistorOhms" name="resistorOhms" type="number" min="1" max="100000" step="any" inputmode="decimal" placeholder="Measure"></label>
+<label>DC voltage measured across resistor when ON (V) <input id="resistorDropVoltage" name="resistorDropVoltage" type="number" min="0" max="12" step="any" inputmode="decimal" placeholder="Measure"></label>
+<label>LED documented maximum continuous current (mA) <input id="ledMaxCurrentMa" name="ledMaxCurrentMa" type="number" min="0.01" max="200" step="any" inputmode="decimal" placeholder="Check actual rating"></label>
+<label>Resistor documented power rating (W) <input id="resistorRatedW" name="resistorRatedW" type="number" min="0.001" max="10" step="any" inputmode="decimal" placeholder="Check rating"></label>
+<label>Stationary false alarm count (observed) <input id="stationaryFalseAlarms" name="stationaryFalseAlarms" type="number" min="0" max="1000" step="1" inputmode="numeric" placeholder="Enter actual count"></label>
+</div>
+<p class="readout" id="electrical" role="status">No physical values entered.</p>
+</section>
+<section class="card"><h2>4 · Twenty real lift-and-replace cycles</h2>
+<p class="small">Hold object on switch: LED should be <strong>off</strong>. Remove object: LED should be <strong>on</strong>. Record <em>both observed states</em> for every cycle. Do not use simulated outputs or assume twenty successes.</p>
+<table><thead><tr><th scope="col">Cycle</th><th scope="col">Object pressing: LED</th><th scope="col">Object removed: LED</th></tr></thead><tbody id="cycles"></tbody></table>
+<p class="readout" id="cycle-status" role="status">0 of 20 cycles observed.</p>
+</section>
+<section class="card"><h2>5 · Evidence and download</h2>
+<label>Observed notes (include failures and test conditions)
+<textarea id="notes" name="notes" maxlength="1500" placeholder="What actually happened? Is the support mechanically stable?"></textarea></label>
+<label>Photo/video or evidence file reference <input id="evidenceUrl" name="evidenceUrl" maxlength="400" placeholder="Local file name, issue attachment or authentic URL"></label>
+<p class="readout" id="result" role="status">Owner-entered / unverified</p>
+<p class="small">"Ready for human review" means every form field and cycle is complete and the entered numbers are internally consistent. It does <strong>not</strong> establish hardware success. Review physical evidence before changing <code>TEST_LOG.csv</code> or project status.</p>
+<div class="buttons"><button id="export" type="button">Download P04 CSV record</button><button id="clear" type="button">Clear local draft</button></div>
+<p id="feedback" aria-live="polite"></p>
+<p class="small">This draft is stored in your current browser's local storage, not on GitHub or a server. Export your file before clearing browser data. The CSV is always marked <code>OWNER_ENTERED_UNVERIFIED</code>.</p>
+</section></form>
+<p><a href="https://github.com/jimedusot-beep/project-mcgruber/issues/7" target="_blank" rel="noopener">P04 issue #7 — attach your actual evidence</a></p>
+<script type="module">
+import {blankLedBench,reviewLedBench,exportLedBenchCsv,CYCLE_COUNT} from "./led-core.mjs";
+const $=id=>document.getElementById(id), key="mcgruber:p04:led-bench:v1";
+const cycleOptions='<option value="not-tested">Not tested</option><option value="off">OFF</option><option value="on">ON</option>';
+for(let i=0;i<CYCLE_COUNT;i++){
+ const tr=document.createElement("tr"),n=document.createElement("th");n.scope="row";n.textContent=String(i+1);
+ const a=document.createElement("td"),b=document.createElement("td");
+ a.innerHTML='<select aria-label="Cycle '+(i+1)+' pressed LED" data-cycle="'+i+'" data-phase="pressed">'+cycleOptions+'</select>';
+ b.innerHTML='<select aria-label="Cycle '+(i+1)+' removed LED" data-cycle="'+i+'" data-phase="removed">'+cycleOptions+'</select>';
+ tr.append(n,a,b);$("cycles").append(tr);
+}
+const fields=["tester","instrument","switchId","testDate","notes","evidenceUrl","supplyVoltage","resistorOhms","resistorDropVoltage","ledMaxCurrentMa","resistorRatedW","stationaryFalseAlarms"];
+function getData(){
+ const v=blankLedBench();
+ for(const f of fields)v[f]=$(f).value;
+ for(const input of document.querySelectorAll("[data-check]"))v.checks[input.dataset.check]=input.checked;
+ for(const input of document.querySelectorAll("[data-cycle]"))v.cycles[Number(input.dataset.cycle)][input.dataset.phase]=input.value;
+ return v;
+}
+function putData(v){
+ for(const f of fields)$(f).value=typeof v[f]==="string"?v[f]:"";
+ for(const input of document.querySelectorAll("[data-check]"))input.checked=v.checks?.[input.dataset.check]===true;
+ for(const input of document.querySelectorAll("[data-cycle]")){
+  const state=v.cycles?.[Number(input.dataset.cycle)]?.[input.dataset.phase];
+  input.value=["not-tested","off","on"].includes(state)?state:"not-tested";
+ }
+}
+function present(){
+ const data=getData();let analysis;
+ try{analysis=reviewLedBench(data);}
+ catch(e){$("electrical").textContent="Check entered values: "+e.message;$("result").textContent="Owner-entered / unverified; invalid data.";$("cycle-status").textContent="Cycle review blocked by invalid input.";return;}
+ const value=n=>n===null?"not measured":Number(n.toFixed(4)).toString();
+ $("electrical").textContent="Calculated resistor current: "+value(analysis.currentMa)+" mA; power: "+value(analysis.powerW)+" W.\nUpper-bound current using measured supply and resistor: "+value(analysis.boundCurrentMa)+" mA; short-LED resistor power: "+value(analysis.boundPowerW)+" W.\n"+(analysis.warnings.join("\n")||"Calculations use owner-entered readings. Not a measured current test or independent safety approval.");
+ $("cycle-status").textContent=analysis.observed+"/20 completed; "+analysis.correct+" correct; "+analysis.failed+" showed an incorrect state; "+analysis.untested+" incomplete.";
+ $("result").textContent=(analysis.status==="OWNER_REPORTED_READY_FOR_HUMAN_REVIEW"?"All entered criteria satisfied — READY FOR HUMAN EVIDENCE REVIEW ONLY.":"INCOMPLETE / NEEDS ATTENTION.")+"\nOwner-entered and UNVERIFIED. "+(analysis.missingChecks.length?"Unconfirmed preflight steps: "+analysis.missingChecks.join(", ")+". ":"")+(analysis.warnings.length?"\n"+analysis.warnings.join("\n"):"");
+}
+function save(){
+ try{localStorage.setItem(key,JSON.stringify(getData()));$("feedback").textContent="Draft saved in this browser only.";}
+ catch{$("feedback").textContent="Local storage unavailable: download a CSV before leaving.";}
+ present();
+}
+$("bench").addEventListener("input",save);
+$("bench").addEventListener("change",save);
+$("export").addEventListener("click",()=>{
+ try{
+  const data=exportLedBenchCsv(getData());
+  const url=URL.createObjectURL(new Blob([data],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a");a.href=url;a.download="mcgruber-p04-led-owner-entered-unverified.csv";
+  document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  $("feedback").textContent="CSV download requested — attach authentic photos and meter readings for human review.";
+ }catch(e){$("feedback").textContent="Cannot export: "+e.message;}
+});
+$("clear").addEventListener("click",()=>{
+ if(!confirm("Clear all unexported P04 LED measurements from this device?"))return;
+ try{localStorage.removeItem(key);}catch{}
+ putData(blankLedBench());present();$("feedback").textContent="Local draft cleared.";
+});
+try{
+ const saved=localStorage.getItem(key);
+ if(saved){
+  const candidate=JSON.parse(saved);
+  reviewLedBench(candidate);putData(candidate);
+ }
+}catch{$("feedback").textContent="Previous local draft could not be read. Blank form shown.";}
+present();
+</script></main></body></html>

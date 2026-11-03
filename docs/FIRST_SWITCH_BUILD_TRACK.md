@@ -49,3 +49,7 @@ The McGruber generic viewer accepts uncompressed GLB/glTF and limits imports to 
 These five upstream resources were studied, **not forked or wholesale cloned**: [Arduino Examples](https://github.com/arduino/arduino-examples) (CC0), [Bounce2](https://github.com/thomasfredericks/Bounce2) (MIT), [CircuitJS1](https://github.com/pfalstad/circuitjs1) (GPL-2.0-or-later), [OpenSCAD](https://github.com/openscad/openscad) (GPL software, original McGruber CAD), and [glTF Transform](https://github.com/donmccurdy/glTF-Transform) (MIT). Upstream license notices apply if we ever vendor their sources; none were copied into this project.
 
 **Next genuine evidence required:** a labeled photograph of a specific physical mouse switch and ten Fluke continuity readings. Without this, the digital project cannot pass the hardware acceptance gate.
+
+## Stage 2: actual LED/current test and 20 cycles
+
+After your unpowered contact map, open [the physical P04 LED worksheet](P04_LED_TEST_WORKSHEET.md). It starts blank, calculates resistor current from actually entered voltages, compares conservative series limits against manufacturer ratings, records BOTH LED states on each of 20 cycles, and exports a clearly unverified CSV. Nothing in the worksheet physically certifies an alarm.
