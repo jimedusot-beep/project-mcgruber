@@ -11,6 +11,6 @@ Both Dependabot PRs alter `web/package-lock.json`, so serially merging without r
 - Real browser tests on software Chromium and iPhone-size WebKit must pass. Physical iPhone touch, memory, GPU frame rate and loaded GLB visual fidelity remain **unmeasured**. No performance speedup is claimed.
 - CodeQL and Python documentation/geometry regression must pass.
 
-If a major Vite or Three.js update breaks any of these, do not merge by hiding tests. Verify model import, display, scene save/reload, annotations and upload/download behavior.
+Use `npm ci` for a reproducible install of this reviewed lockfile; future dependency upgrades should regenerate the lockfile with a package manager rather than inventing registry integrity hashes. If a major Vite or Three.js update breaks any of these, do not merge by hiding tests. Verify model import, display, scene save/reload, annotations and upload/download behavior.
 
 Original vendor code is **not** copied into the repository; npm resolves the two packages from the official registry with pinned lockfile integrity.
