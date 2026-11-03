@@ -63,3 +63,8 @@ The [main-branch release run](https://github.com/jimedusot-beep/project-mcgruber
 The authenticated repository connector can commit and merge source, but does not expose Pages configuration. The separate browser session is not signed in to the owner's GitHub account. No token or secret has been requested as a workaround.
 
 **Historical remediation, now resolved:** the owner previously had to enable Pages from [settings](https://github.com/jimedusot-beep/project-mcgruber/settings/pages). The October 31, 2026 workflow successfully deployed to GitHub Pages. Current remaining work is a real iPhone/Safari smoke test, not enabling Pages again.
+
+
+### Physical iPhone Safari remains untested
+
+The [13-check on-device QA worksheet](IPHONE_ACCEPTANCE_PROTOCOL.md) is now available to collect authentic owner observations for [issue #21](https://github.com/jimedusot-beep/project-mcgruber/issues/21). It is a software reporting tool, **not** proof of any physical iPhone test. The automated WebKit tests remain browser emulation only.

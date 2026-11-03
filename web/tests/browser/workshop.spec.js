@@ -392,3 +392,14 @@ test("three-pocket OpenSCAD sample is accessible in the 3D viewer without replac
   await expect(page.locator("#mesh-status")).toContainText("2 parts", {timeout:20000});
   await expect(page.locator("#part-list")).toContainText("Switch-fit gauge (placeholder dimensions)");
 });
+
+test("malicious hash routes render as inert breadcrumb text, not injected DOM", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => {
+    window.__mcgruberRouteExecuted = false;
+    window.location.hash = '#/<img src=x onerror=window.__mcgruberRouteExecuted=true>';
+  });
+  await expect(page.locator("#route-label")).toContainText(/IMG/i);
+  await expect(page.locator(".breadcrumb img")).toHaveCount(0);
+  expect(await page.evaluate(() => window.__mcgruberRouteExecuted)).toBe(false);
+});

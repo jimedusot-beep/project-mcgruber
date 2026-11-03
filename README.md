@@ -124,3 +124,8 @@ After [the Fluke continuity worksheet](web/public/switch-bench/index.html), use 
 ## RF key-fob research archive
 
 [Source-linked 433 MHz receiver ideas and licensing notes](docs/RF_433_RESEARCH_CATALOG.md) preserve the completed initial research list from [#36](https://github.com/jimedusot-beep/project-mcgruber/issues/36); only [physical P05 receiver compatibility #8](https://github.com/jimedusot-beep/project-mcgruber/issues/8) can establish our specific fob's actual behavior. No RF measurement is claimed.
+
+
+## Physical iPhone Safari acceptance
+
+[Real iPhone checklist](web/public/iphone-qa/index.html) records 13 manually observed actions on the live workshop, exports an OWNER_ENTERED_UNVERIFIED report, and links to [device acceptance issue #21](https://github.com/jimedusot-beep/project-mcgruber/issues/21). No automated browser emulation is a physical iPhone test. [Protocol](docs/IPHONE_ACCEPTANCE_PROTOCOL.md).

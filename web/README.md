@@ -165,3 +165,8 @@ The [P04/P06 switch-contact worksheet](../docs/SWITCH_CONTACT_WORKSHEET.md) is d
 ## Physical P04 LED evidence stage
 
 Following `/switch-bench/`, open `/switch-bench/led.html` for the separate **manual** LED/alarm test: six explicit safety steps, loaded source voltage, measured resistor ohms/DC volts, documented LED/resistor ratings, stationary false alarms and 20 two-position LED checks. Draft is saved locally in this browser only; CSV labels remain `OWNER_ENTERED_UNVERIFIED` irrespective of completeness. The worksheet can't measure a circuit or certify hardware. See [P04 guide](../docs/P04_LED_TEST_WORKSHEET.md).
+
+
+## iPhone acceptance report
+
+Open /iphone-qa/ for thirteen owner-reported Safari acceptance checks and a downloadable Markdown report. The draft uses browser-local storage and does not automatically post results or verify real hardware. See [physical iPhone protocol](../docs/IPHONE_ACCEPTANCE_PROTOCOL.md).
