@@ -71,6 +71,7 @@ A mobile-first web application now lives in [web/](https://github.com/jimedusot-
 - [Safety and verification](docs/SAFETY.md)
 - [Experiment report template](docs/EXPERIMENT_TEMPLATE.md)
 - [CAD/STL staging](cad-and-stl/README.md)
+- [3D Printing Workshop — printable idea catalog, digital prototypes and test cards](cad-and-stl/workshop/README.md)
 
 ## Immediate build order
 1. **Object-removal alarm:** test mouse microswitch with the multimeter and run a low-voltage LED alarm.

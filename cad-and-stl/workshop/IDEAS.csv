@@ -1,0 +1,12 @@
+id,title,linked_project,status,difficulty_1to5,filament_g_low,filament_g_high,raw_pla_usd_low,raw_pla_usd_high,next_gate
+M3D-000,Generic L-profile support,McGruber shared CAD,source-present-unprinted,1,,,,,Record real print and measured load/fit in issue 14
+M3D-001,Three-clearance switch-fit gauge,Object removal alarm,source-present-unprinted,2,,,,,Measure actual switch body before choosing clearances
+M3D-002,Open electronics tray,Standalone control box,digitally-checked-unprinted,2,15,30,0.30,0.60,Measure donor board and cable positions then test real fit
+M3D-003,Optical beam alignment bracket,Light-beam tripwire,idea-only,2,10,35,0.20,0.70,Measure emitter and sensor mounts
+M3D-004,GhostScan MAX electronics case,GhostScan MAX,idea-only,3,40,100,0.80,2.00,Confirm genuine ESP32 and LED layout
+M3D-005,Friendly desktop companion housing,H.E.R.B.I.E. hardware research,idea-only,4,120,350,2.40,7.00,Choose display and board and identify their dimensions
+M3D-006,Unpowered servo mounting bracket,Talking robot,idea-only,4,10,50,0.20,1.00,Identify servo body then verify load and safety
+M3D-007,Salvaged mouse microswitch jig,Object-removal alarm,idea-only,2,5,25,0.10,0.50,Measure specific mouse switch without assuming its pinout
+M3D-008,Cable organizing clips,Shared workshop,idea-only,1,3,12,0.06,0.24,Choose cable diameters and print orientation
+M3D-009,Standalone control box shell,Standalone control box,idea-only,3,70,180,1.40,3.60,Confirm power supply switches and access requirements
+M3D-010,Matched IR emitter receiver holders,Infrared tripwire,idea-only,2,10,35,0.20,0.70,Obtain actual matched IR pair and datasheet
