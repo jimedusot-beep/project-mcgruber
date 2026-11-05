@@ -129,3 +129,7 @@ After [the Fluke continuity worksheet](web/public/switch-bench/index.html), use 
 ## Physical iPhone Safari acceptance
 
 [Real iPhone checklist](web/public/iphone-qa/index.html) records 13 manually observed actions on the live workshop, exports an OWNER_ENTERED_UNVERIFIED report, and links to [device acceptance issue #21](https://github.com/jimedusot-beep/project-mcgruber/issues/21). No automated browser emulation is a physical iPhone test. [Protocol](docs/IPHONE_ACCEPTANCE_PROTOCOL.md).
+
+## Related repos
+
+[3D Vision](https://github.com/jimedusot-beep/3D-vision) hosts assembly views. [Herbie hardware](https://github.com/jimedusot-beep/Herbie-cyborg-hardware) documents the related tripwire learning example. The engineering notebook is maintained here.
