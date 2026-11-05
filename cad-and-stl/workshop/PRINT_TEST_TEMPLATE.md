@@ -51,3 +51,10 @@ Failure or warning:
 **Follow-up issue or PR:**
 
 Never mark a part fit-tested based solely on a mesh viewer, automated test or generated image.
+
+
+## Phone-to-tray check
+
+- [ ] On the iPhone, record browser, iOS, orientation and workshop revision. Open the tray from the workshop, read the units at normal zoom and download the matching STL to Files. Record the filename and any clipped control or failed navigation.
+- [ ] Use the same downloaded STL in the slicer. Compare its opening dimensions with the measured donor dimensions before printing.
+- [ ] With the donor disconnected from power, try insertion and removal. Record measured clearance, interference and accessible connector openings. Photograph the trial and enter the result above.
