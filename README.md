@@ -10,7 +10,7 @@
 
 **First stop for all nine inventions:** [Engineering master plan](docs/ENGINEERING_MASTER_PLAN_2026-10-24.md) — real parts, unverified electronics, circuit design, instrument procedure, safety, sourcing gates and go/no-go acceptance criteria.
 
-- [Engineering Control Center (mobile)](web/public/beam-detector/engineering-hub.html) — nine projects, owned/pending resources, first experiments and physical test logs. [Public phone access](https://jimedusot-beep.github.io/3D-vision/beam-detector/engineering-hub.html) is provided by the existing 3D Vision site; verify that GitHub Pages has updated before relying on that link.
+- [Engineering Control Center (mobile)](web/public/beam-detector/engineering-hub.html) — nine projects, owned/pending resources, first experiments and physical test logs. [Open the canonical Engineering Hub](https://jimedusot-beep.github.io/project-mcgruber/beam-detector/engineering-hub.html). Project McGruber owns this page; the older 3D Vision URL is retained as a compatibility entry. On standard GitHub Pages, both paths share the same origin, so hub records remain available in the same browser/profile. Other hosts or browsers do not share those records; export from the original page before switching.
 - [Standalone receiver laboratory](web/public/beam-detector/standalone-lab.html) — nine supervised hardware stages covering the 9V red/blue LED emitter, Fluke photodiode checks, 2N4401 transistor switching, missing amplifier/threshold work, distance trials and enclosure.
 - [Engineering status register](docs/PROJECT_STATUS.md) — evidence levels and blockers for projects 01–09.
 - [Electronics engineering field guide](docs/ELECTRONICS_ENGINEERING_FIELD_GUIDE.md) — multimeter use, safe 9V LED design, NPN/PNP pinouts, photodiode amplification, comparator thresholds, switch tests and release evidence.
@@ -130,3 +130,7 @@ After [the Fluke continuity worksheet](web/public/switch-bench/index.html), use 
 ## Physical iPhone Safari acceptance
 
 [Real iPhone checklist](web/public/iphone-qa/index.html) records 13 manually observed actions on the live workshop, exports an OWNER_ENTERED_UNVERIFIED report, and links to [device acceptance issue #21](https://github.com/jimedusot-beep/project-mcgruber/issues/21). No automated browser emulation is a physical iPhone test. [Protocol](docs/IPHONE_ACCEPTANCE_PROTOCOL.md).
+
+## Related repos
+
+[3D Vision](https://github.com/jimedusot-beep/3D-vision) hosts assembly views. [Herbie hardware](https://github.com/jimedusot-beep/Herbie-cyborg-hardware) documents the related tripwire learning example. The engineering notebook is maintained here.
