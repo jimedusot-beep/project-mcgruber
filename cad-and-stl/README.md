@@ -16,3 +16,8 @@ Before treating an STL as production-ready, measure actual components, update pa
 ## Proposed salvage switch gauge
 
 [Three-clearance, parameterized switch-body fit coupon](switch-fit-gauge.scad) and [OpenSCAD-generated sample STL](switch-fit-gauge.stl) — **60-triangle, watertight digital preview**, 60.6 × 11.2 × 5 mm with unmeasured placeholder switch dimensions. It is intended for adjusting clearance on a **known measured** donor switch and does not contain circuit holes or a finished case. See [the first switch build track](../docs/FIRST_SWITCH_BUILD_TRACK.md). The initial numbers are placeholders, not a physical fit claim. In McGruber's **3D Workshop**, use **Add switch-fit gauge STL** to inspect or export this initial mesh. Changing source parameters requires regenerating the STL before relying on a new preview. No print, real fit or physical strength was tested.
+
+
+## 3D Printing Workshop — November 2026
+
+[Open the workshop](workshop/README.md): [numbered ideas](workshop/IDEAS.csv), [references and permissions](workshop/REFERENCES.md), [print/fit evidence template](workshop/PRINT_TEST_TEMPLATE.md), and [open electronics tray](workshop/models/README.md). Existing models above are preserved, and no printed device has been claimed.

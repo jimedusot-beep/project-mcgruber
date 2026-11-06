@@ -432,6 +432,7 @@ export function freshWorkspace() {
     sequence: 0,
     favorites: [],
     recent: [],
+    printIdeas: [],
     progress: {},
     records: [],
     inventory: [],
@@ -540,6 +541,27 @@ export function validateWorkspace(w) {
     (!Number.isSafeInteger(w.sequence) || w.sequence < 0)
   )
     throw Error("Invalid workspace sequence.");
+  // Private 3D-print concepts are idea records, never print or fit evidence.
+  // Older backups can omit this optional collection.
+  if (w.printIdeas != null) {
+    if (!Array.isArray(w.printIdeas) || w.printIdeas.length > 500)
+      throw Error("Invalid 3D printing idea collection.");
+    const ids = new Set();
+    for (const idea of w.printIdeas) {
+      if (!idea || typeof idea !== "object" || Array.isArray(idea) ||
+        typeof idea.id !== "string" || !idea.id || idea.id.length > 200 ||
+        typeof idea.title !== "string" || !idea.title.trim() || idea.title.length > 140 ||
+        typeof idea.purpose !== "string" || idea.purpose.length > 2500 ||
+        typeof idea.project !== "string" || idea.project.length > 100 ||
+        !["Someday", "Next", "Now"].includes(idea.priority) ||
+        !["Idea", "Researching", "Ready to model"].includes(idea.stage) ||
+        (idea.created != null && (typeof idea.created !== "string" ||
+          Number.isNaN(new Date(idea.created).getTime()))) ||
+        ids.has(idea.id))
+        throw Error("Invalid or duplicate 3D printing idea.");
+      ids.add(idea.id);
+    }
+  }
   w.records.forEach((r) => validateRecord(r));
   if (new Set(w.records.map((r) => r.id)).size !== w.records.length)
     throw Error("Duplicate experiment IDs.");
